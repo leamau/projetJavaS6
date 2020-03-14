@@ -29,7 +29,7 @@ public class Element {
 		pièce,
 		g,
 		kg,
-		m²,
+		mCarre,
 		L,
 		cl
 	}
