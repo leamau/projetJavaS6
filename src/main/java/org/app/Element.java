@@ -20,7 +20,7 @@ public class Element {
 	/**
 	 * Quantité disponible en stock.
 	 */
-	private double quantite;
+	private double quantiteStock;
 	
 	/**
 	 * Enumération des unités que peut prendre un produit.
@@ -29,7 +29,7 @@ public class Element {
 		pièce,
 		g,
 		kg,
-		m²,
+		mCarre,
 		L,
 		cl
 	}
@@ -38,6 +38,18 @@ public class Element {
 	 * L'unité avec laquelle on exprime la quantité du produit.
 	 */
 	private Unite uniteMesure;
+
+	/**
+	 * constructeur de la classe
+	 * @param code : code produit
+	 * @param nom : nom du produit
+	 * @param qte : quantité en stock du produit
+	 */
+	public Element(String code,String nom,double qte){
+		this.codeE = code;
+		this.nom = nom;
+		this.quantiteStock = qte;
+	}
 	
 	// Getters & Setters.
 	
@@ -78,7 +90,7 @@ public class Element {
 	 * @return la quantité (attention à l'unité).
 	 */
 	public double getQuantite() {
-		return quantite;
+		return quantiteStock;
 	}
 
 	/**
@@ -86,7 +98,7 @@ public class Element {
 	 * @param quantite la nouvelle quantité en stock.
 	 */
 	public void setQuantite(final double quantite) {
-		this.quantite = quantite;
+		this.quantiteStock = quantite;
 	}
 
 	/**
