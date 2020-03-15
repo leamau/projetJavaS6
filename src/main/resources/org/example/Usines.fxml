@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -16,12 +17,20 @@
          </font></Label>
       <TableView prefHeight="482.0" prefWidth="850.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="130.39996910095215" text="Code Chaînes" />
+          <TableColumn prefWidth="128.0" text="Produits en entrée" />
+            <TableColumn prefWidth="148.0" text="Produits en Sortie" />
+            <TableColumn prefWidth="100.00003051757812" text="Temps" />
+            <TableColumn prefWidth="174.39996337890625" text="Indicateur de Valeur" />
+            <TableColumn prefWidth="170.39996337890625" text="Indicateur de Commande" />
         </columns>
       </TableView>
-        <Button fx:id="primaryButton" onAction="#switchToStocks" text="Revenir a la page des Stocks" />
-      <Button fx:id="secondaryButton" onAction="#switchToAchats" text="Revenir a la page des Achats" />
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+              <Button fx:id="primaryButton" onAction="#switchToStocks" prefHeight="26.0" prefWidth="398.0" text="Revenir a la page des Stocks" />
+            <Button fx:id="secondaryButton" onAction="#switchToAchats" prefHeight="26.0" prefWidth="425.0" text="Revenir a la page des Achats" />
+        </items>
+      </ToolBar>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
