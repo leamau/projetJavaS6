@@ -1,12 +1,9 @@
 package org.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 class PrixTest {
 
-	@Test
+	/*@Test
 	void testGetPrixAchat() {
 		fail("Not yet implemented");
 	}
@@ -34,6 +31,6 @@ class PrixTest {
 	@Test
 	void testSetDemande() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 }

@@ -6,7 +6,11 @@ package org.app;
 public class Prix {
 
 	// Attributs.
-	
+
+	/**
+	 * code de l'élément auquel correspond le prix
+	 */
+	private String codeElement;
 	/**
 	 * Le prix auquel le produit est acheté.
 	 */
@@ -21,7 +25,12 @@ public class Prix {
 	 * Le demande estimée sur le produit.
 	 */
 	private double demande;	
-	
+
+	public Prix(String code,double achat,double vente,double demande){
+		this.codeElement = code;
+		this.prixAchat = achat;
+	}
+
 	// Getters & Setters.
 	
 	/**
