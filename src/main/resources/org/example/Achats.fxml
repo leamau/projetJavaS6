@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="705.0" prefWidth="905.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AchatsController">
+<VBox alignment="CENTER" prefHeight="718.0" prefWidth="918.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AchatsController">
     <children>
-        <Label alignment="TOP_CENTER" text="Visualisation Des Achats">
+        <Label alignment="TOP_CENTER" text="Gestion Des Achats">
          <font>
             <Font size="30.0" />
          </font></Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
               <Button fx:id="secondaryButton" onAction="#switchToStocks" prefHeight="26.0" prefWidth="436.0" text="Revenir a la page des Stocks" />
-            <Button fx:id="secondaryButton1" onAction="#switchToUsines" prefHeight="26.0" prefWidth="412.0" text="Visualisation Des Usines" />
+            <Button fx:id="secondaryButton1" onAction="#switchToUsines" prefHeight="26.0" prefWidth="412.0" text="Gestion des Usines" />
         </items>
       </ToolBar>
       <TableView prefHeight="414.0" prefWidth="866.0">
