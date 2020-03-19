@@ -1,39 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="715.0" prefWidth="932.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UsinesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UsinesController">
     <children>
-        <Label contentDisplay="TOP" text="Gestion des Chaînes de Production" textAlignment="CENTER">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-              <Button fx:id="primaryButton" onAction="#switchToStocks" prefHeight="26.0" prefWidth="440.0" text="Revenir a la page des Stocks" />
-            <Button fx:id="secondaryButton" onAction="#switchToAchats" prefHeight="26.0" prefWidth="425.0" text="Revenir a la page des Achats" />
-        </items>
-      </ToolBar>
-      <TableView prefHeight="482.0" prefWidth="850.0">
-        <columns>
-          <TableColumn prefWidth="130.39996910095215" text="Code Chaînes" />
-          <TableColumn prefWidth="128.0" text="Produits en entrée" />
-            <TableColumn prefWidth="148.0" text="Produits en Sortie" />
-            <TableColumn prefWidth="100.00003051757812" text="Temps" />
-            <TableColumn prefWidth="174.39996337890625" text="Indicateur de Valeur" />
-            <TableColumn prefWidth="209.5999755859375" text="Indicateur de Commande" />
-        </columns>
+      <TableView layoutX="33.0" layoutY="143.0" prefHeight="418.0" prefWidth="838.0">
+         <columns>
+            <TableColumn prefWidth="112.79998016357422" text="Code Chaînes" />
+            <TableColumn prefWidth="196.79998779296875" text="Produits en Entrée" />
+            <TableColumn prefWidth="176.80001831054688" text="Produits en Sortie" />
+            <TableColumn prefWidth="65.5999755859375" text="Temps" />
+            <TableColumn prefWidth="127.20001220703125" text="Indicateur de Valeur" />
+            <TableColumn prefWidth="160.00006103515625" text="Indicateur de Commande" />
+         </columns>
       </TableView>
-      <Button mnemonicParsing="false" text="Exporter le Résultat" />
+      <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
+      <Button layoutX="187.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Retour vers les Stocks" />
+      <Button layoutX="461.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Retour vers les Achats" />
+      <Label layoutX="283.0" layoutY="27.0" prefHeight="60.0" prefWidth="302.0" text="Visualisation des Usines">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
     </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-</VBox>
+</AnchorPane>
