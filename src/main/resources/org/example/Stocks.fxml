@@ -4,13 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StocksController">
    <children>
-      <TableView layoutX="53.0" layoutY="143.0" prefHeight="353.0" prefWidth="793.0">
+      <TableView layoutX="53.0" layoutY="172.0" prefHeight="426.0" prefWidth="794.0">
          <columns>
             <TableColumn prefWidth="184.80001068115234" text="Code Element" />
             <TableColumn prefWidth="194.39996337890625" text="NOM" />
@@ -18,19 +17,13 @@
             <TableColumn prefWidth="211.99993896484375" text="Quantité en Stock" />
          </columns>
       </TableView>
-      <TextField layoutX="113.0" layoutY="518.0" promptText="Code Element" />
-      <TextField layoutX="286.0" layoutY="518.0" promptText="NOM" />
-      <TextField layoutX="641.0" layoutY="518.0" promptText="Quantité en Stock" />
-      <TextField layoutX="461.0" layoutY="518.0" promptText="Unité de Mesure" />
-      <Button layoutX="214.0" layoutY="561.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Ajouter Un Produit" />
-      <Button layoutX="537.0" layoutY="561.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Modifier Un Produit" />
-      <Button layoutX="375.0" layoutY="561.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Supprimer Un Produit" />
-      <Button layoutX="187.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
-      <Button layoutX="461.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToUsines" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Usines" />
-      <Label layoutX="313.0" layoutY="28.0" prefHeight="60.0" prefWidth="242.0" text="Gestion des Stocks">
+      <Button layoutX="324.0" layoutY="117.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
+      <Button layoutX="565.0" layoutY="117.0" mnemonicParsing="false" onAction="#switchToUsines" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" />
+      <Label layoutX="284.0" layoutY="28.0" prefHeight="60.0" prefWidth="300.0" text="Consultation des Stocks">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
+      <Button layoutX="81.0" layoutY="117.0" mnemonicParsing="false" opacity="0.75" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" underline="true" />
    </children>
 </AnchorPane>

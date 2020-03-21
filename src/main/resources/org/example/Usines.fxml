@@ -20,12 +20,13 @@
          </columns>
       </TableView>
       <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
-      <Button layoutX="187.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Retour vers les Stocks" />
-      <Button layoutX="461.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Retour vers les Achats" />
-      <Label layoutX="283.0" layoutY="27.0" prefHeight="60.0" prefWidth="302.0" text="Visualisation des Usines">
+      <Button layoutX="84.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
+      <Button layoutX="324.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
+      <Label layoutX="233.0" layoutY="26.0" prefHeight="60.0" prefWidth="437.0" text="Gestion des Chaînes de Production">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
+      <Button layoutX="563.0" layoutY="104.0" mnemonicParsing="false" opacity="0.73" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" underline="true" />
     </children>
 </AnchorPane>
