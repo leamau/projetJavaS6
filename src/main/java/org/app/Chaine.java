@@ -86,6 +86,27 @@ public class Chaine {
         this.niveauActivation = 0;
     }
 
+    /**
+     * Constructeur de Chaine sans génération automatique du code.
+     * @param code le code de la chaine.
+     * @param nom le nom de la chaine.
+     * @param temps le niveau d'activation.
+     * @param entrees l'ensemble des éléments en entrée et leur quantité.
+     * @param sorties l'ensemble des éléments en sortie et leur quantité.
+     * @throws IllegalArgumentException
+     */
+    public Chaine(final String code, final String nom, final int temps, final HashMap<Element,Integer> entrees, final HashMap<Element,Integer> sorties)  throws IllegalArgumentException {
+        this.codeC = code;
+        this.nom = nom;
+        this.elementsEntree = entrees;
+        this.elementsSortie = sorties;
+        if(temps >= 0) {
+            this.niveauActivation = temps;
+        } else {
+            throw new IllegalArgumentException("le niveau d'activation doit être positif");
+        }
+    }
+
     public double calculIndicateurValeur() throws IllegalArgumentException{
         double valeurVente = 0;
         double valeurAchat = 0;
