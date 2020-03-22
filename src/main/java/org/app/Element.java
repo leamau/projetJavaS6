@@ -30,7 +30,8 @@ public class Element {
 	/**
 	 * L'unité avec laquelle on exprime la quantité du produit.
 	 */
-	private Unite uniteMesure;
+	//private Unite uniteMesure;
+	private String uniteMesure;
 
 	/**
 	 * Le prix auquel le produit est acheté.
@@ -57,7 +58,27 @@ public class Element {
 	 * @param demande :  demande lié a l'élément
 	 * @param uniteMesure : unité de mesure de la quantitée de l'élément
 	 */
-	public Element(final String nom,final double qte,final double prixAchat,final double prixVente,final double demande,final Unite uniteMesure){
+	public Element(final String codeE,final String nom,final double qte,final double prixAchat,final double prixVente,final double demande,final /*Unite*/String uniteMesure){
+		//TODO:verifier que le code n'existe pas déjà dans la liste avant de l'insérer
+		this.codeE = codeE;
+		this.nom = nom;
+		this.quantiteStock = qte;
+		this.prixAchat = prixAchat;
+		this.prixVente = prixVente;
+		this.demande = demande;
+		this.uniteMesure = uniteMesure;
+	}
+
+	/**
+	 * constructeur de la classe avec tous les attributs en entrée
+	 * @param nom : nom du produit
+	 * @param qte : quantité en stock de l'élément
+	 * @param prixAchat : prix d'achat dé l'élément
+	 * @param prixVente : prix de vente de l'élément
+	 * @param demande :  demande lié a l'élément
+	 * @param uniteMesure : unité de mesure de la quantitée de l'élément
+	 */
+	public Element(final String nom,final double qte,final double prixAchat,final double prixVente,final double demande,final /*Unite*/String uniteMesure){
 		lastValueId++;
 		switch (String.valueOf(lastValueId).length()){
 			case 1 :
@@ -86,7 +107,7 @@ public class Element {
 	 * @param uniteMesure : unité de mesure de la quantitée de l'élément
 	 * @param
 	 */
-	public Element(final String nom,final double prixAchat,final double prixVente,final Unite uniteMesure){
+	public Element(final String nom,final double prixAchat,final double prixVente,final /*Unite*/String uniteMesure){
 		lastValueId++;
 		switch (String.valueOf(lastValueId).length()){
 			case 1 :
@@ -103,6 +124,22 @@ public class Element {
 		this.quantiteStock = 0;
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
+		this.demande = 0;
+		this.uniteMesure = uniteMesure;
+	}
+
+	/**
+	 * constructeur de la classe avec seulement le nom et la qte en entrée
+	 * @param codeE
+	 * @param nom : nom du élément
+	 * @param uniteMesure : unité de mesure de la quantitée de l'élément
+	 * @param
+	 */
+	public Element(final String codeE,final String nom,final /*Unite*/String uniteMesure){
+		//TODO:verifier que le code n'existe pas déjà dans la liste avant de l'insérer
+		this.codeE = codeE;
+		this.nom = nom;
+		this.quantiteStock = 0;
 		this.demande = 0;
 		this.uniteMesure = uniteMesure;
 	}
@@ -173,7 +210,7 @@ public class Element {
 	 * Renvoie l'unité avec laquelle l'élément est mesurée.
 	 * @return la valeur sous une chaîne de caractère.
 	 */
-	public Unite getUniteMesure() {
+	public /*Unite*/String getUniteMesure() {
 		return uniteMesure;
 	}
 
@@ -181,7 +218,7 @@ public class Element {
 	 * Modifie l'unité avec laquelle l'élément est mesurée.
 	 * @param uniteMesure
 	 */
-	public void setUniteMesure(final Unite uniteMesure) {
+	public void setUniteMesure(final /*Unite*/String uniteMesure) {
 		this.uniteMesure = uniteMesure;
 	}
 
