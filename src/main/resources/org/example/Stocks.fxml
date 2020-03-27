@@ -9,16 +9,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.StocksController">
    <children>
-      <TableView layoutX="53.0" layoutY="172.0" prefHeight="426.0" prefWidth="794.0">
+      <TableView fx:id="tableStocks" layoutX="53.0" layoutY="172.0" prefHeight="426.0" prefWidth="794.0">
          <columns>
-            <TableColumn prefWidth="184.80001068115234" text="Code Element" />
-            <TableColumn prefWidth="194.39996337890625" text="NOM" />
-            <TableColumn prefWidth="205.60006713867188" text="Unité de Mesure" />
-            <TableColumn prefWidth="211.99993896484375" text="Quantité en Stock" />
+            <TableColumn fx:id="cdeElemStocks" prefWidth="184.80001068115234" text="Code Element" />
+            <TableColumn fx:id="nomStocks" prefWidth="194.39996337890625" text="NOM" />
+            <TableColumn fx:id="uniteMesureStocks" prefWidth="205.60006713867188" text="Unité de Mesure" />
+            <TableColumn fx:id="quantiteStocks" prefWidth="211.99993896484375" text="Quantité en Stock" />
          </columns>
       </TableView>
       <Button layoutX="324.0" layoutY="117.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
-      <Button layoutX="565.0" layoutY="117.0" mnemonicParsing="false" onAction="#switchToUsines" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" />
+      <Button layoutX="565.0" layoutY="117.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" />
       <Label layoutX="284.0" layoutY="28.0" prefHeight="60.0" prefWidth="300.0" text="Consultation des Stocks">
          <font>
             <Font size="28.0" />

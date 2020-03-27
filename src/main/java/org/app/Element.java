@@ -1,4 +1,7 @@
 package org.app;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.lang.System;
 
 /**
@@ -16,37 +19,40 @@ public class Element {
 	/**
 	 * Code unique de l'élément.
 	 */
-	private String codeE;
+	private SimpleStringProperty codeE;
 	
 	/**
 	 * Désignation de l'élément.
 	 */
-	private String nom;
+	private SimpleStringProperty nom;
 	
 	/**
 	 * Quantité disponible en stock.
 	 */
-	private double quantiteStock;
+	private SimpleDoubleProperty quantiteStock;
 	/**
 	 * L'unité avec laquelle on exprime la quantité du produit.
 	 */
 	//private Unite uniteMesure;
-	private String uniteMesure;
+	private SimpleStringProperty uniteMesure;
 
 	/**
 	 * Le prix auquel le produit est acheté.
 	 */
-	private double prixAchat;
+	private SimpleDoubleProperty prixAchat;
 
 	/**
 	 * Le prix auquel est vendu le produit.
 	 */
-	private double prixVente;
+	private SimpleDoubleProperty prixVente;
 
 	/**
 	 * Le demande estimée sur le produit.
 	 */
-	private double demande;
+	private SimpleDoubleProperty demande;
+
+	private SimpleDoubleProperty qteAcheter;
+
 
 
 	/**
@@ -58,15 +64,24 @@ public class Element {
 	 * @param demande :  demande lié a l'élément
 	 * @param uniteMesure : unité de mesure de la quantitée de l'élément
 	 */
-	public Element(final String codeE,final String nom,final double qte,final double prixAchat,final double prixVente,final double demande,final /*Unite*/String uniteMesure){
+	public Element(final String codeE,final String nom,final double qte,final double prixAchat,final double prixVente,final double demande,final /*Unite*/String uniteMesure,final double qteAcheter){
 		//TODO:verifier que le code n'existe pas déjà dans la liste avant de l'insérer
-		this.codeE = codeE;
-		this.nom = nom;
-		this.quantiteStock = qte;
-		this.prixAchat = prixAchat;
-		this.prixVente = prixVente;
-		this.demande = demande;
-		this.uniteMesure = uniteMesure;
+		this.codeE = new SimpleStringProperty(codeE);
+		this.nom = new SimpleStringProperty(nom);
+		this.quantiteStock = new SimpleDoubleProperty(qte);
+		this.prixAchat = new SimpleDoubleProperty(prixAchat);
+		this.prixVente = new SimpleDoubleProperty(prixVente);
+		this.demande = new SimpleDoubleProperty(demande);
+		this.qteAcheter = new SimpleDoubleProperty(qteAcheter);
+		this.uniteMesure = new SimpleStringProperty(uniteMesure);
+	}
+
+	public Element(String code, String nom,String unite,double qte){
+		this.codeE = new SimpleStringProperty(code);
+		this.nom = new SimpleStringProperty(nom);
+		this.quantiteStock = new SimpleDoubleProperty(qte);
+		this.uniteMesure = new SimpleStringProperty(unite);
+		this.qteAcheter = new SimpleDoubleProperty(0);
 	}
 
 	/**
@@ -82,21 +97,22 @@ public class Element {
 		lastValueId++;
 		switch (String.valueOf(lastValueId).length()){
 			case 1 :
-				this.codeE = "E00"+lastValueId;
+				this.codeE = new SimpleStringProperty("E00"+lastValueId);
 				break;
 			case 2 :
-				this.codeE = "E0"+lastValueId;
+				this.codeE = new SimpleStringProperty("E0"+lastValueId);
 				break;
 			case 3 :
-				this.codeE = "E"+lastValueId;
+				this.codeE = new SimpleStringProperty("E"+lastValueId);
 				break;
 		}
-		this.nom = nom;
-		this.quantiteStock = qte;
-		this.prixAchat = prixAchat;
-		this.prixVente = prixVente;
-		this.demande = demande;
-		this.uniteMesure = uniteMesure;
+		this.nom = new SimpleStringProperty(nom);
+		this.quantiteStock = new SimpleDoubleProperty(qte);
+		this.prixAchat = new SimpleDoubleProperty(prixAchat);
+		this.prixVente = new SimpleDoubleProperty(prixVente);
+		this.demande = new SimpleDoubleProperty(demande);
+		this.uniteMesure = new SimpleStringProperty(uniteMesure);
+		this.qteAcheter = new SimpleDoubleProperty(0);
 	}
 
 	/**
@@ -111,21 +127,22 @@ public class Element {
 		lastValueId++;
 		switch (String.valueOf(lastValueId).length()){
 			case 1 :
-				this.codeE = "E00"+lastValueId;
+				this.codeE = new SimpleStringProperty("E00"+lastValueId);
 				break;
 			case 2 :
-				this.codeE = "E0"+lastValueId;
+				this.codeE = new SimpleStringProperty("E0"+lastValueId);
 				break;
 			case 3 :
-				this.codeE = "E"+lastValueId;
+				this.codeE = new SimpleStringProperty("E"+lastValueId);
 				break;
 		}
-		this.nom = nom;
-		this.quantiteStock = 0;
-		this.prixAchat = prixAchat;
-		this.prixVente = prixVente;
-		this.demande = 0;
-		this.uniteMesure = uniteMesure;
+		this.nom = new SimpleStringProperty(nom);
+		this.quantiteStock = new SimpleDoubleProperty(0);
+		this.prixAchat = new SimpleDoubleProperty(prixAchat);
+		this.prixVente = new SimpleDoubleProperty(prixVente);
+		this.demande = new SimpleDoubleProperty(0);
+		this.uniteMesure = new SimpleStringProperty(uniteMesure);
+		this.qteAcheter = new SimpleDoubleProperty(0);
 	}
 
 	/**
@@ -137,11 +154,22 @@ public class Element {
 	 */
 	public Element(final String codeE,final String nom,final /*Unite*/String uniteMesure){
 		//TODO:verifier que le code n'existe pas déjà dans la liste avant de l'insérer
-		this.codeE = codeE;
-		this.nom = nom;
-		this.quantiteStock = 0;
-		this.demande = 0;
-		this.uniteMesure = uniteMesure;
+		this.codeE = new SimpleStringProperty(codeE);
+		this.nom = new SimpleStringProperty(nom);
+		this.quantiteStock = new SimpleDoubleProperty(0);
+		this.demande = new SimpleDoubleProperty(0);
+		this.uniteMesure = new SimpleStringProperty(uniteMesure);
+		this.qteAcheter = new SimpleDoubleProperty(0);
+	}
+
+	public Element(final String nom,final double prixA,final double qteAchat){
+		this.nom = new SimpleStringProperty(nom);
+		this.prixAchat = new SimpleDoubleProperty(prixA);
+		this.qteAcheter = new SimpleDoubleProperty(qteAchat);
+	}
+
+	public SimpleDoubleProperty coutTotal(){
+		return new SimpleDoubleProperty(this.qteAcheter.getValue() * this.prixAchat.getValue());
 	}
 
 	@Override
@@ -158,93 +186,100 @@ public class Element {
 	}
 
 	// Getters & Setters.
-	/**
-	 * Renvoie le code de l'élément.
-	 * @return le code comme un chaîne de caractères.
-	 */
 	public String getCodeE() {
+		return codeE.get();
+	}
+
+	public SimpleStringProperty codeEProperty() {
 		return codeE;
 	}
 
-	/**
-	 * Modifie le code de l'élément.
-	 * @param codeE le code actualisé.
-	 */
-	public void setCodeE(final String codeE) {
-		this.codeE = codeE;
+	public void setCodeE(String codeE) {
+		this.codeE.set(codeE);
 	}
 
-	/**
-	 * Renvoie le nom de l'élément.
-	 * @return le nom comme un chaîne de caractères.
-	 */
 	public String getNom() {
+		return nom.get();
+	}
+
+	public SimpleStringProperty nomProperty() {
 		return nom;
 	}
 
-	/**
-	 * Modifie le nom de l'élément.
-	 * @param nom le nouveau nom à afficher.
-	 */
-	public void setNom(final String nom) {
-		this.nom = nom;
+	public void setNom(String nom) {
+		this.nom.set(nom);
 	}
 
-	/**
-	 * Renvoie le stock de l'élément.
-	 * @return la quantité (attention à l'unité).
-	 */
 	public double getQuantiteStock() {
+		return quantiteStock.get();
+	}
+
+	public SimpleDoubleProperty quantiteStockProperty() {
 		return quantiteStock;
 	}
 
-	/**
-	 * Modifie le stock de l'élément.
-	 * @param quantite la nouvelle quantité en stock.
-	 */
-	public void setQuantiteStock(final double quantite) {
-		this.quantiteStock = quantite;
+	public void setQuantiteStock(double quantiteStock) {
+		this.quantiteStock.set(quantiteStock);
 	}
 
-	/**
-	 * Renvoie l'unité avec laquelle l'élément est mesurée.
-	 * @return la valeur sous une chaîne de caractère.
-	 */
-	public /*Unite*/String getUniteMesure() {
+	public String getUniteMesure() {
+		return uniteMesure.get();
+	}
+
+	public SimpleStringProperty uniteMesureProperty() {
 		return uniteMesure;
 	}
 
-	/**
-	 * Modifie l'unité avec laquelle l'élément est mesurée.
-	 * @param uniteMesure
-	 */
-	public void setUniteMesure(final /*Unite*/String uniteMesure) {
-		this.uniteMesure = uniteMesure;
+	public void setUniteMesure(String uniteMesure) {
+		this.uniteMesure.set(uniteMesure);
 	}
 
 	public double getPrixAchat() {
+		return prixAchat.get();
+	}
+
+	public SimpleDoubleProperty prixAchatProperty() {
 		return prixAchat;
 	}
 
 	public void setPrixAchat(double prixAchat) {
-		this.prixAchat = prixAchat;
+		this.prixAchat.set(prixAchat);
 	}
 
 	public double getPrixVente() {
+		return prixVente.get();
+	}
+
+	public SimpleDoubleProperty prixVenteProperty() {
 		return prixVente;
 	}
 
 	public void setPrixVente(double prixVente) {
-		this.prixVente = prixVente;
+		this.prixVente.set(prixVente);
 	}
 
 	public double getDemande() {
+		return demande.get();
+	}
+
+	public SimpleDoubleProperty demandeProperty() {
 		return demande;
 	}
 
 	public void setDemande(double demande) {
-		this.demande = demande;
+		this.demande.set(demande);
 	}
 
+	public double getQteAcheter() {
+		return qteAcheter.get();
+	}
+
+	public SimpleDoubleProperty qteAcheterProperty() {
+		return qteAcheter;
+	}
+
+	public void setQteAcheter(double qteAcheter) {
+		this.qteAcheter.set(qteAcheter);
+	}
 
 }
