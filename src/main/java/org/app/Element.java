@@ -82,6 +82,8 @@ public class Element {
 		this.quantiteStock = new SimpleDoubleProperty(qte);
 		this.uniteMesure = new SimpleStringProperty(unite);
 		this.qteAcheter = new SimpleDoubleProperty(0);
+		this.prixAchat = new SimpleDoubleProperty(0);
+		this.prixVente = new SimpleDoubleProperty(0);
 	}
 
 	/**
@@ -156,6 +158,8 @@ public class Element {
 		//TODO:verifier que le code n'existe pas déjà dans la liste avant de l'insérer
 		this.codeE = new SimpleStringProperty(codeE);
 		this.nom = new SimpleStringProperty(nom);
+		this.prixAchat = new SimpleDoubleProperty(0);
+		this.prixVente = new SimpleDoubleProperty(0);
 		this.quantiteStock = new SimpleDoubleProperty(0);
 		this.demande = new SimpleDoubleProperty(0);
 		this.uniteMesure = new SimpleStringProperty(uniteMesure);

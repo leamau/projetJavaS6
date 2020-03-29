@@ -8,7 +8,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.app.Element;
+import org.app.Usine;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,10 +39,14 @@ public class StocksController implements Initializable {
         nomStocks.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         uniteMesureStocks.setCellValueFactory(cellData -> cellData.getValue().uniteMesureProperty());
         quantiteStocks.setCellValueFactory(cellData -> cellData.getValue().quantiteStockProperty().asObject());
+        try {
+            observableList.addAll(Usine.getInstance().getElements());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         tableStocks.setItems(observableList);
     }
 
     ObservableList<Element> observableList = FXCollections.observableArrayList(
-            new Element("E001","sucre", "g",0)
     );
 }

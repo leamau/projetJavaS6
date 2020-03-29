@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,14 +14,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.app.Element;
+import org.app.Usine;
 
 public class AchatsController implements Initializable {
+
+    public Usine usine = Usine.getInstance();
 
     public TableView<Element> tableAchats;
     public TableColumn<Element, String> nomElemAchats;
     public TableColumn<Element, Double> prixAchat;
     public TableColumn<Element, Double> qteAcheter;
     public TableColumn<Element, Double> coutTotal;
+
+    public AchatsController() throws FileNotFoundException {
+    }
 
     @FXML
     private void switchToStocks() throws IOException {
@@ -37,10 +44,19 @@ public class AchatsController implements Initializable {
         prixAchat.setCellValueFactory(cellData -> cellData.getValue().prixAchatProperty().asObject());
         qteAcheter.setCellValueFactory(cellData -> cellData.getValue().qteAcheterProperty().asObject());
         coutTotal.setCellValueFactory(cellData -> cellData.getValue().coutTotal().asObject());
+        try {
+            observableList.addAll(Usine.getInstance().getElements());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         tableAchats.setItems(observableList);
     }
 
     ObservableList<Element> observableList = FXCollections.observableArrayList(
-        new Element("Sucre",1.0,5.0)
+           // new Element("E001","Sucre",1.0,5.0,5.7,4.1,"g",1)
     );
+
+
+
+
 }
