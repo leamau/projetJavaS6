@@ -11,10 +11,10 @@
    <children>
       <TableView fx:id="tableAchats" layoutX="53.0" layoutY="143.0" prefHeight="438.0" prefWidth="794.0">
         <columns>
-          <TableColumn fx:id="nomElemAchats" prefWidth="136.80001068115234" text="Nom" />
-          <TableColumn fx:id="prixAchat" prefWidth="178.39996337890625" text="Prix d'Achat (en €)" />
-          <TableColumn fx:id="qteAcheter" prefWidth="146.40005493164062" text="Quantité à acheter" />
-          <TableColumn fx:id="coutTotal" prefWidth="154.39996337890625" text="Coût Total (en €)" />
+          <TableColumn fx:id="nomElemAchats" prefWidth="166.40001678466797" text="Nom" />
+          <TableColumn fx:id="prixAchat" prefWidth="207.99996948242188" text="Prix d'Achat (en €)" />
+          <TableColumn fx:id="qteAcheter" prefWidth="180.00003051757812" text="Quantité à acheter" />
+          <TableColumn fx:id="coutTotal" prefWidth="240.0" text="Coût Total (en €)" />
         </columns>
       </TableView>
       <Label layoutX="300.0" layoutY="24.0" prefHeight="60.0" prefWidth="300.0" text="Visualisation des Achats">

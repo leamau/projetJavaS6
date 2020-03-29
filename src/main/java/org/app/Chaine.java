@@ -1,5 +1,10 @@
 package org.app;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,25 +16,25 @@ public class Chaine {
     /**
      * code de la chaine
      */
-    private String codeC;
+    private SimpleStringProperty codeC;
     /**
      * nom de la chaine
      */
-    private String nom;
+    private SimpleStringProperty nom;
     /**
      * niveau d'activation de la chaine
      */
-    private int niveauActivation;
+    private SimpleIntegerProperty niveauActivation;
     /**
      * éléments en entrée de la chaine
      * <qte,element>
      */
-    private HashMap<Element,Integer> elementsEntree;
+    private SimpleMapProperty<Element,Integer> elementsEntree;
     /**
      * éléments en sortie de la chaine
      * <qte,element>
      */
-    private HashMap<Element,Integer> elementsSortie;
+    private SimpleMapProperty<Element,Integer> elementsSortie;
 
     /**
      * constructeur de la classe avec le code incrémenté automatiquement
@@ -38,24 +43,24 @@ public class Chaine {
      * @throws IllegalArgumentException
      */
     public Chaine(final String nom,final int activation) throws IllegalArgumentException{
-        this.nom = nom;
+        this.nom = new SimpleStringProperty(nom);
         /*incrémentation du dernier id pour le code de la chaine*/
         lastValueId ++;
         switch (String.valueOf(lastValueId).length()){
             case 1 :
-                this.codeC = "C00"+lastValueId;
+                this.codeC = new SimpleStringProperty("C00"+lastValueId);
                 break;
             case 2 :
-                this.codeC = "C0"+lastValueId;
+                this.codeC = new SimpleStringProperty("C0"+lastValueId);
                 break;
             case 3 :
-                this.codeC = "C" + lastValueId;
+                this.codeC = new SimpleStringProperty("C" + lastValueId);
                 break;
         }
-        this.elementsEntree = new HashMap<Element,Integer>();
-        this.elementsSortie = new HashMap<Element,Integer>();
+        this.elementsEntree = new SimpleMapProperty<Element,Integer>();
+        this.elementsSortie = new SimpleMapProperty<Element,Integer>();
         if(activation >= 0){
-            this.niveauActivation = activation;
+            this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
         }
@@ -67,23 +72,23 @@ public class Chaine {
      * @throws IllegalArgumentException
      */
     public Chaine(final String nom) throws IllegalArgumentException{
-        this.nom = nom;
+        this.nom = new SimpleStringProperty(nom);
         /*incrémentation du dernier id pour le code de la chaine*/
         lastValueId ++;
         switch (String.valueOf(lastValueId).length()){
             case 1 :
-                this.codeC = "C00"+lastValueId;
+                this.codeC = new SimpleStringProperty("C00"+lastValueId);
                 break;
             case 2 :
-                this.codeC = "C0"+lastValueId;
+                this.codeC = new SimpleStringProperty("C0"+lastValueId);
                 break;
             case 3 :
-                this.codeC = "C" + lastValueId;
+                this.codeC = new SimpleStringProperty("C" + lastValueId);
                 break;
         }
-        this.elementsEntree = new HashMap<Element,Integer>();
-        this.elementsSortie = new HashMap<Element,Integer>();
-        this.niveauActivation = 0;
+        this.elementsEntree = new SimpleMapProperty<Element,Integer>();
+        this.elementsSortie = new SimpleMapProperty<Element,Integer>();
+        this.niveauActivation = new SimpleIntegerProperty(0);
     }
 
     /**
@@ -95,13 +100,13 @@ public class Chaine {
      * @param sorties l'ensemble des éléments en sortie et leur quantité.
      * @throws IllegalArgumentException
      */
-    public Chaine(final String code, final String nom, final int temps, final HashMap<Element,Integer> entrees, final HashMap<Element,Integer> sorties)  throws IllegalArgumentException {
-        this.codeC = code;
-        this.nom = nom;
-        this.elementsEntree = entrees;
-        this.elementsSortie = sorties;
+    public Chaine(final String code, final String nom, final int temps, final SimpleMapProperty<Element,Integer> entrees, final SimpleMapProperty<Element,Integer> sorties)  throws IllegalArgumentException {
+        this.codeC = new SimpleStringProperty(code);
+        this.nom = new SimpleStringProperty(nom);
+        this.elementsEntree = new SimpleMapProperty<>(entrees);
+        this.elementsSortie = new SimpleMapProperty<>(sorties);
         if(temps >= 0) {
-            this.niveauActivation = temps;
+            this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
         }
@@ -116,7 +121,7 @@ public class Chaine {
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
-            if(stock - qteElementEntree*this.niveauActivation < 0){
+            if(stock - qteElementEntree * this.niveauActivation < 0){
                 throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
@@ -124,7 +129,7 @@ public class Chaine {
                     Integer qteElementSortie = entree.getValue();
                     Element elementSortie = entree.getKey();
                     valeurVente += elementSortie.getPrixVente();
-                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie*this.niveauActivation);
+                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie * this.niveauActivation);
                 }
             }
         }
@@ -171,30 +176,62 @@ public class Chaine {
     //getters & setters
 
     public String getCodeC() {
+        return codeC.get();
+    }
+
+    public SimpleStringProperty codeCProperty() {
         return codeC;
     }
 
+    public void setCodeC(String codeC) {
+        this.codeC.set(codeC);
+    }
+
     public String getNom() {
+        return nom.get();
+    }
+
+    public SimpleStringProperty nomProperty() {
         return nom;
     }
 
-    public void setNom(final String nom) {
-        this.nom = nom;
+    public void setNom(String nom) {
+        this.nom.set(nom);
     }
 
     public int getNiveauActivation() {
+        return niveauActivation.get();
+    }
+
+    public SimpleIntegerProperty niveauActivationProperty() {
         return niveauActivation;
     }
 
-    public void setNiveauActivation(final int niveauActivation) {
-        this.niveauActivation = niveauActivation;
+    public void setNiveauActivation(int niveauActivation) {
+        this.niveauActivation.set(niveauActivation);
     }
 
-    public HashMap<Element,Integer> getElementsEntree() {
+    public ObservableMap<Element, Integer> getElementsEntree() {
+        return elementsEntree.get();
+    }
+
+    public SimpleMapProperty<Element, Integer> elementsEntreeProperty() {
         return elementsEntree;
     }
 
-    public HashMap<Element,Integer> getElementsSortie() {
+    public void setElementsEntree(ObservableMap<Element, Integer> elementsEntree) {
+        this.elementsEntree.set(elementsEntree);
+    }
+
+    public ObservableMap<Element, Integer> getElementsSortie() {
+        return elementsSortie.get();
+    }
+
+    public SimpleMapProperty<Element, Integer> elementsSortieProperty() {
         return elementsSortie;
+    }
+
+    public void setElementsSortie(ObservableMap<Element, Integer> elementsSortie) {
+        this.elementsSortie.set(elementsSortie);
     }
 }
