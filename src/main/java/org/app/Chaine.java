@@ -121,7 +121,7 @@ public class Chaine {
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
-            if(stock - qteElementEntree * this.niveauActivation < 0){
+            if(stock - qteElementEntree*this.getNiveauActivation() < 0){
                 throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
@@ -129,7 +129,7 @@ public class Chaine {
                     Integer qteElementSortie = entree.getValue();
                     Element elementSortie = entree.getKey();
                     valeurVente += elementSortie.getPrixVente();
-                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie * this.niveauActivation);
+                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*this.getNiveauActivation());
                 }
             }
         }

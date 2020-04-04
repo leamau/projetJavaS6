@@ -1,5 +1,7 @@
 package org.app;
 
+import javafx.beans.property.SimpleMapProperty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -169,8 +171,8 @@ public class ConversionsCsv {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
                 String code = sc.next();
                 String nom = sc.next();
-                HashMap<Element,Integer> entrees = stringToElements(sc.next());
-                HashMap<Element,Integer> sorties = stringToElements(sc.next());
+                SimpleMapProperty<Element,Integer> entrees = stringToElements(sc.next());
+                SimpleMapProperty<Element,Integer> sorties = stringToElements(sc.next());
                 int temps = Integer.parseInt(sc.next());
                 int pnq = Integer.parseInt(sc.next()); // Not used yet.
                 int pq = Integer.parseInt(sc.next()); // Not used yet.
@@ -198,12 +200,12 @@ public class ConversionsCsv {
      * @param s la chaîne à convertir.
      * @return l'élément résultant sous forme d'Element.
      */
-    private HashMap<Element,Integer> stringToElements(String s) {
+    private SimpleMapProperty<Element,Integer> stringToElements(String s) {
 
         // Exemple d'entrée : (E012,3),(E014,5),(E011,2),(E001,3)
         // Exemple de sortie : (E019,10)
 
-        HashMap<Element,Integer> elements = new HashMap<>();
+        SimpleMapProperty<Element,Integer> elements = new SimpleMapProperty<>();
 
         return elements;
     }

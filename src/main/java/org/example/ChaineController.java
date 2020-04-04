@@ -30,7 +30,6 @@ public class ChaineController {
         App.setRoot("Achats");
     }
 
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         codeChaine.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
         nomChaine.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
