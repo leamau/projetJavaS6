@@ -2,9 +2,12 @@ package org.app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ConversionsCsv {
 
@@ -148,9 +151,10 @@ public class ConversionsCsv {
 
     /**
      * Enregistre les chaînes présentes dans le CSV.
+     * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'ensemble sous forme d'une ArrayList.
      */
-    public ArrayList<Chaine> csvToChaines() {
+    public ArrayList<Chaine> csvToChaines(HashSet<Element> stock) {
 
         // Le nom du CSV à extraire.
         final String FILENAME = "chaines";
@@ -169,8 +173,8 @@ public class ConversionsCsv {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
                 String code = sc.next();
                 String nom = sc.next();
-                HashMap<Element,Integer> entrees = stringToElements(sc.next());
-                HashMap<Element,Integer> sorties = stringToElements(sc.next());
+                HashMap<Element,Integer> entrees = stringToElements(sc.next(), stock);
+                HashMap<Element,Integer> sorties = stringToElements(sc.next(), stock);
                 int temps = Integer.parseInt(sc.next());
                 int pnq = Integer.parseInt(sc.next()); // Not used yet.
                 int pq = Integer.parseInt(sc.next()); // Not used yet.
@@ -196,15 +200,42 @@ public class ConversionsCsv {
     /**
      * Convertis une chaîne de caractère en élément.
      * @param s la chaîne à convertir.
+     * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'élément résultant sous forme d'Element.
      */
-    private HashMap<Element,Integer> stringToElements(String s) {
+    private HashMap<Element, Integer> stringToElements(final String s, HashSet<Element> stock) {
 
-        // Exemple d'entrée : (E012,3),(E014,5),(E011,2),(E001,3)
-        // Exemple de sortie : (E019,10)
+        // Exemple d'entrée : (E012,3)/(E014,5)/(E011,2)/(E001,3).
+        // Exemple de sortie : (E019,10).
+        // Découpage de la chaîne des entrées.
+        String[] elementsS = s.split(Pattern.quote("/"));
+        HashMap<Element, Integer> elements = new HashMap<>();
 
-        HashMap<Element,Integer> elements = new HashMap<>();
+        // Parcours des éléments.
+        for(String e : elementsS) {
+            // On traîte un élément tel que (E012,3).
+            // On retire les parenthèses.
+            String e2 = e.replaceAll("[()]", "");
 
+            // On traîte un élément tel que E012,3.
+            String[] eData = e2.split(Pattern.quote(","));
+
+            // On a donc un tableau eData contenant [E012][3].
+            // On récupère l'élément via son code.
+            String codeE = eData[0];
+
+            // On récupère la quantité.
+            int qteE = Integer.parseInt(eData[1]);
+
+            // On parcours tous les éléments en stock.
+            for(Element elem : stock) {
+                // Si le code récupéré est identique à un code en stock.
+                if(elem.getCodeE() == codeE) {
+                    elements.put(elem, qteE);
+                }
+            }
+        }
+        // On renvoie la liste ainsi complétée.
         return elements;
     }
 
