@@ -3,6 +3,8 @@ package org.app;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
@@ -173,6 +175,30 @@ public class Chaine {
         return  valeurToString;
     }
 
+    public SimpleStringProperty toStringElementsEnSortieProperty(){
+        return new SimpleStringProperty(ToStringElementsEnSortie());
+    }
+
+    public SimpleStringProperty toStringElementsEnEntreeProperty(){
+        return new SimpleStringProperty(ToStringElementsEnEntree());
+    }
+
+    public ObservableList<Element> getElementsEntreeProperty(){
+        ObservableList<Element> elements = FXCollections.observableArrayList();
+        for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
+            elements.add(entree.getKey());
+        }
+        return elements;
+    }
+
+    public ObservableList<Element> getElementsSortieProperty(){
+        ObservableList<Element> elements = FXCollections.observableArrayList();
+        for(Map.Entry<Element,Integer> entree : this.elementsSortie.entrySet()) {
+            elements.add(entree.getKey());
+        }
+        return elements;
+    }
+
     //getters & setters
 
     public String getCodeC() {
@@ -234,4 +260,6 @@ public class Chaine {
     public void setElementsSortie(ObservableMap<Element, Integer> elementsSortie) {
         this.elementsSortie.set(elementsSortie);
     }
+
+
 }

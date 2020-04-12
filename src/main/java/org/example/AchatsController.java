@@ -39,6 +39,7 @@ public class AchatsController implements Initializable {
         App.setRoot("Chaines");
     }
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nomElemAchats.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         prixAchat.setCellValueFactory(cellData -> cellData.getValue().prixAchatProperty().asObject());
