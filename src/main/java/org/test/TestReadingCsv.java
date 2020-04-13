@@ -1,4 +1,5 @@
 package org.test;
+import org.app.Chaine;
 import org.app.ConversionsCsv;
 import org.app.Element;
 import org.app.Usine;
@@ -20,6 +21,13 @@ public class TestReadingCsv{
             valeurToString += "\n"+element.toString();
         }
         System.out.println(valeurToString);*/
-        Usine.getInstance().toString();
+
+        /*String valeurToString = "";
+        for( Chaine c :  convert.csvToChaines()) {
+            valeurToString += "\n"+c.toString();
+        }
+        System.out.println(valeurToString);*/
+
+        System.out.println(Usine.getInstance().toString());
     }
 }
