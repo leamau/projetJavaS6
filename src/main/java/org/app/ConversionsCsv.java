@@ -168,13 +168,17 @@ public class ConversionsCsv {
             int cpt = 0; // Pour une v2
 
             sc.useDelimiter(";");   //délimiter par virgule
-            while (sc.hasNext())  //tant qu'il y a des lignes
+
+            // Elimination de la première ligne du csv.
+            sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next();
+
+            while (sc.hasNext())  // Tant qu'il y a des lignes.
             {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
                 String code = sc.next();
                 String nom = sc.next();
-                HashMap<Element,Integer> entrees = stringToElements(sc.next(), stock);
-                HashMap<Element,Integer> sorties = stringToElements(sc.next(), stock);
+                HashMap<Element, Double> entrees = stringToElements(sc.next(), stock);
+                HashMap<Element, Double> sorties = stringToElements(sc.next(), stock);
                 int temps = Integer.parseInt(sc.next());
                 int pnq = Integer.parseInt(sc.next()); // Not used yet.
                 int pq = Integer.parseInt(sc.next()); // Not used yet.
@@ -203,13 +207,13 @@ public class ConversionsCsv {
      * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'élément résultant sous forme d'Element.
      */
-    private HashMap<Element, Integer> stringToElements(final String s, HashSet<Element> stock) {
+    private HashMap<Element, Double> stringToElements(final String s, HashSet<Element> stock) {
 
         // Exemple d'entrée : (E012,3)/(E014,5)/(E011,2)/(E001,3).
         // Exemple de sortie : (E019,10).
         // Découpage de la chaîne des entrées.
         String[] elementsS = s.split(Pattern.quote("/"));
-        HashMap<Element, Integer> elements = new HashMap<>();
+        HashMap<Element, Double> elements = new HashMap<>();
 
         // Parcours des éléments.
         for(String e : elementsS) {
@@ -225,7 +229,7 @@ public class ConversionsCsv {
             String codeE = eData[0];
 
             // On récupère la quantité.
-            int qteE = Integer.parseInt(eData[1]);
+            double qteE = Double.parseDouble(eData[1]);
 
             // On parcours tous les éléments en stock.
             for(Element elem : stock) {

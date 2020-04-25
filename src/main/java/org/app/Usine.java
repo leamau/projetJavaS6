@@ -2,6 +2,7 @@ package org.app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ public class Usine {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
         csvToElements();
+        this.chaines = csvToChaines(this.elements);
     }
 
     public static Usine getInstance() throws FileNotFoundException {
@@ -45,10 +47,14 @@ public class Usine {
     }
 
     public String toString(){
+        if(this.chaines == null)
+            System.out.println("HOUSTON NOUS AVONS UN PROBLEME");
         return "Uine : {\n " +
-                "Chaines :{\n"+this.chaines.toString()+"},"+
-                "Elements : {\n"+this.elements.toString()+"}\n"+
-                "}";
+                    "\tChaines : {" +
+                        "\n\t\t"+this.chaines.toString()+"}\n"+
+                    "\tElements : {" +
+                        "\n\t\t"+this.elements.toString()+"}\n"+
+                "\t}";
     }
 
     //TODO: gérer les quantitiés a acherter
@@ -196,7 +202,7 @@ public class Usine {
      * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'ensemble sous forme d'une ArrayList.
      */
-    public ArrayList<Chaine> csvToChaines(HashSet<Element> stock) {
+    public ArrayList<Chaine> csvToChaines(ArrayList<Element> stock) {
 
         // Le nom du CSV à extraire.
         final String FILENAME = "chaines";
@@ -210,22 +216,50 @@ public class Usine {
             int cpt = 0; // Pour une v2
 
             sc.useDelimiter(";");   //délimiter par virgule
-            while (sc.hasNext())  //tant qu'il y a des lignes
+
+            // Elimination de la première ligne du csv.
+            sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next();
+
+            while (sc.hasNext())  // Tant qu'il y a des lignes.
             {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
-                String code = sc.next();
-                String nom = sc.next();
-                HashMap<Element,Integer> entrees = stringToElements(sc.next(), stock);
-                HashMap<Element,Integer> sorties = stringToElements(sc.next(), stock);
-                int temps = Integer.parseInt(sc.next());
-                int pnq = Integer.parseInt(sc.next()); // Not used yet.
-                int pq = Integer.parseInt(sc.next()); // Not used yet.
+
+                /*
+                VERIFICATION DE LA VALEUR DES VARIABLES A CHAQUE INSTANT
+                NECESSITE DE VIRER LA VARIABLE VAL
+                REMETTRE SC.NEXT() COMME ASSIGNATION
+                 */
+                String val = sc.next();
+                System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
+                String code = val;
+                val = sc.next();
+                System.out.println("NOM : " + val);
+                String nom = val;
+                val = sc.next();
+                System.out.println("ENTREE(S) : " + val);
+                HashMap<Element, Double> entrees = stringToElements(val, stock);
+                val = sc.next();
+                System.out.println("SORTIES(S) : " + val);
+                HashMap<Element, Double> sorties = stringToElements(val, stock);
+                val = sc.next();
+                System.out.println("TEMPS : " + val);
+                int temps = Integer.parseInt(val);
+                val = sc.next();
+                System.out.println("PERS NON-QUAL : " + val);
+                int pnq = Integer.parseInt(val); // Not used yet.
+                val = sc.next();
+                System.out.println("PERS QUAL : " + val);
+                int pq = Integer.parseInt(val); // Not used yet.
 
                 // Construction de la chaine à ajouter.
                 Chaine c = new Chaine(code, nom, temps, entrees, sorties);
+
                 // Ajout de la chaine à l'ensemble des chaines.
-                chaines.add(c);
+                if(!chaineExist(c, this.chaines)) {
+                    chaines.add(c);
+                } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
             }
+
             // Fermeture du scanner.
             sc.close();
 
@@ -240,18 +274,38 @@ public class Usine {
     }
 
     /**
+     * Fonction évitant d'insérer des chaînes en doublon.
+     * @param c la chaîne dont on veut tester l'existence.
+     * @param chaines la liste de chaînes à compléter.
+     * @return true si la chaîne testée existe déjà dans la liste.
+     */
+    private boolean chaineExist(final Chaine c, final ArrayList<Chaine> chaines) {
+
+        boolean exist = false;
+
+        // Parcours des chaines de la liste.
+        for (Chaine ch : chaines) {
+            // Si les deux chaînes sont identiques (même codeC).
+            if (ch.equals(c))
+                // On affecte true à la variable.
+                exist = true;
+        }
+        return exist;
+    }
+
+    /**
      * Convertis une chaîne de caractère en élément.
      * @param s la chaîne à convertir.
      * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'élément résultant sous forme d'Element.
      */
-    private HashMap<Element, Integer> stringToElements(final String s, HashSet<Element> stock) {
+    private HashMap<Element, Double> stringToElements(final String s, ArrayList<Element> stock) {
 
         // Exemple d'entrée : (E012,3)/(E014,5)/(E011,2)/(E001,3).
         // Exemple de sortie : (E019,10).
         // Découpage de la chaîne des entrées.
         String[] elementsS = s.split(Pattern.quote("/"));
-        HashMap<Element, Integer> elements = new HashMap<>();
+        HashMap<Element, Double> elements = new HashMap<>();
 
         // Parcours des éléments.
         for(String e : elementsS) {
@@ -267,7 +321,7 @@ public class Usine {
             String codeE = eData[0];
 
             // On récupère la quantité.
-            int qteE = Integer.parseInt(eData[1]);
+            double qteE = Double.parseDouble(eData[1]);
 
             // On parcours tous les éléments en stock.
             for(Element elem : stock) {
@@ -280,7 +334,5 @@ public class Usine {
         // On renvoie la liste ainsi complétée.
         return elements;
     }
-
-
 
 }

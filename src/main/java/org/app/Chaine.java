@@ -24,12 +24,12 @@ public class Chaine {
      * éléments en entrée de la chaine
      * <qte,element>
      */
-    private HashMap<Element,Integer> elementsEntree;
+    private HashMap<Element, Double> elementsEntree;
     /**
      * éléments en sortie de la chaine
      * <qte,element>
      */
-    private HashMap<Element,Integer> elementsSortie;
+    private HashMap<Element, Double> elementsSortie;
 
     /**
      * constructeur de la classe avec le code incrémenté automatiquement
@@ -52,8 +52,8 @@ public class Chaine {
                 this.codeC = "C" + lastValueId;
                 break;
         }
-        this.elementsEntree = new HashMap<Element,Integer>();
-        this.elementsSortie = new HashMap<Element,Integer>();
+        this.elementsEntree = new HashMap<Element, Double>();
+        this.elementsSortie = new HashMap<Element, Double>();
         if(activation >= 0){
             this.niveauActivation = activation;
         }else{
@@ -81,8 +81,8 @@ public class Chaine {
                 this.codeC = "C" + lastValueId;
                 break;
         }
-        this.elementsEntree = new HashMap<Element,Integer>();
-        this.elementsSortie = new HashMap<Element,Integer>();
+        this.elementsEntree = new HashMap<Element, Double>();
+        this.elementsSortie = new HashMap<Element, Double>();
         this.niveauActivation = 0;
     }
 
@@ -95,7 +95,7 @@ public class Chaine {
      * @param sorties l'ensemble des éléments en sortie et leur quantité.
      * @throws IllegalArgumentException
      */
-    public Chaine(final String code, final String nom, final int temps, final HashMap<Element,Integer> entrees, final HashMap<Element,Integer> sorties)  throws IllegalArgumentException {
+    public Chaine(final String code, final String nom, final int temps, final HashMap<Element, Double> entrees, final HashMap<Element, Double> sorties)  throws IllegalArgumentException {
         this.codeC = code;
         this.nom = nom;
         this.elementsEntree = entrees;
@@ -111,8 +111,8 @@ public class Chaine {
         double valeurVente = 0;
         double valeurAchat = 0;
         /*pour chaque élément en entrée*/
-        for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
-            Integer qteElementEntree = entree.getValue();
+        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
+            Double qteElementEntree = entree.getValue();
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
@@ -120,8 +120,8 @@ public class Chaine {
                 throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
-                for(Map.Entry<Element,Integer> sortie : this.elementsSortie.entrySet()) {
-                    Integer qteElementSortie = entree.getValue();
+                for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
+                    Double qteElementSortie = entree.getValue();
                     Element elementSortie = entree.getKey();
                     valeurVente += elementSortie.getPrixVente();
                     elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie*this.niveauActivation);
@@ -135,13 +135,13 @@ public class Chaine {
 
     @Override
     public String toString() {
-        return "Chaine{" +
-                "codeC='" + codeC + '\'' +
-                ", nom='" + nom + '\'' +
-                ", niveauActivation=" + niveauActivation +
-                ", elementsEntree=" + elementsEntree +
-                ", elementsSortie=" + elementsSortie +
-                '}';
+        return "Chaine {\n" +
+                "\tcodeC = " + codeC +
+                "\tnom = " + nom +
+                "\tniveauActivation = " + niveauActivation +
+                "\telementsEntree = " + elementsEntree +
+                "\telementsSortie = " + elementsSortie +
+                "\n}";
     }
 
     /**
@@ -150,7 +150,7 @@ public class Chaine {
      */
     public String ToStringElementsEnEntree(){
         String valeurToString = "";
-            for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
+            for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
                 valeurToString += "\n"+entree.getValue().toString() + " * "+entree.getKey();
             }
         return  valeurToString;
@@ -162,10 +162,18 @@ public class Chaine {
      */
     public String ToStringElementsEnSortie(){
         String valeurToString = "";
-        for(Map.Entry<Element,Integer> sortie : this.elementsSortie.entrySet()) {
+        for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
             valeurToString += "\n"+sortie.getValue().toString() + " * "+sortie.getKey();
         }
         return  valeurToString;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        boolean res = false;
+        if((o instanceof Chaine) && (((Chaine) o).getCodeC() == this.codeC))
+            res = true;
+        return res;
     }
 
     //getters & setters
@@ -190,11 +198,11 @@ public class Chaine {
         this.niveauActivation = niveauActivation;
     }
 
-    public HashMap<Element,Integer> getElementsEntree() {
+    public HashMap<Element, Double> getElementsEntree() {
         return elementsEntree;
     }
 
-    public HashMap<Element,Integer> getElementsSortie() {
+    public HashMap<Element, Double> getElementsSortie() {
         return elementsSortie;
     }
 }

@@ -17,10 +17,10 @@ public class TestCalculs {
 
         //création de chaine
         Chaine ch1 = new Chaine("fabrication de cookie",1);
-        ch1.getElementsEntree().put(chocolat,2);
-        ch1.getElementsEntree().put(beurre,1);
-        ch1.getElementsEntree().put(farine,1);
-        ch1.getElementsSortie().put(cookie,1);
+        ch1.getElementsEntree().put(chocolat,2.0);
+        ch1.getElementsEntree().put(beurre,1.0);
+        ch1.getElementsEntree().put(farine,1.0);
+        ch1.getElementsSortie().put(cookie,1.0);
 
         System.out.println(ch1.toString());
         System.out.println("indicateur de valeur de la chaine 1 : { " +ch1.calculIndicateurValeur()+" }");
