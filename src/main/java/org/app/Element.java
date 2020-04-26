@@ -246,5 +246,12 @@ public class Element {
 		this.demande = demande;
 	}
 
-
+	/**
+	 * Fonction comparant un élément à l'objet this.
+	 * @param e l'élément à comparer.
+	 * @return vrai si les éléments ont le même codeE.
+	 */
+	public boolean equals(Element e) {
+		return (e.getCodeE() == this.codeE);
+	}
 }
