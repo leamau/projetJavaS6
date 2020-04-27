@@ -1,5 +1,7 @@
 package org.app;
 
+import javafx.beans.property.SimpleMapProperty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -154,7 +156,7 @@ public class ConversionsCsv {
      * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'ensemble sous forme d'une ArrayList.
      */
-    public ArrayList<Chaine> csvToChaines(HashSet<Element> stock) {
+    public ArrayList<Chaine> csvToChaines(HashSet<Element> stock) { // CHECK LE TYPE
 
         // Le nom du CSV à extraire.
         final String FILENAME = "chaines";
@@ -177,8 +179,10 @@ public class ConversionsCsv {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
                 String code = sc.next();
                 String nom = sc.next();
-                HashMap<Element, Double> entrees = stringToElements(sc.next(), stock);
-                HashMap<Element, Double> sorties = stringToElements(sc.next(), stock);
+
+                SimpleMapProperty<Element, Double> entrees = stringToElements(sc.next(), stock);
+                SimpleMapProperty<Element, Double> sorties = stringToElements(sc.next(), stock);
+
                 int temps = Integer.parseInt(sc.next());
                 int pnq = Integer.parseInt(sc.next()); // Not used yet.
                 int pq = Integer.parseInt(sc.next()); // Not used yet.
@@ -207,7 +211,7 @@ public class ConversionsCsv {
      * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'élément résultant sous forme d'Element.
      */
-    private HashMap<Element, Double> stringToElements(final String s, HashSet<Element> stock) {
+    private SimpleMapProperty<Element, Double> stringToElements(final String s, HashSet<Element> stock) {
 
         // Exemple d'entrée : (E012,3)/(E014,5)/(E011,2)/(E001,3).
         // Exemple de sortie : (E019,10).
@@ -242,6 +246,4 @@ public class ConversionsCsv {
         // On renvoie la liste ainsi complétée.
         return elements;
     }
-
-
 }

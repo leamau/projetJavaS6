@@ -1,5 +1,6 @@
 package org.app;
 
+import javafx.beans.property.SimpleMapProperty;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
@@ -212,10 +213,29 @@ public class Usine {
 
             // L'ensemble des chaines.
             ArrayList<Chaine> chaines = new ArrayList<>();
+
             // Compteur de chaines.
             int cpt = 0; // Pour une v2
 
             sc.useDelimiter(";");   //délimiter par virgule
+/*
+            while (sc.hasNext())  //tant qu'il y a des lignes
+            {
+                // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
+                String code = sc.next();
+                String nom = sc.next();
+                SimpleMapProperty<Element,Integer> entrees = stringToElements(sc.next());
+                SimpleMapProperty<Element,Integer> sorties = stringToElements(sc.next());
+                int temps = Integer.parseInt(sc.next());
+                int pnq = Integer.parseInt(sc.next()); // Not used yet.
+                int pq = Integer.parseInt(sc.next()); // Not used yet.
+
+                // Construction de la chaine à ajouter.
+                Chaine c = new Chaine(code, nom, temps, entrees, sorties);
+                // Ajout de la chaine à l'ensemble des chaines.
+                newChaines.add(c);
+            }
+*/
 
             // Elimination de la première ligne du csv.
             sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next();
@@ -269,11 +289,27 @@ public class Usine {
             // En cas d'erreur.
         } catch (Exception e) {
             // Code to handle error.
+            System.out.println(e.getMessage());
             return null;
         }
     }
 
+
     /**
+     * Convertis une chaîne de caractère en élément.
+     * @param s la chaîne à convertir.
+     * @return l'élément résultant sous forme d'Element.
+     */
+/*    private SimpleMapProperty<Element,Integer> stringToElements(String s) {
+
+        // Exemple d'entrée : (E012,3),(E014,5),(E011,2),(E001,3)
+        // Exemple de sortie : (E019,10)
+
+        SimpleMapProperty<Element,Integer> elements = new SimpleMapProperty<>();
+
+        return elements;
+    }
+*/
      * Fonction évitant d'insérer des chaînes en doublon.
      * @param c la chaîne dont on veut tester l'existence.
      * @param chaines la liste de chaînes à compléter.
@@ -334,5 +370,4 @@ public class Usine {
         // On renvoie la liste ainsi complétée.
         return elements;
     }
-
 }
