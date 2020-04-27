@@ -103,7 +103,7 @@ public class Chaine {
      * @throws IllegalArgumentException
      */
 
-    public Chaine(final String code, final String nom, final int temps, final SimpleMapProperty<Element,Integer> entrees, final SimpleMapProperty<Element,Integer> sorties)  throws IllegalArgumentException {
+    public Chaine(final String code, final String nom, final int temps, final SimpleMapProperty<Element,Double> entrees, final SimpleMapProperty<Element,Double> sorties)  throws IllegalArgumentException {
         this.codeC = new SimpleStringProperty(code);
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
@@ -187,23 +187,24 @@ public class Chaine {
 
     public ObservableList<Element> getElementsEntreeProperty(){
         ObservableList<Element> elements = FXCollections.observableArrayList();
-        for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
+        for(Map.Entry<Element,Double> entree : this.elementsEntree.entrySet()) {
             elements.add(entree.getKey());
         }
         return elements;
     }
 
-    public ObservableList<Element> getElementsSortieProperty(){
+    public ObservableList<Element> getElementsSortieProperty() {
         ObservableList<Element> elements = FXCollections.observableArrayList();
-        for(Map.Entry<Element,Integer> entree : this.elementsSortie.entrySet()) {
+        for (Map.Entry<Element, Double> entree : this.elementsSortie.entrySet()) {
             elements.add(entree.getKey());
         }
         return elements;
+    }
 
     @Override
     public boolean equals(Object o) {
         boolean res = false;
-        if((o instanceof Chaine) && (((Chaine) o).getCodeC() == this.codeC))
+        if((o instanceof Chaine) && (((Chaine) o).getCodeC().equals(this.codeC)))
             res = true;
         return res;
     }
@@ -246,28 +247,28 @@ public class Chaine {
         this.niveauActivation.set(niveauActivation);
     }
 
-    public ObservableMap<Element, Integer> getElementsEntree() {
+    public ObservableMap<Element, Double> getElementsEntree() {
         return elementsEntree.get();
     }
 
-    public SimpleMapProperty<Element, Integer> elementsEntreeProperty() {
+    public SimpleMapProperty<Element, Double> elementsEntreeProperty() {
         return elementsEntree;
     }
 
-    public void setElementsEntree(ObservableMap<Element, Integer> elementsEntree) {
+    public void setElementsEntree(ObservableMap<Element, Double> elementsEntree) {
         this.elementsEntree.set(elementsEntree);
     }
 
-    public ObservableMap<Element, Integer> getElementsSortie() {
+    public ObservableMap<Element, Double> getElementsSortie() {
         return elementsSortie.get();
     }
 
-    public SimpleMapProperty<Element, Integer> elementsSortieProperty() {
+    public SimpleMapProperty<Element, Double> elementsSortieProperty() {
 
         return elementsSortie;
     }
 
-    public void setElementsSortie(ObservableMap<Element, Integer> elementsSortie) {
+    public void setElementsSortie(ObservableMap<Element, Double> elementsSortie) {
         this.elementsSortie.set(elementsSortie);
     }
 

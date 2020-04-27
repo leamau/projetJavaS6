@@ -244,6 +244,8 @@ public class ConversionsCsv {
             }
         }
         // On renvoie la liste ainsi complétée.
-        return elements;
+        SimpleMapProperty<Element, Double> e = new SimpleMapProperty<>();
+        e.putAll(elements);
+        return e;
     }
 }
