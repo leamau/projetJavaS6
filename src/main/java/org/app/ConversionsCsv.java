@@ -187,8 +187,13 @@ public class ConversionsCsv {
                 int pnq = Integer.parseInt(sc.next()); // Not used yet.
                 int pq = Integer.parseInt(sc.next()); // Not used yet.
 
+                SimpleMapProperty<Element, Double> e = new SimpleMapProperty<>();
+                e.putAll(entrees);
+                SimpleMapProperty<Element, Double> s = new SimpleMapProperty<>();
+                s.putAll(entrees);
+
                 // Construction de la chaine à ajouter.
-                Chaine c = new Chaine(code, nom, temps, entrees, sorties);
+                Chaine c = new Chaine(code, nom, temps, e, s);
                 // Ajout de la chaine à l'ensemble des chaines.
                 chaines.add(c);
             }
@@ -244,6 +249,9 @@ public class ConversionsCsv {
             }
         }
         // On renvoie la liste ainsi complétée.
-        return elements;
+        SimpleMapProperty<Element, Double> e = new SimpleMapProperty<>();
+        e.putAll(elements);
+
+        return e;
     }
 }

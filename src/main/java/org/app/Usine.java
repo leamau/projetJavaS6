@@ -271,8 +271,14 @@ public class Usine {
                 System.out.println("PERS QUAL : " + val);
                 int pq = Integer.parseInt(val); // Not used yet.
 
+                // Transformation des entrées et sorties.
+                SimpleMapProperty<Element, Double> e = new SimpleMapProperty<>();
+                e.putAll(entrees);
+                SimpleMapProperty<Element, Double> s = new SimpleMapProperty<>();
+                s.putAll(entrees);
+
                 // Construction de la chaine à ajouter.
-                Chaine c = new Chaine(code, nom, temps, entrees, sorties);
+                Chaine c = new Chaine(code, nom, temps, e, s);
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
@@ -297,7 +303,7 @@ public class Usine {
 
     /**
      * Convertis une chaîne de caractère en élément.
-     * @param s la chaîne à convertir.
+     //* @param s la chaîne à convertir.
      * @return l'élément résultant sous forme d'Element.
      */
 /*    private SimpleMapProperty<Element,Integer> stringToElements(String s) {
@@ -309,7 +315,7 @@ public class Usine {
 
         return elements;
     }
-*/
+    /*
      * Fonction évitant d'insérer des chaînes en doublon.
      * @param c la chaîne dont on veut tester l'existence.
      * @param chaines la liste de chaînes à compléter.
