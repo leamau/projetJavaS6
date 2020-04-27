@@ -1,13 +1,14 @@
 package org.app;
 
 import javafx.beans.property.SimpleMapProperty;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Usine {
     private ArrayList<Element> elements;
@@ -20,7 +21,7 @@ public class Usine {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
         csvToElements();
-        csvToChaines();
+        this.chaines = csvToChaines(this.elements);
     }
 
     public static Usine getInstance() throws FileNotFoundException {
@@ -47,10 +48,14 @@ public class Usine {
     }
 
     public String toString(){
+        if(this.chaines == null)
+            System.out.println("HOUSTON NOUS AVONS UN PROBLEME");
         return "Uine : {\n " +
-                "Chaines :{\n"+this.chaines.toString()+"},"+
-                "Elements : {\n"+this.elements.toString()+"}\n"+
-                "}";
+                    "\tChaines : {" +
+                        "\n\t\t"+this.chaines.toString()+"}\n"+
+                    "\tElements : {" +
+                        "\n\t\t"+this.elements.toString()+"}\n"+
+                "\t}";
     }
 
     //TODO: gérer les quantitiés a acherter
@@ -195,9 +200,10 @@ public class Usine {
 
     /**
      * Enregistre les chaînes présentes dans le CSV.
+     * @param stock l'ensemble des éléments stockés dans l'usine.
      * @return l'ensemble sous forme d'une ArrayList.
      */
-    public void csvToChaines() {
+    public ArrayList<Chaine> csvToChaines(ArrayList<Element> stock) {
 
         // Le nom du CSV à extraire.
         final String FILENAME = "chaines";
@@ -206,11 +212,13 @@ public class Usine {
         try (Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/" + FILENAME + ".csv"))) {
 
             // L'ensemble des chaines.
-            ArrayList<Chaine> newChaines = new ArrayList<>();
+            ArrayList<Chaine> chaines = new ArrayList<>();
+
             // Compteur de chaines.
             int cpt = 0; // Pour une v2
 
             sc.useDelimiter(";");   //délimiter par virgule
+/*
             while (sc.hasNext())  //tant qu'il y a des lignes
             {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
@@ -227,33 +235,139 @@ public class Usine {
                 // Ajout de la chaine à l'ensemble des chaines.
                 newChaines.add(c);
             }
+*/
+
+            // Elimination de la première ligne du csv.
+            sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next(); sc.next();
+
+            while (sc.hasNext())  // Tant qu'il y a des lignes.
+            {
+                // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
+
+                /*
+                VERIFICATION DE LA VALEUR DES VARIABLES A CHAQUE INSTANT
+                NECESSITE DE VIRER LA VARIABLE VAL
+                REMETTRE SC.NEXT() COMME ASSIGNATION
+                 */
+                String val = sc.next();
+                System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
+                String code = val;
+                val = sc.next();
+                System.out.println("NOM : " + val);
+                String nom = val;
+                val = sc.next();
+                System.out.println("ENTREE(S) : " + val);
+                HashMap<Element, Double> entrees = stringToElements(val, stock);
+                val = sc.next();
+                System.out.println("SORTIES(S) : " + val);
+                HashMap<Element, Double> sorties = stringToElements(val, stock);
+                val = sc.next();
+                System.out.println("TEMPS : " + val);
+                int temps = Integer.parseInt(val);
+                val = sc.next();
+                System.out.println("PERS NON-QUAL : " + val);
+                int pnq = Integer.parseInt(val); // Not used yet.
+                val = sc.next();
+                System.out.println("PERS QUAL : " + val);
+                int pq = Integer.parseInt(val); // Not used yet.
+
+                // Construction de la chaine à ajouter.
+                Chaine c = new Chaine(code, nom, temps, entrees, sorties);
+
+                // Ajout de la chaine à l'ensemble des chaines.
+                if(!chaineExist(c, this.chaines)) {
+                    chaines.add(c);
+                } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
+            }
+
             // Fermeture du scanner.
             sc.close();
 
             // Retour de l'arraylist construite.
-            //return chaines;
-            this.chaines = newChaines;
+            return chaines;
 
             // En cas d'erreur.
         } catch (Exception e) {
             // Code to handle error.
-            //return null;
             System.out.println(e.getMessage());
+            return null;
         }
     }
+
 
     /**
      * Convertis une chaîne de caractère en élément.
      * @param s la chaîne à convertir.
      * @return l'élément résultant sous forme d'Element.
      */
-    private SimpleMapProperty<Element,Integer> stringToElements(String s) {
+/*    private SimpleMapProperty<Element,Integer> stringToElements(String s) {
 
         // Exemple d'entrée : (E012,3),(E014,5),(E011,2),(E001,3)
         // Exemple de sortie : (E019,10)
 
         SimpleMapProperty<Element,Integer> elements = new SimpleMapProperty<>();
 
+        return elements;
+    }
+*/
+     * Fonction évitant d'insérer des chaînes en doublon.
+     * @param c la chaîne dont on veut tester l'existence.
+     * @param chaines la liste de chaînes à compléter.
+     * @return true si la chaîne testée existe déjà dans la liste.
+     */
+    private boolean chaineExist(final Chaine c, final ArrayList<Chaine> chaines) {
+
+        boolean exist = false;
+
+        // Parcours des chaines de la liste.
+        for (Chaine ch : chaines) {
+            // Si les deux chaînes sont identiques (même codeC).
+            if (ch.equals(c))
+                // On affecte true à la variable.
+                exist = true;
+        }
+        return exist;
+    }
+
+    /**
+     * Convertis une chaîne de caractère en élément.
+     * @param s la chaîne à convertir.
+     * @param stock l'ensemble des éléments stockés dans l'usine.
+     * @return l'élément résultant sous forme d'Element.
+     */
+    private HashMap<Element, Double> stringToElements(final String s, ArrayList<Element> stock) {
+
+        // Exemple d'entrée : (E012,3)/(E014,5)/(E011,2)/(E001,3).
+        // Exemple de sortie : (E019,10).
+        // Découpage de la chaîne des entrées.
+        String[] elementsS = s.split(Pattern.quote("/"));
+        HashMap<Element, Double> elements = new HashMap<>();
+
+        // Parcours des éléments.
+        for(String e : elementsS) {
+            // On traîte un élément tel que (E012,3).
+            // On retire les parenthèses.
+            String e2 = e.replaceAll("[()]", "");
+
+            // On traîte un élément tel que E012,3.
+            String[] eData = e2.split(Pattern.quote(","));
+
+            // On a donc un tableau eData contenant [E012][3].
+            // On récupère l'élément via son code.
+            String codeE = eData[0];
+
+            // On récupère la quantité.
+            double qteE = Double.parseDouble(eData[1]);
+
+            // On parcours tous les éléments en stock.
+            for(Element elem : stock) {
+                // Si le code récupéré est identique à un code en stock.
+                if(elem.getCodeE() == codeE) {
+                    elements.put(elem, qteE);
+                }
+            }
+        }
+        // On renvoie la liste ainsi complétée.
         return elements;
     }
 }

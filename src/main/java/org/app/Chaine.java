@@ -31,12 +31,12 @@ public class Chaine {
      * éléments en entrée de la chaine
      * <qte,element>
      */
-    private SimpleMapProperty<Element,Integer> elementsEntree;
+    private SimpleMapProperty<Element,Double> elementsEntree;
     /**
      * éléments en sortie de la chaine
      * <qte,element>
      */
-    private SimpleMapProperty<Element,Integer> elementsSortie;
+    private SimpleMapProperty<Element,Double> elementsSortie;
 
     /**
      * constructeur de la classe avec le code incrémenté automatiquement
@@ -59,8 +59,8 @@ public class Chaine {
                 this.codeC = new SimpleStringProperty("C" + lastValueId);
                 break;
         }
-        this.elementsEntree = new SimpleMapProperty<Element,Integer>();
-        this.elementsSortie = new SimpleMapProperty<Element,Integer>();
+        this.elementsEntree = new SimpleMapProperty<Element,Double>();
+        this.elementsSortie = new SimpleMapProperty<Element,Double>();
         if(activation >= 0){
             this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
@@ -88,8 +88,8 @@ public class Chaine {
                 this.codeC = new SimpleStringProperty("C" + lastValueId);
                 break;
         }
-        this.elementsEntree = new SimpleMapProperty<Element,Integer>();
-        this.elementsSortie = new SimpleMapProperty<Element,Integer>();
+        this.elementsEntree = new SimpleMapProperty<Element,Double>();
+        this.elementsSortie = new SimpleMapProperty<Element,Double>();
         this.niveauActivation = new SimpleIntegerProperty(0);
     }
 
@@ -102,11 +102,13 @@ public class Chaine {
      * @param sorties l'ensemble des éléments en sortie et leur quantité.
      * @throws IllegalArgumentException
      */
+
     public Chaine(final String code, final String nom, final int temps, final SimpleMapProperty<Element,Integer> entrees, final SimpleMapProperty<Element,Integer> sorties)  throws IllegalArgumentException {
         this.codeC = new SimpleStringProperty(code);
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
+
         if(temps >= 0) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
@@ -118,8 +120,8 @@ public class Chaine {
         double valeurVente = 0;
         double valeurAchat = 0;
         /*pour chaque élément en entrée*/
-        for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
-            Integer qteElementEntree = entree.getValue();
+        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
+            Double qteElementEntree = entree.getValue();
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
@@ -127,8 +129,8 @@ public class Chaine {
                 throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
-                for(Map.Entry<Element,Integer> sortie : this.elementsSortie.entrySet()) {
-                    Integer qteElementSortie = entree.getValue();
+                for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
+                    Double qteElementSortie = entree.getValue();
                     Element elementSortie = entree.getKey();
                     valeurVente += elementSortie.getPrixVente();
                     elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*this.getNiveauActivation());
@@ -142,13 +144,13 @@ public class Chaine {
 
     @Override
     public String toString() {
-        return "Chaine{" +
-                "codeC='" + codeC + '\'' +
-                ", nom='" + nom + '\'' +
-                ", niveauActivation=" + niveauActivation +
-                ", elementsEntree=" + elementsEntree +
-                ", elementsSortie=" + elementsSortie +
-                '}';
+        return "Chaine {\n" +
+                "\tcodeC = " + codeC +
+                "\tnom = " + nom +
+                "\tniveauActivation = " + niveauActivation +
+                "\telementsEntree = " + elementsEntree +
+                "\telementsSortie = " + elementsSortie +
+                "\n}";
     }
 
     /**
@@ -157,7 +159,7 @@ public class Chaine {
      */
     public String ToStringElementsEnEntree(){
         String valeurToString = "";
-            for(Map.Entry<Element,Integer> entree : this.elementsEntree.entrySet()) {
+            for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
                 valeurToString += "\n"+entree.getValue().toString() + " * "+entree.getKey();
             }
         return  valeurToString;
@@ -169,7 +171,7 @@ public class Chaine {
      */
     public String ToStringElementsEnSortie(){
         String valeurToString = "";
-        for(Map.Entry<Element,Integer> sortie : this.elementsSortie.entrySet()) {
+        for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
             valeurToString += "\n"+sortie.getValue().toString() + " * "+sortie.getKey();
         }
         return  valeurToString;
@@ -197,6 +199,13 @@ public class Chaine {
             elements.add(entree.getKey());
         }
         return elements;
+
+    @Override
+    public boolean equals(Object o) {
+        boolean res = false;
+        if((o instanceof Chaine) && (((Chaine) o).getCodeC() == this.codeC))
+            res = true;
+        return res;
     }
 
     //getters & setters
@@ -254,6 +263,7 @@ public class Chaine {
     }
 
     public SimpleMapProperty<Element, Integer> elementsSortieProperty() {
+
         return elementsSortie;
     }
 
