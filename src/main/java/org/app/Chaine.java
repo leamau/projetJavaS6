@@ -39,6 +39,18 @@ public class Chaine {
     private SimpleMapProperty<Element,Double> elementsSortie;
 
     /**
+     * personnel qualifié convoqué sur la chaine
+     * <PersonnelQualifié,nbHeuresSurLaChaine>
+     */
+    private SimpleMapProperty<PersonnelQualifie,Double> PersonnelsQualifiesConvoque;
+
+    /**
+     * personnel non qualifié convoqué sur la chaine
+     * <PersonnelNonQualifié,nbHeuresSurLaChaine>
+     */
+    private SimpleMapProperty<PersonnelNonQualifie,Double> PersonnelsNonQualifiesConvoque;
+
+    /**
      * constructeur de la classe avec le code incrémenté automatiquement
      * @param nom : nom de la chaine
      * @param activation : niveau d'activation de la chaine
