@@ -15,12 +15,16 @@ public class Usine {
 
     private ArrayList<Chaine>  chaines;
 
+    private ArrayList<Personnel>  personnels;
+
     private static Usine instance = null;
 
     private Usine() throws FileNotFoundException {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
+        this.personnels = new ArrayList<Personnel>();
         csvToElements();
+        csvToPersonnel();
         this.chaines = csvToChaines(this.elements);
     }
 
@@ -47,14 +51,24 @@ public class Usine {
         this.chaines = chaines;
     }
 
+    public ArrayList<Personnel> getPersonnels() {
+        return personnels;
+    }
+
+    public void setPersonnels(ArrayList<Personnel> personnels) {
+        this.personnels = personnels;
+    }
+
     public String toString(){
         if(this.chaines == null)
-            System.out.println("HOUSTON NOUS AVONS UN PROBLEME");
+            System.out.println("ERREUR toString Chaine");
         return "Uine : {\n " +
                     "\tChaines : {" +
                         "\n\t\t"+this.chaines.toString()+"}\n"+
                     "\tElements : {" +
                         "\n\t\t"+this.elements.toString()+"}\n"+
+                    "\tPersonnels : {" +
+                        "\n\t\t"+this.personnels.toString()+"}\n"+
                 "\t}";
     }
 
@@ -76,7 +90,7 @@ public class Usine {
         }
         sc.close();  //fermet scanner
 
-        System.out.println(affiche);
+        //System.out.println(affiche);
     }
 
     /**
@@ -175,7 +189,7 @@ public class Usine {
                     cptTours2 = 0;
                     int i = 0;
                     boolean trouve = false;
-                    System.out.println("code: "+codeE+"; achat: "+prixAchat+"; vente: "+prixVente+"; demande: "+demande);
+                    //System.out.println("code: "+codeE+"; achat: "+prixAchat+"; vente: "+prixVente+"; demande: "+demande);
                     //chercher l'élément avec le bon code
                     while ( i < newElements.size() && !trouve) {
                         //System.out.println(newElements.get(i).getCodeE()+" "+codeE);  //afficher la ligne
@@ -250,25 +264,25 @@ public class Usine {
                 REMETTRE SC.NEXT() COMME ASSIGNATION
                  */
                 String val = sc.next();
-                System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
+                //System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
                 String code = val;
                 val = sc.next();
-                System.out.println("NOM : " + val);
+                //System.out.println("NOM : " + val);
                 String nom = val;
                 val = sc.next();
-                System.out.println("ENTREE(S) : " + val);
+                //System.out.println("ENTREE(S) : " + val);
                 HashMap<Element, Double> entrees = stringToElements(val, stock);
                 val = sc.next();
-                System.out.println("SORTIES(S) : " + val);
+                //System.out.println("SORTIES(S) : " + val);
                 HashMap<Element, Double> sorties = stringToElements(val, stock);
                 val = sc.next();
-                System.out.println("TEMPS : " + val);
+                //System.out.println("TEMPS : " + val);
                 int temps = Integer.parseInt(val);
                 val = sc.next();
-                System.out.println("PERS NON-QUAL : " + val);
+                //System.out.println("PERS NON-QUAL : " + val);
                 int pnq = Integer.parseInt(val); // Not used yet.
                 val = sc.next();
-                System.out.println("PERS QUAL : " + val);
+                //System.out.println("PERS QUAL : " + val);
                 int pq = Integer.parseInt(val); // Not used yet.
 
                 // Transformation des entrées et sorties.
@@ -279,7 +293,7 @@ public class Usine {
                 s.putAll(sorties);
 
                 // Construction de la chaine à ajouter.
-                Chaine c = new Chaine(code, nom, temps, e, s);
+                Chaine c = new Chaine(code, nom, temps, e, s,pnq,pq);
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
@@ -301,6 +315,88 @@ public class Usine {
         }
     }
 
+
+
+    /**
+     * permet de convertir Prix.csv et elements.csv en un Objet Element
+     * @return
+     */
+    public void csvToPersonnel() throws FileNotFoundException {
+        //TODO:optimiser le code
+        ArrayList<Personnel> newPersonnels = new ArrayList<Personnel>();
+        String id = "";
+        int cptTours = 0;
+        int cptLigne = 0;
+        double nbHeuresDispo = 0;
+        double nbHeuresAssignes = 0;
+        String nom = "";
+        String prenom="";
+        boolean disponibilite = false;
+        String qualification = "";
+
+        String value2 = "";
+        int cptTours2 = 0;
+
+        //créer le scanner pour le fichier prix.csv
+        Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Personnels.csv"));
+        sc2.useDelimiter(";");   //délimiter par virgule
+
+        while (sc2.hasNext())  //tant qu'il y a des lignes
+        {
+            value2 = sc2.next();
+
+            if(!value2.equals("Identifiant") && !value2.equals("Nom") && !value2.equals("Prenom") && !value2.equals("Qualification")&&!value2.contains("HeuresDispo")) {
+
+                //System.out.println("tour: "+cptTours2);
+                //Code;Achat;Vente;Demande
+                switch (cptTours2) {
+                    case 0:
+                        id = value2.substring(2,value2.length());
+                        //System.out.println(" id: "+id);
+                        break;
+                    case 1:
+                        nom = value2;
+                        //System.out.println("nom: "+value2);
+                        break;
+                    case 2:
+                        prenom =value2;
+                        //System.out.println("prenom: "+value2);
+
+                        break;
+                    case 3:
+                        qualification = value2;
+                        //System.out.println("qualification: "+value2 );
+                    case 4:
+                        if(!value2.contains("q")){
+                            nbHeuresDispo += Double.parseDouble(value2);
+                            //System.out.println("nbHeuresDispo: "+value2);
+                        }
+                        break;
+                }
+
+                if ((cptTours2 < 4)) {
+                    cptTours2++;
+                } else {
+                    if(qualification.equals("q")){
+                        PersonnelQualifie newPerso = new PersonnelQualifie(id,nom,prenom,nbHeuresDispo,0);
+                        newPersonnels.add(newPerso);
+                    }else{
+                        if(qualification.equals("nq")){
+                            PersonnelNonQualifie newPerso = new PersonnelNonQualifie(id,nom,prenom,nbHeuresDispo,0);
+                            newPersonnels.add(newPerso);
+                        }
+                    }
+                    cptTours2 = 0;
+                }
+                //System.out.println(value2);  //afficher la ligne
+            }
+        }
+        sc2.close();  //fermet scanner
+
+        //System.out.println(newPersonnels.toString());
+
+        this.personnels = newPersonnels;
+    }
 
     /**
      * Convertis une chaîne de caractère en élément.

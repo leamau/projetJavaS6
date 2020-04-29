@@ -1,8 +1,5 @@
 package org.test;
-import org.app.Chaine;
-import org.app.ConversionsCsv;
-import org.app.Element;
-import org.app.Usine;
+import org.app.*;
 
 import java.io.*;
 import java.util.Map;
@@ -28,6 +25,8 @@ public class TestReadingCsv{
         }
         System.out.println(valeurToString);*/
 
-        System.out.println(Usine.getInstance().toString());
+
+
+        System.out.println(Usine.getInstance().getPersonnels().toString());
     }
 }

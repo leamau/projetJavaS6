@@ -58,6 +58,7 @@ public class Personnel {
         this.prenom = new SimpleStringProperty(prenom);
         this.nbHeuresAssignes = new SimpleDoubleProperty(nbAssigne);
         this.nbHeuresDispo = new SimpleDoubleProperty(nbDispo);
+        this.etreDisponible();
     }
 
     /**
@@ -74,6 +75,7 @@ public class Personnel {
         this.prenom = new SimpleStringProperty(prenom);
         this.nbHeuresAssignes = new SimpleDoubleProperty(nbAssigne);
         this.nbHeuresDispo = new SimpleDoubleProperty(nbDispo);
+        this.etreDisponible();
     }
 
     /**
@@ -166,6 +168,18 @@ public class Personnel {
 
     public void setNbHeuresAssignes(double nbHeuresAssignes) {
         this.nbHeuresAssignes.set(nbHeuresAssignes);
+    }
+
+    public String toString(){
+
+        return "Personne{" +
+                "id='" + this.id + '\'' +
+                ", nom='" + this.nom + '\'' +
+                ", prenom=" + this.prenom +
+                ", disponibilite=" + this.disponibilite +
+                ", nbHeuresAssignes=" + this.nbHeuresAssignes +
+                ", nbHeuresDispo=" + this.nbHeuresDispo +
+                "}\n";
     }
 
 }
