@@ -27,7 +27,7 @@ public class ConversionsCsv {
         }
         sc.close();  //fermet scanner
 
-        System.out.println(affiche);
+        //System.out.println(affiche);
     }
 
     /**
@@ -101,21 +101,21 @@ public class ConversionsCsv {
                 switch (cptTours2) {
                     case 0:
                         codeE = value2.substring(2,value2.length());
-                        System.out.println("code: "+value2);
+                        //System.out.println("code: "+value2);
                         break;
                     case 1:
                         prixAchat = (value2.equals("NA"))?-1:Double.parseDouble(value2);
-                        System.out.println("achat: "+value2);
+                        //System.out.println("achat: "+value2);
 
                         break;
                     case 2:
                         prixVente =(value2.equals("NA"))?-1:Double.parseDouble(value2);
-                        System.out.println("vente: "+value2);
+                        //System.out.println("vente: "+value2);
 
                         break;
                     case 3:
                         demande =(value2.equals("NA"))?-1:Integer.parseInt(value2);
-                        System.out.println("demande: "+value2);
+                        //System.out.println("demande: "+value2);
 
                         break;
                 }
@@ -126,7 +126,7 @@ public class ConversionsCsv {
                     cptTours2 = 0;
                     int i = 0;
                     boolean trouve = false;
-                    System.out.println("code: "+codeE+"; achat: "+prixAchat+"; vente: "+prixVente+"; demande: "+demande);
+                    //System.out.println("code: "+codeE+"; achat: "+prixAchat+"; vente: "+prixVente+"; demande: "+demande);
 
                     //chercher l'élément avec le bon code
                     while ( i<newElements.size() && !trouve) {

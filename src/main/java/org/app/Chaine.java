@@ -1,5 +1,6 @@
 package org.app;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +39,27 @@ public class Chaine {
      * <qte,element>
      */
     private SimpleMapProperty<Element,Double> elementsSortie;
+    /**
+     * nombre de personnel non qualifié nécessaire au déroulement de la chaine
+     *
+     */
+    private SimpleIntegerProperty nbPersonnelNQNecessaire;
+    /**
+     * nombre de personnel qualifié nécessaire au déroulement de la chaine
+     *
+     */
+    private SimpleIntegerProperty nbPersonnelQNecessaire;
+    /**
+     * personnel qualifié convoqué sur la chaine
+     * <PersonnelQualifié,nbHeuresSurLaChaine>
+     */
+    private SimpleMapProperty<PersonnelQualifie,Double> PersonnelsQualifiesConvoque;
+
+    /**
+     * personnel non qualifié convoqué sur la chaine
+     * <PersonnelNonQualifié,nbHeuresSurLaChaine>
+     */
+    private SimpleMapProperty<PersonnelNonQualifie,Double> PersonnelsNonQualifiesConvoque;
 
     /**
      * constructeur de la classe avec le code incrémenté automatiquement
@@ -61,6 +84,10 @@ public class Chaine {
         }
         this.elementsEntree = new SimpleMapProperty<Element,Double>();
         this.elementsSortie = new SimpleMapProperty<Element,Double>();
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
+        this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
         if(activation >= 0){
             this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
@@ -91,6 +118,10 @@ public class Chaine {
         this.elementsEntree = new SimpleMapProperty<Element,Double>();
         this.elementsSortie = new SimpleMapProperty<Element,Double>();
         this.niveauActivation = new SimpleIntegerProperty(0);
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
+        this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
     }
 
     /**
@@ -114,6 +145,27 @@ public class Chaine {
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
         }
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
+        this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
+    }
+
+    public Chaine(final String code, final String nom, final int temps, final SimpleMapProperty<Element,Double> entrees, final SimpleMapProperty<Element,Double> sorties, final int nbNQ,final int nbQ)  throws IllegalArgumentException {
+        this.codeC = new SimpleStringProperty(code);
+        this.nom = new SimpleStringProperty(nom);
+        this.elementsEntree = new SimpleMapProperty<>(entrees);
+        this.elementsSortie = new SimpleMapProperty<>(sorties);
+
+        if(temps >= 0) {
+            this.niveauActivation = new SimpleIntegerProperty(temps);
+        } else {
+            throw new IllegalArgumentException("le niveau d'activation doit être positif");
+        }
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(nbNQ);
+        this.nbPersonnelQNecessaire = new SimpleIntegerProperty(nbQ);
     }
 
     public double calculIndicateurValeur() throws IllegalArgumentException{
@@ -138,9 +190,58 @@ public class Chaine {
             }
         }
         return valeurVente - valeurAchat;
+
     }
 
     //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
+    public double calculIndicateurCommande() throws IllegalArgumentException{
+        //par rapport aux demandes combien de commandes sont réalisés
+        //calculer le pourcentage de commandes satisfaites par rapport à la demande
+        //1 pourcentage Demande
+        //2 pourcentage accomplis
+        //3 res = 1-2
+        return 0;
+    }
+
+    /**
+     * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
+     * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
+     */
+    public boolean calculIndicateurPersonnel() throws FileNotFoundException {
+
+        //on compare le nombre de personnel necessaire au nombre disponible
+        boolean chaineOk = false;
+        int nbPersonnelsQDispo = 0;
+        int nbPersonnelsNQDispo = 0;
+        for (Personnel perso:Usine.getInstance().getPersonnels()) {
+            //recherche des personnels Disponibles
+            if(perso.etreDisponible() && perso.getClass().toString().equals("org.app.PersonnelQualifie")){
+                nbPersonnelsQDispo ++;
+            }else if(perso.etreDisponible() && perso.getClass().toString().equals("org.app.PersonnelNonQualifie")){
+                nbPersonnelsNQDispo ++;
+            }
+        }
+        //si le qualif necessaire est > au disponible
+        if(this.nbPersonnelQNecessaire.get() > nbPersonnelsQDispo){
+            //chaine non ok
+            chaineOk = false;
+        }else{//sinon
+            //si le non quali necessaire est supèrieur au disponible
+            if(this.nbPersonnelNQNecessaire.get() > nbPersonnelsNQDispo){
+                //si le non quali Necessaire est > quali Disponible
+                if(this.nbPersonnelNQNecessaire.get() > nbPersonnelsQDispo){
+                    //chaine impossible
+                    chaineOk = false;
+                }else{
+                    chaineOk = true;
+                }
+            }else{
+                chaineOk = true;
+            }
+        }
+
+        return chaineOk;
+    }
 
     @Override
     public String toString() {

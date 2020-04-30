@@ -1,15 +1,13 @@
 package org.test;
 
-import org.app.Chaine;
-import org.app.Element;
-import org.app.Unite;
+import org.app.*;
 
+import java.io.FileNotFoundException;
 import java.lang.System;
 
 public class TestCalculs {
-    public static void main(String [] args)
-    {
-        //création d'elements
+    public static void main(String [] args) throws FileNotFoundException {
+     /*   //création d'elements
         Element cookie = new Element("cookie",10,1.4,2,1, "g");
         Element chocolat  = new Element("chocolat",5,0.5,1,1,"g");
         Element beurre = new Element("beurre",8,0.8,1.5,1,"g");
@@ -24,6 +22,9 @@ public class TestCalculs {
 
         System.out.println(ch1.toString());
         System.out.println("indicateur de valeur de la chaine 1 : { " +ch1.calculIndicateurValeur()+" }");
+        */
+        PersonnelQualifie perso = new PersonnelQualifie("n","n",3,3);
+            System.out.println("\n\n"+perso.getClass().toString());
 
 
 
