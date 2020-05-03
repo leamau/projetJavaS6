@@ -39,6 +39,16 @@ public class AchatsController implements Initializable {
         App.setRoot("Chaines");
     }
 
+    @FXML
+    public void switchToPersonnel() throws IOException {
+        App.setRoot("Personnels");
+    }
+
+    @FXML
+    private void switchToMenu() throws IOException {
+        App.setRoot("Menu");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nomElemAchats.setCellValueFactory(cellData -> cellData.getValue().nomProperty());

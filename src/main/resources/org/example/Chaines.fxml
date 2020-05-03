@@ -27,6 +27,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Button layoutX="563.0" layoutY="104.0" mnemonicParsing="false" opacity="0.73" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" underline="true" />
+      <Button layoutX="563.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToPersonnel" prefHeight="26.0" prefWidth="219.0" text="Visualisation du Personnel" />
+      <Button layoutX="33.0" layoutY="580.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour Menu" />
     </children>
 </AnchorPane>

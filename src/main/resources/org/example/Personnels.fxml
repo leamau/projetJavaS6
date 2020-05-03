@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PersonnelsController">
+    <children>
+        <TableView fx:id="tablePersonnels" layoutX="33.0" layoutY="143.0" prefHeight="418.0" prefWidth="838.0">
+            <columns>
+                <TableColumn fx:id="idPersonnel" prefWidth="84.80001831054688" text="Identifiant" />
+                <TableColumn fx:id="nomPersonnel" prefWidth="119.20000457763672" text="Nom" />
+                <TableColumn fx:id="prenomPersonnel" prefWidth="144.0" text="Prénom" />
+                <TableColumn fx:id="disponibilite" prefWidth="104.800048828125" text="Disponibilité" />
+                <TableColumn fx:id="nbHeureDispo" prefWidth="186.39999389648438" text="Nombre d'heures disponibles" />
+                <TableColumn fx:id="nbHeureAssignes" prefWidth="206.39996337890625" text="Nombre d'heures assignés" />
+            </columns>
+        </TableView>
+        <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
+        <Button layoutX="80.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
+        <Button layoutX="342.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
+        <Button layoutX="600.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Chaines" />
+        <Label layoutX="317.0" layoutY="27.0" prefHeight="60.0" prefWidth="270.0" text="Gestion du Personnel">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
+      <Button layoutX="33.0" layoutY="580.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour Menu" />
+    </children>
+</AnchorPane>

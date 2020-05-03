@@ -33,6 +33,16 @@ public class StocksController implements Initializable {
         App.setRoot("Chaines");
     }
 
+    @FXML
+    public void switchToPersonnel() throws IOException {
+        App.setRoot("Personnels");
+    }
+
+    @FXML
+    private void switchToMenu() throws IOException {
+        App.setRoot("Menu");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cdeElemStocks.setCellValueFactory(cellData -> cellData.getValue().codeEProperty());

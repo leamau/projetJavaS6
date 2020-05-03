@@ -197,6 +197,16 @@ public class ChaineController  implements Initializable {
         App.setRoot("Achats");
     }
 
+    @FXML
+    public void switchToPersonnel() throws IOException {
+        App.setRoot("Personnels");
+    }
+
+    @FXML
+    private void switchToMenu() throws IOException {
+        App.setRoot("Menu");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nomChaine.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
