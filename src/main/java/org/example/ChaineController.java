@@ -215,15 +215,15 @@ public class ChaineController  implements Initializable {
         elementSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
         codeChaine.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
 
-        mapElementE.put(new Element("Etest","nom","g"),3);
-        mapElementS.put(new Element("Etest2","nom2","g"),3);
+        //mapElementE.put(new Element("Etest","nom","g"),3);
+        //mapElementS.put(new Element("Etest2","nom2","g"),3);
 
         tableChaine.setItems(observableList);
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
             new Chaine("C001")
-            //,"nom",1,new SimpleMapProperty<>(mapElementE),new SimpleMapProperty<>(mapElementS)
+                    //, "nom",1, new ObservableMap<Element, Double>(mapElementE) , new ObservableMap<Element, Double>(mapElementS))
     );
 
 }
