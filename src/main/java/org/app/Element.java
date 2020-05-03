@@ -179,13 +179,13 @@ public class Element {
 	@Override
 	public String toString() {
 		return "Element{" +
-				"codeE='" + codeE + '\'' +
-				", nom='" + nom + '\'' +
-				", quantiteStock=" + quantiteStock +
-				", uniteMesure=" + uniteMesure +
-				", prixAchat=" + prixAchat +
-				", prixVente=" + prixVente +
-				", demande=" + demande +
+				"codeE='" + codeE.getValue() + '\'' +
+				", nom='" + nom.getValue() + '\'' +
+				", quantiteStock=" + quantiteStock.getValue() +
+				", uniteMesure=" + uniteMesure.getValue() +
+				", prixAchat=" + prixAchat.getValue() +
+				", prixVente=" + prixVente.getValue() +
+				", demande=" + demande.getValue() +
 				'}';
 	}
 

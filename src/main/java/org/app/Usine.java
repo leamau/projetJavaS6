@@ -1,13 +1,11 @@
 package org.app;
 
 import javafx.beans.property.SimpleMapProperty;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Usine {
@@ -472,5 +470,67 @@ public class Usine {
         }
         // On renvoie la liste ainsi complétée.
         return elements;
+    }
+
+    /**
+     * Méthode exportant au format txt l'état des chaînes.
+     * @return 0 si l'export a bien fonctionné.
+     */
+    public int exportChainesTxt() throws IOException {
+
+        // Nombre de chaînes écrites.
+        int n = 0;
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Gestion détaillée du nom du fichier.
+        String filePath = ""; // src/main/resources/org.export/ ?
+        String fileName = "simulation";
+        String fileDate = formatCourt.format(d);
+        String fileExtension = ".txt";
+        final String completeFileName = filePath + fileName + "-" + fileDate + fileExtension;
+
+        // Création du fichier.
+        File f = new File(completeFileName);
+        f.createNewFile();
+
+        // Objet écrivant dans le fichier.
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(completeFileName);
+            fw.write("=====================================\n");
+            fw.write("=====================================\n");
+            fw.write("= Simulation du " + formatStandard.format(d) + " =\n");
+            fw.write("=====================================\n");
+            fw.write("=====================================\n\n");
+
+            // Parcours des chaînes de l'usine.
+            for(Chaine c : this.chaines) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(c.toString() + "\n");
+
+                // Ajout des indicateurs disponibles pour chaque chaîne.
+                fw.write( "Indicateur de commande = " + c.calculIndicateurCommande() + "\n");
+                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeur() + "\n");
+                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnel() + "\n");
+                fw.write("=====================================\n\n");
+                n++;
+            }
+
+            // Fermeture du fileWriter.
+            fw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return -1;
+        }
+        return n;
     }
 }

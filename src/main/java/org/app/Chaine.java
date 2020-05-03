@@ -168,6 +168,11 @@ public class Chaine {
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(nbQ);
     }
 
+    /**
+     *
+     * @return
+     * @throws IllegalArgumentException
+     */
     public double calculIndicateurValeur() throws IllegalArgumentException{
         double valeurVente = 0;
         double valeurAchat = 0;
@@ -246,11 +251,11 @@ public class Chaine {
     @Override
     public String toString() {
         return "Chaine {\n" +
-                "\tcodeC = " + codeC +
-                "\tnom = " + nom +
-                "\tniveauActivation = " + niveauActivation +
-                "\telementsEntree = " + elementsEntree +
-                "\telementsSortie = " + elementsSortie +
+                "\tcodeC = " + codeC.getValue() +
+                "\tnom = " + nom.getValue() +
+                "\tniveauActivation = " + niveauActivation.getValue() +
+                "\telementsEntree = " + elementsEntree.toString() +
+                "\telementsSortie = " + elementsSortie.toString() +
                 "\n}";
     }
 
