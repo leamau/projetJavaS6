@@ -27,6 +27,7 @@ public class TestReadingCsv{
 
 
 
-        System.out.println(Usine.getInstance().getPersonnels().toString());
+        System.out.println(Usine.getInstance().getPersonnelsNonQualifies().toString());
+        System.out.println(Usine.getInstance().getPersonnelsQualifies().toString());
     }
 }
