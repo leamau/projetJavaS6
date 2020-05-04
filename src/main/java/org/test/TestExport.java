@@ -14,5 +14,6 @@ public class TestExport {
 
         // Export des chaînes en txt.
         Usine.getInstance().exportChainesTxt();
+        Usine.getInstance().exportPersonnelTxt();
     }
 }

@@ -1,0 +1,62 @@
+=====================================
+=====================================
+= Liste du Personnel au 2020/05/04 15:47:48 =
+=====================================
+=====================================
+
+Personne{id='StringProperty [value: P001]', nom='StringProperty [value: Thomsen]', prenom=StringProperty [value: Laura], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 20.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P002]', nom='StringProperty [value: Christensen]', prenom=StringProperty [value: Valdemar], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 35.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P003]', nom='StringProperty [value: Hatlem]', prenom=StringProperty [value: Ingrid], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 45.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P004]', nom='StringProperty [value: Medina]', prenom=StringProperty [value: Soledad], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 79.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P005]', nom='StringProperty [value: Garrett]', prenom=StringProperty [value: Javier], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 114.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P006]', nom='StringProperty [value: Rhodes]', prenom=StringProperty [value: Freddie], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 149.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P007]', nom='StringProperty [value: Silva]', prenom=StringProperty [value: Carlúcia], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 184.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P008]', nom='StringProperty [value: Omahony]', prenom=StringProperty [value: Lola], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 207.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P009]', nom='StringProperty [value: Harvey]', prenom=StringProperty [value: Zoe], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 261.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P010]', nom='StringProperty [value: Powell]', prenom=StringProperty [value: Olivia], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 284.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P011]', nom='StringProperty [value: Robinson]', prenom=StringProperty [value: Maria], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 300.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P012]', nom='StringProperty [value: Sales]', prenom=StringProperty [value: Orandino], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 312.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P013]', nom='StringProperty [value: Brooks]', prenom=StringProperty [value: Michael], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 327.0]}
+
+=====================================
+
+Personne{id='StringProperty [value: P014]', nom='StringProperty [value: Berger]', prenom=StringProperty [value: Willi], disponibilite=BooleanProperty [value: true], nbHeuresAssignes=DoubleProperty [value: 0.0], nbHeuresDispo=DoubleProperty [value: 356.0]}
+
+=====================================
+
