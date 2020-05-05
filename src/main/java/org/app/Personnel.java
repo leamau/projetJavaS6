@@ -173,12 +173,12 @@ public class Personnel {
     public String toString(){
 
         return "Personne{" +
-                "id='" + this.id + '\'' +
-                ", nom='" + this.nom + '\'' +
-                ", prenom=" + this.prenom +
-                ", disponibilite=" + this.disponibilite +
-                ", nbHeuresAssignes=" + this.nbHeuresAssignes +
-                ", nbHeuresDispo=" + this.nbHeuresDispo +
+                "id='" + this.id.getValue() + '\'' +
+                ", nom='" + this.nom.getValue() + '\'' +
+                ", prenom=" + this.prenom.getValue() +
+                ", disponibilite=" + this.disponibilite.getValue() +
+                ", nbHeuresAssignes=" + this.nbHeuresAssignes.getValue() +
+                ", nbHeuresDispo=" + this.nbHeuresDispo.getValue() +
                 "}\n";
     }
 
