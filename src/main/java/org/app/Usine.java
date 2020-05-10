@@ -263,7 +263,7 @@ public class Usine {
                  */
                 String val = sc.next();
                 //System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
-                String code = val;
+                String code = val.replace(System.getProperty("line.separator"), "");
                 val = sc.next();
                 //System.out.println("NOM : " + val);
                 String nom = val;
@@ -505,7 +505,9 @@ public class Usine {
             fw = new FileWriter(completeFileName);
             fw.write("=====================================\n");
             fw.write("=====================================\n");
+            fw.write("=                                   =\n");
             fw.write("= Simulation du " + formatStandard.format(d) + " =\n");
+            fw.write("=                                   =\n");
             fw.write("=====================================\n");
             fw.write("=====================================\n\n");
 
@@ -518,7 +520,7 @@ public class Usine {
                 // Ajout des indicateurs disponibles pour chaque chaîne.
                 fw.write( "Indicateur de commande = " + c.calculIndicateurCommande() + "\n");
                 fw.write( "Indicateur de valeur = " + c.calculIndicateurValeur() + "\n");
-                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnel() + "\n");
+                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnel() + "\n\n");
                 fw.write("=====================================\n\n");
                 n++;
             }
@@ -565,11 +567,13 @@ public class Usine {
         try {
 
             fw = new FileWriter(completeFileName);
-            fw.write("=====================================\n");
-            fw.write("=====================================\n");
+            fw.write("=============================================\n");
+            fw.write("=============================================\n");
+            fw.write("=                                           =\n");
             fw.write("= Liste du Personnel au " + formatStandard.format(d) + " =\n");
-            fw.write("=====================================\n");
-            fw.write("=====================================\n\n");
+            fw.write("=                                           =\n");
+            fw.write("=============================================\n");
+            fw.write("=============================================\n\n");
 
             // Parcours des chaînes de l'usine.
             for(Personnel p : this.personnels) {
@@ -578,7 +582,7 @@ public class Usine {
                 fw.write(p.toString() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=====================================\n\n");
+                fw.write("=============================================\n\n");
                 n++;
             }
 

@@ -248,14 +248,25 @@ public class Chaine {
         return chaineOk;
     }
 
+    public String toStringV2() {
+        String str = "Chaine {\n" +
+                    "\tcodeC = " + codeC.getValue() +
+                    "\tnom = " + nom.getValue() +
+                    "\tniveauActivation = " + niveauActivation.getValue();
+        for (Map.Entry<Element,Double> e : elementsEntree.get().entrySet()) {
+            e.getKey(); // Retourne chaque élément de la liste des entrées.
+        }
+        return str;
+    }
+
     @Override
     public String toString() {
         return "Chaine {\n" +
                 "\tcodeC = " + codeC.getValue() +
                 "\tnom = " + nom.getValue() +
                 "\tniveauActivation = " + niveauActivation.getValue() +
-                "\telementsEntree = " + elementsEntree.toString() +
-                "\telementsSortie = " + elementsSortie.toString() +
+                "\telementsEntree = " + elementsEntree.getName() +
+                "\telementsSortie = " + elementsSortie.getName() +
                 "\n}";
     }
 
