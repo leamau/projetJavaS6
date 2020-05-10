@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -16,14 +17,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.app.Chaine;
 import org.app.Element;
+import org.app.Usine;
 
 public class ChaineController  implements Initializable {
-    public TableView<Chaine> tableChaine;
-    public TableColumn<Chaine,String> codeC;
-    public TableColumn<Chaine,String> nom;
-    public TableColumn<Chaine,Integer> niveauActivation;
-    public TableColumn<Chaine, String> elementsEntree;
-    public TableColumn<Chaine, String> elementsSortie;
+
+    @FXML public TableView<Chaine> tableChaines;
+    @FXML public TableColumn<Chaine,String> codeC;
+    @FXML public TableColumn<Chaine,String> nom;
+    @FXML public TableColumn<Chaine,Integer> niveauActivation;
+    @FXML public TableColumn<Chaine, String> elementsEntree;
+    @FXML public TableColumn<Chaine, String> elementsSortie;
 
 
     ObservableMap<Element,Integer> mapElementE = new ObservableMap<>() {
@@ -219,13 +222,16 @@ public class ChaineController  implements Initializable {
 
         mapElementE.put(new Element("Etest","nom","g"),3);
         mapElementS.put(new Element("Etest2","nom2","g"),3);
-
-        tableChaine.setItems(observableList);
+        
+        try {
+            observableList.addAll(Usine.getInstance().getChaines());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        tableChaines.setItems(observableList);
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
-            new Chaine("C001")
-                    // "nom",1, new SimpleMapProperty<Element, Integer>(mapElementE) , new SimpleMapProperty<Element, Integer>(mapElementS))
     );
 
 }

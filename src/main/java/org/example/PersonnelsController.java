@@ -7,7 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.app.Personnel;
+import org.app.Usine;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,10 +51,16 @@ public class PersonnelsController implements Initializable {
         disponibilite.setCellValueFactory(cellData -> cellData.getValue().disponibiliteProperty());
         nbHeureDispo.setCellValueFactory(cellData -> cellData.getValue().nbHeuresDispoProperty().asObject());
         nbHeureAssignes.setCellValueFactory(cellData -> cellData.getValue().nbHeuresAssignesProperty().asObject());
+        try {
+            observableList.addAll(Usine.getInstance().getPersonnelsNonQualifies());
+            observableList.addAll(Usine.getInstance().getPersonnelsQualifies());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         tablePersonnels.setItems(observableList);
     }
 
     ObservableList<Personnel> observableList = FXCollections.observableArrayList(
-            new Personnel("lacaud", "aurelien", 8.0, 6.0)
+           // new Personnel("lacaud", "aurelien", 8.0, 6.0)
     );
 }
