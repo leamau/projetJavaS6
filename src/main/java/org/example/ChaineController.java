@@ -19,11 +19,13 @@ import org.app.Element;
 
 public class ChaineController  implements Initializable {
     public TableView<Chaine> tableChaine;
-    public TableColumn<Chaine,String> codeChaine;
-    public TableColumn<Chaine,String> nomChaine;
-    public TableColumn<Chaine,Integer> niveauAct;
-    public TableColumn<Chaine, String> elementEntree;
-    public TableColumn<Chaine, String> elementSortie;
+    public TableColumn<Chaine,String> codeC;
+    public TableColumn<Chaine,String> nom;
+    public TableColumn<Chaine,Integer> niveauActivation;
+    public TableColumn<Chaine, String> elementsEntree;
+    public TableColumn<Chaine, String> elementsSortie;
+
+
     ObservableMap<Element,Integer> mapElementE = new ObservableMap<>() {
         @Override
         public void addListener(MapChangeListener<? super Element, ? super Integer> mapChangeListener) {
@@ -209,21 +211,21 @@ public class ChaineController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nomChaine.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
-        niveauAct.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
-        elementEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
-        elementSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
-        codeChaine.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
+        codeC.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
+        nom.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
+        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+        elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
+        elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
 
-        //mapElementE.put(new Element("Etest","nom","g"),3);
-        //mapElementS.put(new Element("Etest2","nom2","g"),3);
+        mapElementE.put(new Element("Etest","nom","g"),3);
+        mapElementS.put(new Element("Etest2","nom2","g"),3);
 
         tableChaine.setItems(observableList);
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
             new Chaine("C001")
-                    //, "nom",1, new ObservableMap<Element, Double>(mapElementE) , new ObservableMap<Element, Double>(mapElementS))
+                    // "nom",1, new SimpleMapProperty<Element, Integer>(mapElementE) , new SimpleMapProperty<Element, Integer>(mapElementS))
     );
 
 }

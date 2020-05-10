@@ -11,12 +11,11 @@
     <children>
       <TableView fx:id="tableChaines" layoutX="33.0" layoutY="143.0" prefHeight="418.0" prefWidth="838.0">
          <columns>
-            <TableColumn fx:id="cdeChaines" prefWidth="112.79998016357422" text="Code Chaînes" />
-            <TableColumn fx:id="produitEntreeChaines" prefWidth="196.79998779296875" text="Produits en Entrée" />
-            <TableColumn fx:id="produitSortieChaines" prefWidth="176.80001831054688" text="Produits en Sortie" />
-            <TableColumn fx:id="tempsChaines" prefWidth="65.5999755859375" text="Niveau d'activation" />
-            <TableColumn fx:id="indValeurChaines" prefWidth="127.20001220703125" text="Indicateur de Valeur" />
-            <TableColumn fx:id="indCommandeChaines" prefWidth="160.00006103515625" text="Indicateur de Commande" />
+            <TableColumn fx:id="codeC" prefWidth="112.79998016357422" text="Code Chaînes" />
+            <TableColumn fx:id="nom" prefWidth="152.79998779296875" text="Nom" />
+            <TableColumn fx:id="niveauActivation" prefWidth="172.0" text="Niveau d'activation" />
+             <TableColumn fx:id="elementsEntree" prefWidth="185.60000610351562" text="Produits en Entree" />
+             <TableColumn fx:id="elementsSortie" prefWidth="214.4000244140625" text="Produits en Sortie" />
          </columns>
       </TableView>
       <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />

@@ -22,7 +22,7 @@
         <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
         <Button layoutX="80.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
         <Button layoutX="342.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
-        <Button layoutX="600.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Chaines" />
+        <Button layoutX="600.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Gestion des Chaînes de production" />
         <Label layoutX="317.0" layoutY="27.0" prefHeight="60.0" prefWidth="270.0" text="Gestion du Personnel">
             <font>
                 <Font size="28.0" />
