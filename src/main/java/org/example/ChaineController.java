@@ -13,8 +13,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.TextFieldTableCell;
 import org.app.Chaine;
 import org.app.Element;
 import org.app.Usine;
@@ -28,6 +31,14 @@ public class ChaineController  implements Initializable {
     @FXML public TableColumn<Chaine, String> elementsEntree;
     @FXML public TableColumn<Chaine, String> elementsSortie;
 
+    /**
+     * Cette méthode permattra à l'utilisateur d'utiliser un double clic sur un case pour modifier et valider son contenu
+     * @param edditedCell
+     */
+    public void doubleClicColonneEvent(TableColumn.CellEditEvent edditedCell){
+        Chaine modifNiveauAct = tableChaines.getSelectionModel().getSelectedItem();
+        modifNiveauAct.setNiveauActivation((int) edditedCell.getNewValue());
+    }
 
     ObservableMap<Element,Integer> mapElementE = new ObservableMap<>() {
         @Override
@@ -222,16 +233,19 @@ public class ChaineController  implements Initializable {
 
         mapElementE.put(new Element("Etest","nom","g"),3);
         mapElementS.put(new Element("Etest2","nom2","g"),3);
-        
+
         try {
             observableList.addAll(Usine.getInstance().getChaines());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         tableChaines.setItems(observableList);
+
+        //Mise à jour de la table pour prendre en compte les modifications sur la colonne Niveau D'activation
+        tableChaines.setEditable(true);
+        // niveauActivation.setCellValueFactory(TextFieldTableCell.forTableColumn());
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
     );
-
 }
