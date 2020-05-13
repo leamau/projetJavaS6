@@ -252,9 +252,16 @@ public class Chaine {
         String str = "Chaine {\n" +
                     "\tcodeC = " + codeC.getValue() +
                     "\tnom = " + nom.getValue() +
-                    "\tniveauActivation = " + niveauActivation.getValue();
+                    "\tniveauActivation = " + niveauActivation.getValue() +
+                    "\nentrées = ";
         for (Map.Entry<Element,Double> e : elementsEntree.get().entrySet()) {
-            e.getKey(); // Retourne chaque élément de la liste des entrées.
+            str += e.getKey().getCodeE(); // Possible d'utiliser .getNom() ?
+            str += "\t";
+        }
+        str += "\nsorties = ";
+        for (Map.Entry<Element,Double> e : elementsSortie.get().entrySet()) {
+            str += e.getKey().getCodeE();
+            str += "\t";
         }
         return str;
     }
