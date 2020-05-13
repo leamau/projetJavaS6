@@ -222,7 +222,7 @@ public class ChaineController  implements Initializable {
 
         mapElementE.put(new Element("Etest","nom","g"),3);
         mapElementS.put(new Element("Etest2","nom2","g"),3);
-        
+
         try {
             observableList.addAll(Usine.getInstance().getChaines());
         } catch (FileNotFoundException e) {
