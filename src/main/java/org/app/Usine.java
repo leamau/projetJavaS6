@@ -515,7 +515,7 @@ public class Usine {
             for(Chaine c : this.chaines) {
 
                 // Ajout du toString de chaque chaîne.
-                fw.write(c.toString() + "\n");
+                fw.write(c.toStringV2() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
                 fw.write( "Indicateur de commande = " + c.calculIndicateurCommande() + "\n");

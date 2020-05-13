@@ -1,14 +1,15 @@
 =====================================
 =====================================
 =                                   =
-= Simulation du 2020/05/10 15:47:12 =
+= Simulation du 2020/05/13 11:19:35 =
 =                                   =
 =====================================
 =====================================
 
 Chaine {
-	codeC = C001	nom = Chocolat.30%	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C001	nom = Chocolat.30%	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -16,8 +17,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C002	nom = Chocolat.40%	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C002	nom = Chocolat.40%	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -25,8 +27,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C003	nom = Chocolat.50%	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C003	nom = Chocolat.50%	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -34,8 +37,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C004	nom = Pate.biscuit.Q1	niveauActivation = 3	elementsEntree = 	elementsSortie = 
-}
+	codeC = C004	nom = Pate.biscuit.Q1	niveauActivation = 3
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -43,8 +47,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C005	nom = Pate.biscuit.Q2	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C005	nom = Pate.biscuit.Q2	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -52,8 +57,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C006	nom = Pate.biscuit.Q3	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C006	nom = Pate.biscuit.Q3	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -61,8 +67,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C007	nom = Gateau.marque.A	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C007	nom = Gateau.marque.A	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -70,8 +77,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C008	nom = Gateau.marque.B	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C008	nom = Gateau.marque.B	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -79,8 +87,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C009	nom = Gateau.marque.C	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C009	nom = Gateau.marque.C	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -88,8 +97,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C010	nom = Pate.levée.huile	niveauActivation = 3	elementsEntree = 	elementsSortie = 
-}
+	codeC = C010	nom = Pate.levée.huile	niveauActivation = 3
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -97,8 +107,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C011	nom = Pate.levée.beurre	niveauActivation = 3	elementsEntree = 	elementsSortie = 
-}
+	codeC = C011	nom = Pate.levée.beurre	niveauActivation = 3
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -106,8 +117,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C012	nom = Brioche	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C012	nom = Brioche	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -115,8 +127,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C013	nom = Brioche.beurre	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C013	nom = Brioche.beurre	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -124,8 +137,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C014	nom = Pain.chocolat.A	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C014	nom = Pain.chocolat.A	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -133,8 +147,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C015	nom = Pain.chocolat.B	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C015	nom = Pain.chocolat.B	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -142,8 +157,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C016	nom = Biscuit.marque.A	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C016	nom = Biscuit.marque.A	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -151,8 +167,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C017	nom = Biscuit.marque.B.et.C	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C017	nom = Biscuit.marque.B.et.C	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -160,8 +177,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C018	nom = Pate.crepes	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C018	nom = Pate.crepes	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -169,8 +187,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C019	nom = Crepes.natures	niveauActivation = 4	elementsEntree = 	elementsSortie = 
-}
+	codeC = C019	nom = Crepes.natures	niveauActivation = 4
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -178,8 +197,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C020	nom = Crepes.fourrees.choc	niveauActivation = 5	elementsEntree = 	elementsSortie = 
-}
+	codeC = C020	nom = Crepes.fourrees.choc	niveauActivation = 5
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -187,8 +207,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C021	nom = Crepes.fourres.abricot	niveauActivation = 5	elementsEntree = 	elementsSortie = 
-}
+	codeC = C021	nom = Crepes.fourres.abricot	niveauActivation = 5
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -196,8 +217,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C022	nom = Brownies.marque.A	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C022	nom = Brownies.marque.A	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -205,8 +227,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C023	nom = Brownies.marque.B	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C023	nom = Brownies.marque.B	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -214,8 +237,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C024	nom = Cookies.Choc	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C024	nom = Cookies.Choc	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -223,8 +247,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C025	nom = Cookies.Choc/Noix	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C025	nom = Cookies.Choc/Noix	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -232,8 +257,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C026	nom = Pate.Madeleines.Q1	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C026	nom = Pate.Madeleines.Q1	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -241,8 +267,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C027	nom = Pate.Madeleines.Q2	niveauActivation = 1	elementsEntree = 	elementsSortie = 
-}
+	codeC = C027	nom = Pate.Madeleines.Q2	niveauActivation = 1
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -250,8 +277,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C028	nom = Madeleines.marque.A	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C028	nom = Madeleines.marque.A	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -259,8 +287,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C029	nom = Madeleines.marque.B	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C029	nom = Madeleines.marque.B	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
@@ -268,8 +297,9 @@ Indicateur de personnel = false
 =====================================
 
 Chaine {
-	codeC = C030	nom = Madeleines.Choc	niveauActivation = 2	elementsEntree = 	elementsSortie = 
-}
+	codeC = C030	nom = Madeleines.Choc	niveauActivation = 2
+entrées = 
+sorties = 
 Indicateur de commande = 0.0
 Indicateur de valeur = 0.0
 Indicateur de personnel = false
