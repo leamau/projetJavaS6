@@ -285,17 +285,23 @@ public class Usine {
 
                 // Transformation des entrées et sorties.
                 SimpleMapProperty<Element, Double> e = new SimpleMapProperty();
+                System.out.println("e : " + e.toString());
+                System.out.println("entrees : " + entrees.toString());
                 e.putAll(entrees);
+                System.out.println("FLAG!");
 
                 SimpleMapProperty<Element, Double> s = new SimpleMapProperty();
                 s.putAll(sorties);
 
                 // Construction de la chaine à ajouter.
-                Chaine c = new Chaine(code, nom, temps, e, s,pnq,pq);
+                System.out.println("CHAINE A CREER : " + code + ", " + nom + ", " + temps + ", " + e.toString() + ", " + s.toString() + ", " + pnq + ", " + pq);
+                Chaine c = new Chaine(code, nom, temps, e, s, pnq, pq);
+                System.out.println("CHAINE CREEE :" + c.toStringV2());
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
                     chaines.add(c);
+                    System.out.println("CHAINE AJOUTEE");
                 } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
             }
 
@@ -459,16 +465,19 @@ public class Usine {
 
             // On récupère la quantité.
             double qteE = Double.parseDouble(eData[1]);
+            System.out.println("Données à ajouter : " + codeE + "," + qteE);
 
             // On parcours tous les éléments en stock.
             for(Element elem : stock) {
                 // Si le code récupéré est identique à un code en stock.
-                if(elem.getCodeE() == codeE) {
+                if(elem.getCodeE().equals((codeE))) {  // == Le programme continue correctement, .equals() le programme stop ?
                     elements.put(elem, qteE);
+                    System.out.println("Element ajouté : " + elem.toString());
                 }
             }
         }
         // On renvoie la liste ainsi complétée.
+        System.out.println("FINI");
         return elements;
     }
 
@@ -541,7 +550,6 @@ public class Usine {
      * @return 0 si l'export a bien fonctionné.
      */
     public int exportPersonnelTxt() throws IOException {
-
         // Nombre de chaînes écrites.
         int n = 0;
 

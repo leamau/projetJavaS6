@@ -292,6 +292,6 @@ public class Element {
 	 * @return vrai si les éléments ont le même codeE.
 	 */
 	public boolean equals(Element e) {
-		return (e.getCodeE().equals(this.codeE));
+		return (e.getCodeE().equals(this.codeE.getValue()));
 	}
 }
