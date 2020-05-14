@@ -32,9 +32,9 @@
       </Label>
       <Button layoutX="563.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToPersonnel" prefHeight="26.0" prefWidth="219.0" text="Visualisation du Personnel" />
       <Button layoutX="33.0" layoutY="580.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour Menu" />
-      <ComboBox id="choixSemainesListe" layoutX="732.0" layoutY="44.0" prefHeight="26.0" prefWidth="130.0" promptText="Choix Semaines">
+      <ComboBox fx:id="choixSemainesListe" layoutX="732.0" layoutY="44.0" prefHeight="26.0" prefWidth="130.0" promptText="Choix Semaines">
               <items>
-                  <FXCollections fx:factory="observableArrayList">
+                  <FXCollections fx:id="choixSemainesItems" fx:factory="observableArrayList">
                       <String fx:id="1" fx:value="1 semaines" />
                       <String fx:id="2" fx:value="2 semaines" />
                       <String fx:id="3" fx:value="3 semaines" />

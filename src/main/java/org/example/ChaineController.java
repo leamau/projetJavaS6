@@ -6,7 +6,10 @@ import java.net.URL;
 import java.util.*;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleMapProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
@@ -22,8 +25,7 @@ import org.app.Usine;
 
 public class ChaineController  implements Initializable {
 
-    @FXML public ComboBox<String> choixSemaines;
-
+    @FXML public ComboBox<String> choixSemainesListe;
     @FXML public TableView<Chaine> tableChaines;
     @FXML public TableColumn<Chaine, String> codeC;
     @FXML public TableColumn<Chaine, String> nom;
@@ -231,31 +233,29 @@ public class ChaineController  implements Initializable {
         niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
-        etatChaine.setCellValueFactory(cellData -> {
-            try {
-                 cellData.getValue().chaineIsOk(Integer.parseInt(choixSemaines.getId()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            return null;
-        });
-
-
+        System.out.println(choixSemainesListe.getValue());
         mapElementE.put(new Element("Etest","nom","g"),3);
         mapElementS.put(new Element("Etest2","nom2","g"),3);
-
-        try {
-            observableList.addAll(Usine.getInstance().getChaines());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        observableList.addAll(Usine.getInstance().getChaines());
         tableChaines.setItems(observableList);
 
-        //Mise à jour de la table pour prendre en compte les modifications sur la colonne Niveau D'activation
+        choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> selected, String oldValue, String newValue) {
+                System.out.println(newValue.substring(0,1));
+                etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
+                //valeur booléenne récupérée mais non affichée dans l'inteface 
+                System.out.println(etatChaine.getCellObservableValue(1));
+            }
+        });
+
+                //Mise à jour de la table pour prendre en compte les modifications sur la colonne Niveau D'activation
         tableChaines.setEditable(true);
         niveauActivation.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
     );
+
+
 }

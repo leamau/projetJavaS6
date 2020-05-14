@@ -55,11 +55,7 @@ public class AchatsController implements Initializable {
         prixAchat.setCellValueFactory(cellData -> cellData.getValue().prixAchatProperty().asObject());
         qteAcheter.setCellValueFactory(cellData -> cellData.getValue().qteAcheterProperty().asObject());
         coutTotal.setCellValueFactory(cellData -> cellData.getValue().coutTotal().asObject());
-        try {
-            observableList.addAll(Usine.getInstance().getElements());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        observableList.addAll(Usine.getInstance().getElements());
         tableAchats.setItems(observableList);
     }
 

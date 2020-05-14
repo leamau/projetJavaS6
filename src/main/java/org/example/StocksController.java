@@ -49,11 +49,7 @@ public class StocksController implements Initializable {
         nomStocks.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         uniteMesureStocks.setCellValueFactory(cellData -> cellData.getValue().uniteMesureProperty());
         quantiteStocks.setCellValueFactory(cellData -> cellData.getValue().quantiteStockProperty().asObject());
-        try {
-            observableList.addAll(Usine.getInstance().getElements());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        observableList.addAll(Usine.getInstance().getElements());
         tableStocks.setItems(observableList);
     }
 

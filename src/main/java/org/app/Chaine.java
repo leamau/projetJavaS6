@@ -1,9 +1,6 @@
 package org.app;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -173,9 +170,14 @@ public class Chaine {
      * vérifie la faisabilité de la chaine en fonction des personnels et des stocks
      * @return un booléen indiquant si la chaine est faisable ou non
      */
-    public boolean chaineIsOk(int nbSemaines) throws FileNotFoundException {
+    public boolean chaineIsOk(int nbSemaines) {
         //si il y a un indicateur de valeur poditif et assez de personnel disponible
         return (this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
+    }
+
+    public SimpleBooleanProperty chaineIsOkProperty(int nbSemaines) {
+        //si il y a un indicateur de valeur poditif et assez de personnel disponible
+        return new SimpleBooleanProperty((this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
     }
 
     /**
@@ -239,7 +241,7 @@ public class Chaine {
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
-    public boolean calculIndicateurPersonnelSemaine(int nbSemaines) throws FileNotFoundException {
+    public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
 
         //on compare le nombre de personnel necessaire au nombre disponible
         boolean chaineOk = false;

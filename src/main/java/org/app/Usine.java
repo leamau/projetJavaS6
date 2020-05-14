@@ -23,18 +23,26 @@ public class Usine {
 
     private int nbSemaines;
 
-    private Usine() throws FileNotFoundException {
+    private Usine()  {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
         this.personnelsQualifies = new ArrayList<PersonnelQualifie>();
         this.personnelsNonQualifies = new ArrayList<PersonnelNonQualifie>();
         this.nbSemaines = 1; //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
-        csvToElements();
-        csvToPersonnel();
+        try {
+            csvToElements();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            csvToPersonnel();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.chaines = csvToChaines(this.elements);
     }
 
-    public static Usine getInstance() throws FileNotFoundException {
+    public static Usine getInstance() {
         if (instance == null) {
             Usine.instance = new Usine();
         }

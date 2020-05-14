@@ -51,12 +51,8 @@ public class PersonnelsController implements Initializable {
         disponibilite.setCellValueFactory(cellData -> cellData.getValue().disponibiliteProperty());
         nbHeureDispo.setCellValueFactory(cellData -> cellData.getValue().nbHeuresDispoProperty().asObject());
         nbHeureAssignes.setCellValueFactory(cellData -> cellData.getValue().nbHeuresAssignesProperty().asObject());
-        try {
-            observableList.addAll(Usine.getInstance().getPersonnelsNonQualifies());
-            observableList.addAll(Usine.getInstance().getPersonnelsQualifies());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        observableList.addAll(Usine.getInstance().getPersonnelsNonQualifies());
+        observableList.addAll(Usine.getInstance().getPersonnelsQualifies());
         tablePersonnels.setItems(observableList);
     }
 
