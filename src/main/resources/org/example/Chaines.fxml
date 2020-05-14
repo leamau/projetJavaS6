@@ -31,15 +31,15 @@
       </Label>
       <Button layoutX="563.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToPersonnel" prefHeight="26.0" prefWidth="219.0" text="Visualisation du Personnel" />
       <Button layoutX="33.0" layoutY="580.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour Menu" />
-      <ComboBox id="choixSemainesListe" layoutX="732.0" layoutY="44.0" prefHeight="26.0" prefWidth="125.0" promptText="Choix Semaines">
+      <ComboBox id="choixSemainesListe" layoutX="732.0" layoutY="44.0" prefHeight="26.0" prefWidth="130.0" promptText="Choix Semaines">
               <items>
                   <FXCollections fx:factory="observableArrayList">
-                      <String fx:id="1" fx:value="Semaine 1" />
-                      <String fx:id="2" fx:value="Semaine 2" />
-                      <String fx:id="3" fx:value="Semaine 3" />
-                      <String fx:id="4" fx:value="Semaine 4" />
-                      <String fx:id="5" fx:value="Semaine 5" />
-                      <String fx:id="6" fx:value="Semaine 6" />
+                      <String fx:id="1" fx:value="1 semaines" />
+                      <String fx:id="2" fx:value="2 semaines" />
+                      <String fx:id="3" fx:value="3 semaines" />
+                      <String fx:id="4" fx:value="4 semaines" />
+                      <String fx:id="5" fx:value="5 semaines" />
+                      <String fx:id="6" fx:value="6 semaines" />
                   </FXCollections>
               </items>
       </ComboBox>

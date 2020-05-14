@@ -90,7 +90,7 @@ public class Chaine {
         this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
-        if(activation >= 0){
+        if(activation >= 0 && activation <=6){
             this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -142,7 +142,7 @@ public class Chaine {
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
 
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -158,7 +158,7 @@ public class Chaine {
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
