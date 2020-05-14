@@ -22,12 +22,15 @@ import org.app.Usine;
 
 public class ChaineController  implements Initializable {
 
+    @FXML public ComboBox<String> choixSemaines;
+
     @FXML public TableView<Chaine> tableChaines;
     @FXML public TableColumn<Chaine, String> codeC;
     @FXML public TableColumn<Chaine, String> nom;
     @FXML public TableColumn<Chaine, Integer> niveauActivation;
     @FXML public TableColumn<Chaine, String> elementsEntree;
     @FXML public TableColumn<Chaine, String> elementsSortie;
+    @FXML public TableColumn<Chaine, Boolean> etatChaine;
 
     /**
      * Permet à l'utilisateur d'utiliser un double clic sur un case pour modifier et valider son contenu
@@ -228,6 +231,15 @@ public class ChaineController  implements Initializable {
         niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
+        etatChaine.setCellValueFactory(cellData -> {
+            try {
+                 cellData.getValue().chaineIsOk(Integer.parseInt(choixSemaines.getId()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+
 
         mapElementE.put(new Element("Etest","nom","g"),3);
         mapElementS.put(new Element("Etest2","nom2","g"),3);

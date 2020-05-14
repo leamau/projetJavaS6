@@ -14,11 +14,12 @@
     <children>
       <TableView fx:id="tableChaines" layoutX="33.0" layoutY="143.0" prefHeight="418.0" prefWidth="838.0">
          <columns>
-            <TableColumn fx:id="codeC" prefWidth="112.79998016357422" text="Code Chaînes" />
-            <TableColumn fx:id="nom" prefWidth="152.79998779296875" text="Nom" />
-            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="172.0" text="Niveau d'activation" />
-             <TableColumn fx:id="elementsEntree" prefWidth="185.60000610351562" text="Produits en Entree" />
-             <TableColumn fx:id="elementsSortie" prefWidth="214.4000244140625" text="Produits en Sortie" />
+            <TableColumn fx:id="codeC" prefWidth="100.80001068115234" text="Code Chaînes" />
+            <TableColumn fx:id="nom" prefWidth="136.0" text="Nom" />
+            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="122.39996337890625" text="Niveau d'activation" />
+             <TableColumn fx:id="elementsEntree" prefWidth="167.20004272460938" text="Produits en Entree" />
+             <TableColumn fx:id="elementsSortie" prefWidth="182.4000244140625" text="Produits en Sortie" />
+            <TableColumn fx:id="etatChaine" prefWidth="129.5999755859375" text="Etat Chaîne" />
          </columns>
       </TableView>
       <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
