@@ -158,7 +158,6 @@ public class Chaine {
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
-
         if(temps >= 0) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
@@ -236,17 +235,6 @@ public class Chaine {
         }
         return valeurVente - valeurAchat;
     }
-
-    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
-    public double calculIndicateurCommande() throws IllegalArgumentException{
-        //par rapport aux demandes combien de commandes sont réalisés
-        //calculer le pourcentage de commandes satisfaites par rapport à la demande
-        //1 pourcentage Demande
-        //2 pourcentage accomplis
-        //3 res = 1-2
-        return 0;
-    }
-
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse

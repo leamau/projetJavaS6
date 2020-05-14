@@ -27,7 +27,7 @@ public class TestCalculs {
       /*  System.out.println("indicateur de valeur de la chaine "+Usine.getInstance().getChaines().get(0).getCodeC()+" : { " +Usine.getInstance().getChaines().get(0).calculIndicateurValeurSemaine(2)+" }");
         System.out.println("indicateur de Personnel de la chaine "+Usine.getInstance().getChaines().get(0).getCodeC()+" : { " +Usine.getInstance().getChaines().get(0).calculIndicateurPersonnelSemaine(46)+" }");
 */
-
+        System.out.println(Usine.getInstance().calculIndicateurCommande());
 
 
 

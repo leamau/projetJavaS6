@@ -25,9 +25,15 @@ public class TestReadingCsv{
         }
         System.out.println(valeurToString);*/
 
+       // System.out.println(Usine.getInstance().toString());
 
+        for (Chaine chaine: Usine.getInstance().getChaines() ) {
+            for(Map.Entry<Element, Double> sortie : chaine.getElementsSortie().entrySet()) {
+                System.out.println(sortie.toString());
+            }
+        }
 
-        System.out.println(Usine.getInstance().getPersonnelsNonQualifies().toString());
-        System.out.println(Usine.getInstance().getPersonnelsQualifies().toString());
+        /*System.out.println(Usine.getInstance().getPersonnelsNonQualifies().toString());
+        System.out.println(Usine.getInstance().getPersonnelsQualifies().toString());*/
     }
 }
