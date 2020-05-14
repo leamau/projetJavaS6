@@ -536,7 +536,7 @@ public class Chaine {
     }
 
     public void setNiveauActivation(int niveauActivation) {
-        this.niveauActivation.set(niveauActivation);
+        this.niveauActivation = new SimpleIntegerProperty(niveauActivation);
     }
 
     public ObservableMap<Element, Double> getElementsEntree() {
@@ -563,6 +563,5 @@ public class Chaine {
     public void setElementsSortie(ObservableMap<Element, Double> elementsSortie) {
         this.elementsSortie.set(elementsSortie);
     }
-
 
 }
