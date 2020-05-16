@@ -206,26 +206,56 @@ public class ChaineController  implements Initializable {
         }
     };
 
+    /**
+     * Permet d'appeler cette méthode sur un bouton export et d'exporter les chaines en fichier txt
+     * @throws IOException
+     */
+    @FXML
+    public void exportChaine() throws IOException {
+
+    }
+
+    /**
+     * Permet de se déplacer vers l'interface Stocks
+     * @throws IOException
+     */
     @FXML
     public void switchToStocks() throws IOException {
         App.setRoot("Stocks");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Achats
+     * @throws IOException
+     */
     @FXML
     public void switchToAchats() throws IOException {
         App.setRoot("Achats");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Personnel
+     * @throws IOException
+     */
     @FXML
     public void switchToPersonnel() throws IOException {
         App.setRoot("Personnels");
     }
 
+    /**
+     * Permet de se déplacer vers le Menu de l'application
+     * @throws IOException
+     */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("Menu");
     }
 
+    /**
+     * Permet d'initialiser le contenu de la page Chaine.fxml
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         codeC.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
@@ -233,29 +263,30 @@ public class ChaineController  implements Initializable {
         niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
-        System.out.println(choixSemainesListe.getValue());
-        mapElementE.put(new Element("Etest","nom","g"),3);
-        mapElementS.put(new Element("Etest2","nom2","g"),3);
-        observableList.addAll(Usine.getInstance().getChaines());
-        tableChaines.setItems(observableList);
-
+        //System.out.println(choixSemainesListe.getValue());
         choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> selected, String oldValue, String newValue) {
+                //id récupérer mais non affiché dans l'interface
                 System.out.println(newValue.substring(0,1));
                 etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
-                //valeur booléenne récupérée mais non affichée dans l'inteface 
+                //valeur booléenne récupérée mais non affichée dans l'inteface
                 System.out.println(etatChaine.getCellObservableValue(1));
             }
         });
 
-                //Mise à jour de la table pour prendre en compte les modifications sur la colonne Niveau D'activation
+        // mapElementE.put(new Element("Etest","nom","g"),3);
+        // mapElementS.put(new Element("Etest2","nom2","g"),3);
+
+        observableList.addAll(Usine.getInstance().getChaines());
+
+        tableChaines.setItems(observableList);
+
+        //Mise à jour de la table pour prendre en compte les modifications sur la colonne Niveau D'activation
         tableChaines.setEditable(true);
         niveauActivation.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     }
 
     ObservableList<Chaine> observableList = FXCollections.observableArrayList(
     );
-
-
 }

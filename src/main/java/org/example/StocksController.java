@@ -23,26 +23,47 @@ public class StocksController implements Initializable {
     public TableColumn<Element,String> uniteMesureStocks;
     public TableColumn<Element,Double> quantiteStocks;
 
+    /**
+     * Permet de se déplacer vers l'interface Achats
+     * @throws IOException
+     */
     @FXML
     private void switchToAchats() throws IOException {
         App.setRoot("Achats");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Chaine
+     * @throws IOException
+     */
     @FXML
     private void switchToChaines() throws IOException {
         App.setRoot("Chaines");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Personnel'
+     * @throws IOException
+     */
     @FXML
     public void switchToPersonnel() throws IOException {
         App.setRoot("Personnels");
     }
 
+    /**
+     * Permet de se déplacer vers le Menu de l'application
+     * @throws IOException
+     */
     @FXML
     private void switchToMenu() throws IOException {
         App.setRoot("Menu");
     }
 
+    /**
+     * Permet d'initialiser le contenu de la page Stocks.fxml
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cdeElemStocks.setCellValueFactory(cellData -> cellData.getValue().codeEProperty());

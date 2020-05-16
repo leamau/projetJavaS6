@@ -19,7 +19,7 @@
                 <TableColumn fx:id="nbHeureAssignes" prefWidth="206.39996337890625" text="Nombre d'heures assignés" />
             </columns>
         </TableView>
-        <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
+        <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" onAction="#exportPersonnel" prefWidth="165.0" text="Exporter le Résultat" />
         <Button layoutX="80.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
         <Button layoutX="342.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
         <Button layoutX="600.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Gestion des Chaînes de production" />
