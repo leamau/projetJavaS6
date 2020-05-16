@@ -1,6 +1,10 @@
 package org.app;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -71,8 +75,6 @@ public class Usine {
     }
 
     //TODO: gérer les quantitiés a acherter
-    //TODO: les extraction de CSV
-    //TODO: faire les arraylist en hashset ou juste vérifier avant insertion qu'il n'y a pas de doublons
 
     public void readCsv(String className) throws FileNotFoundException {
         String affiche= className+ " : \n";
@@ -210,6 +212,18 @@ public class Usine {
         this.elements = newElements;
     }
 
+    public synchronized void addElemtsEntree(HashMap<Element, Double> elements,ObservableMap<Element, Double> e){
+        elements.forEach((key, value) -> {
+            //System.out.println("Entrée : Key : " + key + " Value : " + value);
+            e.put(key,value);
+        });
+    }
+    public synchronized void addElemtsSortie(HashMap<Element, Double> elements,ObservableMap<Element, Double> s){
+        elements.forEach((key, value) -> {
+            //System.out.println("Entrée : Key : " + key + " Value : " + value);
+            s.put(key,value);
+        });
+    }
     /**
      * Enregistre les chaînes présentes dans le CSV.
      * @param stock l'ensemble des éléments stockés dans l'usine.
@@ -284,24 +298,45 @@ public class Usine {
                 int pq = Integer.parseInt(val); // Not used yet.
 
                 // Transformation des entrées et sorties.
-                SimpleMapProperty<Element, Double> e = new SimpleMapProperty();
-                System.out.println("e : " + e.toString());
-                System.out.println("entrees : " + entrees.toString());
-                e.putAll(entrees);
-                System.out.println("FLAG!");
+                ObservableMap<Element, Double> s = FXCollections.observableHashMap();
+                ObservableMap<Element, Double> e = FXCollections.observableHashMap();
 
-                SimpleMapProperty<Element, Double> s = new SimpleMapProperty();
-                s.putAll(sorties);
+                this.addElemtsEntree(entrees,e);
+                this.addElemtsSortie(sorties,s);
+
+                /*for(Map.Entry<Element, Double> sortie : sorties.entrySet()) {
+                    System.out.println("so " + sortie);
+                    s.put(sortie.getKey(),sortie.getValue());
+                }*/
+
+                /*for(Map.Entry<Element, Double> entree : entrees.entrySet()) {
+                    System.out.println("en "+entree);
+                    e.put(entree.getKey(),entree.getValue());
+                }*/
+
+                /*e.putAll(entrees);
+
+                s.putAll(sorties);*/
+                /*e.forEach((value,key)->{
+                    System.out.println("Entrée : Key : " + key + " Value : " + value);
+                });
+                s.forEach((value,key)->{
+                    System.out.println("Sortie : Key : " + key + " Value : " + value);
+                });*/
+                /*System.out.println("e "+e.toString());
+                System.out.println("s "+s.toString());*/
+
+
 
                 // Construction de la chaine à ajouter.
-                System.out.println("CHAINE A CREER : " + code + ", " + nom + ", " + temps + ", " + e.toString() + ", " + s.toString() + ", " + pnq + ", " + pq);
-                Chaine c = new Chaine(code, nom, temps, e, s, pnq, pq);
-                System.out.println("CHAINE CREEE :" + c.toStringV2());
+                //System.out.println("CHAINE A CREER : " + code + ", " + nom + ", " + temps + ", " + e.toString() + ", " + s.toString() + ", " + pnq + ", " + pq);
+                Chaine c = new Chaine(code, nom, temps, new SimpleMapProperty<>(e), new SimpleMapProperty<>(s), pnq, pq);
+                //System.out.println("CHAINE CREEE :" + c.toStringV2());
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
                     chaines.add(c);
-                    System.out.println("CHAINE AJOUTEE");
+                    //System.out.println("CHAINE AJOUTEE");
                 } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
             }
 
@@ -465,19 +500,18 @@ public class Usine {
 
             // On récupère la quantité.
             double qteE = Double.parseDouble(eData[1]);
-            System.out.println("Données à ajouter : " + codeE + "," + qteE);
+            //System.out.println("Données à ajouter : " + codeE + "," + qteE);
 
             // On parcours tous les éléments en stock.
             for(Element elem : stock) {
                 // Si le code récupéré est identique à un code en stock.
                 if(elem.getCodeE().equals((codeE))) {  // == Le programme continue correctement, .equals() le programme stop ?
                     elements.put(elem, qteE);
-                    System.out.println("Element ajouté : " + elem.toString());
+                    //System.out.println("Element ajouté : " + elem.toString());
                 }
             }
         }
         // On renvoie la liste ainsi complétée.
-        System.out.println("FINI");
         return elements;
     }
 

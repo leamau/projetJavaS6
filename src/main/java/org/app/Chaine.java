@@ -272,8 +272,8 @@ public class Chaine {
                 "\tcodeC = " + codeC.getValue() +
                 "\tnom = " + nom.getValue() +
                 "\tniveauActivation = " + niveauActivation.getValue() +
-                "\telementsEntree = " + elementsEntree.getName() +
-                "\telementsSortie = " + elementsSortie.getName() +
+                "\telementsEntree = { " + toStringElementsEnEntree() +"\n } "+
+                "\telementsSortie = { " + toStringElementsEnSortie()+"\n } "+
                 "\n}";
     }
 
@@ -281,10 +281,10 @@ public class Chaine {
      * transforme en string la liste des éléments en entrée
      * @return
      */
-    public String ToStringElementsEnEntree(){
+    public String toStringElementsEnEntree(){
         String valeurToString = "";
             for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
-                valeurToString += "\n"+entree.getValue().toString() + " * "+entree.getKey();
+                valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
             }
         return  valeurToString;
     }
@@ -293,20 +293,20 @@ public class Chaine {
      * transforme en string la liste des éléments en sortie
      * @return
      */
-    public String ToStringElementsEnSortie(){
+    public String toStringElementsEnSortie(){
         String valeurToString = "";
         for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
-            valeurToString += "\n"+sortie.getValue().toString() + " * "+sortie.getKey();
+            valeurToString += ""+sortie.getValue().toString() + " * "+sortie.getKey()+" , ";
         }
         return  valeurToString;
     }
 
     public SimpleStringProperty toStringElementsEnSortieProperty(){
-        return new SimpleStringProperty(ToStringElementsEnSortie());
+        return new SimpleStringProperty(toStringElementsEnSortie());
     }
 
     public SimpleStringProperty toStringElementsEnEntreeProperty(){
-        return new SimpleStringProperty(ToStringElementsEnEntree());
+        return new SimpleStringProperty(toStringElementsEnEntree());
     }
 
     public ObservableList<Element> getElementsEntreeProperty(){

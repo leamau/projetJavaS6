@@ -24,9 +24,19 @@ public class TestReadingCsv{
             valeurToString += "\n"+c.toString();
         }
         System.out.println(valeurToString);*/
+        Usine.getInstance();
+        System.out.println(Usine.getInstance().getChaines().get(0).toString());
+
+        /*for (Chaine chaine: Usine.getInstance().getChaines() ) {
+            for(Map.Entry<Element, Double> s : chaine.getElementsSortie().entrySet()) {
+                System.out.println(s.toString());
+            }
+            for(Map.Entry<Element, Double> e : chaine.getElementsEntree().entrySet()) {
+                System.out.println(e.toString());
+            }
+        }*/
 
 
-
-        System.out.println(Usine.getInstance().getPersonnels().toString());
+        //System.out.println(Usine.getInstance().getPersonnels().toString());
     }
 }
