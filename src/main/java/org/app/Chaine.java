@@ -1,9 +1,6 @@
 package org.app;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -90,7 +87,7 @@ public class Chaine {
         this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
-        if(activation >= 0){
+        if(activation >= 0 && activation <=6){
             this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -142,7 +139,7 @@ public class Chaine {
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
 
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -158,8 +155,7 @@ public class Chaine {
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
-
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -174,9 +170,14 @@ public class Chaine {
      * vérifie la faisabilité de la chaine en fonction des personnels et des stocks
      * @return un booléen indiquant si la chaine est faisable ou non
      */
-    public boolean chaineIsOk(int nbSemaines) throws FileNotFoundException {
+    public boolean chaineIsOk(int nbSemaines) {
         //si il y a un indicateur de valeur poditif et assez de personnel disponible
         return (this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
+    }
+
+    public SimpleBooleanProperty chaineIsOkProperty(int nbSemaines) {
+        //si il y a un indicateur de valeur poditif et assez de personnel disponible
+        return new SimpleBooleanProperty((this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
     }
 
     /**
@@ -236,22 +237,11 @@ public class Chaine {
         }
         return valeurVente - valeurAchat;
     }
-
-    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
-    public double calculIndicateurCommande() throws IllegalArgumentException{
-        //par rapport aux demandes combien de commandes sont réalisés
-        //calculer le pourcentage de commandes satisfaites par rapport à la demande
-        //1 pourcentage Demande
-        //2 pourcentage accomplis
-        //3 res = 1-2
-        return 0;
-    }
-
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
-    public boolean calculIndicateurPersonnelSemaine(int nbSemaines) throws FileNotFoundException {
+    public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
 
         //on compare le nombre de personnel necessaire au nombre disponible
         boolean chaineOk = false;
@@ -536,7 +526,7 @@ public class Chaine {
     }
 
     public void setNiveauActivation(int niveauActivation) {
-        this.niveauActivation.set(niveauActivation);
+        this.niveauActivation = new SimpleIntegerProperty(niveauActivation);
     }
 
     public ObservableMap<Element, Double> getElementsEntree() {
@@ -563,6 +553,5 @@ public class Chaine {
     public void setElementsSortie(ObservableMap<Element, Double> elementsSortie) {
         this.elementsSortie.set(elementsSortie);
     }
-
 
 }

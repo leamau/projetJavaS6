@@ -26,30 +26,54 @@ public class AchatsController implements Initializable {
     public TableColumn<Element, Double> qteAcheter;
     public TableColumn<Element, Double> coutTotal;
 
-    public AchatsController() throws FileNotFoundException {
-    }
-
+    /**
+     * Permet de se déplacer vers l'interface Stocks
+     * @throws IOException
+     */
     @FXML
     private void switchToStocks() throws IOException {
         App.setRoot("Stocks");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Chaine
+     * @throws IOException
+     */
     @FXML
     private void switchToChaines() throws IOException {
         App.setRoot("Chaines");
     }
 
+    /**
+     * Permet de se déplacer vers l'interface Personnels
+     * @throws IOException
+     */
+    @FXML
+    public void switchToPersonnel() throws IOException {
+        App.setRoot("Personnels");
+    }
+
+    /**
+     * Permet de se déplacer vers le Menu de l'application
+     * @throws IOException
+     */
+    @FXML
+    private void switchToMenu() throws IOException {
+        App.setRoot("Menu");
+    }
+
+    /**
+     * Permet d'initialiser le contenu de la page Chaine.fxml
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nomElemAchats.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         prixAchat.setCellValueFactory(cellData -> cellData.getValue().prixAchatProperty().asObject());
         qteAcheter.setCellValueFactory(cellData -> cellData.getValue().qteAcheterProperty().asObject());
         coutTotal.setCellValueFactory(cellData -> cellData.getValue().coutTotal().asObject());
-        try {
-            observableList.addAll(Usine.getInstance().getElements());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        observableList.addAll(Usine.getInstance().getElements());
         tableAchats.setItems(observableList);
     }
 

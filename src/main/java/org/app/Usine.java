@@ -21,17 +21,28 @@ public class Usine {
 
     private static Usine instance = null;
 
-    private Usine() throws FileNotFoundException {
+    private int nbSemaines;
+
+    private Usine()  {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
         this.personnelsQualifies = new ArrayList<PersonnelQualifie>();
         this.personnelsNonQualifies = new ArrayList<PersonnelNonQualifie>();
-        csvToElements();
-        csvToPersonnel();
+        this.nbSemaines = 1; //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
+        try {
+            csvToElements();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            csvToPersonnel();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.chaines = csvToChaines(this.elements);
     }
 
-    public static Usine getInstance() throws FileNotFoundException {
+    public static Usine getInstance() {
         if (instance == null) {
             Usine.instance = new Usine();
         }
@@ -328,6 +339,22 @@ public class Usine {
         }
     }
 
+    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
+    public double calculIndicateurCommande() throws IllegalArgumentException, FileNotFoundException {
+        int nbChaines = this.chaines.size();
+        int nbChainesOk = 0;
+        System.out.println("nbchaine : "+nbChaines);
+
+        //pourcentages de commandes ok par rapport au nombre de commandes totales 
+        for (Chaine chaine : this.chaines) {
+            if(chaine.chaineIsOk(this.nbSemaines)){
+                nbChainesOk++;
+                System.out.println("nbok :" +nbChainesOk);
+            }
+        }
+        //calcul du pourcentage
+        return (nbChainesOk/nbChaines)*100;
+    }
 
 
     /**
