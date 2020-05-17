@@ -19,10 +19,12 @@ public class Personnel {
      * nom du personnel
      */
     private SimpleStringProperty nom;
+
     /**
      * prenom du personnel
      */
     private SimpleStringProperty prenom;
+
     /**
      * disponibilité du personnel
      */
@@ -195,6 +197,18 @@ public class Personnel {
      */
     public void setNbHeuresAssignes(double nbHeuresAssignes) {
         this.nbHeuresAssignes.set(nbHeuresAssignes);
+    }
+
+    public SimpleStringProperty prenomProperty() {
+        return prenom;
+    }
+
+    public SimpleBooleanProperty disponibiliteProperty() {
+        return disponibilite;
+    }
+
+    public void setDisponibilite(boolean disponibilite) {
+        this.disponibilite.set(disponibilite);
     }
 
     @Override

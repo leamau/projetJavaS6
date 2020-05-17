@@ -356,4 +356,14 @@ public class Element {
 	public boolean equals(Element e) {
 		return (e.getCodeE().equals(this.codeE.getValue()));
 	}
+
+
+	public double getQteAcheter() {
+		return qteAcheter.get();
+	}
+
+	public void setQteAcheter(double qteAcheter) {
+		this.qteAcheter.set(qteAcheter);
+	}
+
 }

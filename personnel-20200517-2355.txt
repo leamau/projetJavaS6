@@ -1,0 +1,210 @@
+=============================================
+=============================================
+=                                           =
+= Liste du Personnel au 2020/05/17 23:55:51 =
+=                                           =
+=============================================
+=============================================
+
+Personnels Non-qualifiés :
+
+Personne {
+	id = 'P003	nom = 'Hatlem	prenom = Ingrid	disponibilite = false	nbHeuresAssignes = 6.0	nbHeuresDispo = 4.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+
+=============================================
+
+Personne {
+	id = 'P004	nom = 'Medina	prenom = Soledad	disponibilite = false	nbHeuresAssignes = 19.0	nbHeuresDispo = 15.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+C008(niveau d'activation 2) : 2.0h
+C009(niveau d'activation 2) : 2.0h
+C010(niveau d'activation 3) : 3.0h
+
+=============================================
+
+Personne {
+	id = 'P006	nom = 'Rhodes	prenom = Freddie	disponibilite = false	nbHeuresAssignes = 19.0	nbHeuresDispo = 16.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+C008(niveau d'activation 2) : 2.0h
+C009(niveau d'activation 2) : 2.0h
+C010(niveau d'activation 3) : 3.0h
+
+=============================================
+
+Personne {
+	id = 'P007	nom = 'Silva	prenom = Carlúcia	disponibilite = false	nbHeuresAssignes = 19.0	nbHeuresDispo = 16.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+C008(niveau d'activation 2) : 2.0h
+C009(niveau d'activation 2) : 2.0h
+C011(niveau d'activation 3) : 3.0h
+
+=============================================
+
+Personne {
+	id = 'P008	nom = 'Omahony	prenom = Lola	disponibilite = false	nbHeuresAssignes = 12.0	nbHeuresDispo = 11.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P009	nom = 'Harvey	prenom = Zoe	disponibilite = false	nbHeuresAssignes = 28.0	nbHeuresDispo = 26.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C008(niveau d'activation 2) : 2.0h
+C009(niveau d'activation 2) : 2.0h
+C011(niveau d'activation 3) : 3.0h
+C012(niveau d'activation 2) : 2.0h
+C014(niveau d'activation 2) : 2.0h
+C015(niveau d'activation 2) : 2.0h
+C017(niveau d'activation 1) : 1.0h
+C022(niveau d'activation 2) : 2.0h
+C028(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P010	nom = 'Powell	prenom = Olivia	disponibilite = false	nbHeuresAssignes = 12.0	nbHeuresDispo = 11.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C008(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P013	nom = 'Brooks	prenom = Michael	disponibilite = false	nbHeuresAssignes = 8.0	nbHeuresDispo = 7.0
+}
+
+C001(niveau d'activation 1) : 1.0h
+C002(niveau d'activation 1) : 1.0h
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personnels Qualifiés :
+
+Personne {
+	id = 'P001	nom = 'Thomsen	prenom = Laura	disponibilite = false	nbHeuresAssignes = 10.0	nbHeuresDispo = 10.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P002	nom = 'Christensen	prenom = Valdemar	disponibilite = false	nbHeuresAssignes = 8.0	nbHeuresDispo = 7.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C006(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P005	nom = 'Garrett	prenom = Javier	disponibilite = false	nbHeuresAssignes = 18.0	nbHeuresDispo = 17.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+C009(niveau d'activation 2) : 2.0h
+C012(niveau d'activation 2) : 2.0h
+C014(niveau d'activation 2) : 2.0h
+C015(niveau d'activation 2) : 2.0h
+C018(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P011	nom = 'Robinson	prenom = Maria	disponibilite = false	nbHeuresAssignes = 8.0	nbHeuresDispo = 8.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+C007(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P012	nom = 'Sales	prenom = Orandino	disponibilite = false	nbHeuresAssignes = 6.0	nbHeuresDispo = 6.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C005(niveau d'activation 2) : 2.0h
+
+=============================================
+
+Personne {
+	id = 'P014	nom = 'Berger	prenom = Willi	disponibilite = true	nbHeuresAssignes = 13.0	nbHeuresDispo = 16.0
+}
+
+C003(niveau d'activation 1) : 1.0h
+C004(niveau d'activation 3) : 3.0h
+C009(niveau d'activation 2) : 2.0h
+C012(niveau d'activation 2) : 2.0h
+C014(niveau d'activation 2) : 2.0h
+C015(niveau d'activation 2) : 2.0h
+C017(niveau d'activation 1) : 1.0h
+
+=============================================
+
