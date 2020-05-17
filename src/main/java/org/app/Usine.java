@@ -501,7 +501,7 @@ public class Usine {
         this.personnelsQualifies = newPersonnelsQ;
 
     }
-    
+
     /*
      * Fonction évitant d'insérer des chaînes en doublon.
      * @param c la chaîne dont on veut tester l'existence.
