@@ -1,18 +1,17 @@
 package org.app;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleMapProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Chaine {
+    //TODO: pour l'ajout d'un employé a la chaine on incrémente son nombre d'heures
     /**
      * atribut statique permettant l'incrémentation du code de la chaine
      */
@@ -84,11 +83,11 @@ public class Chaine {
         }
         this.elementsEntree = new SimpleMapProperty<Element,Double>();
         this.elementsSortie = new SimpleMapProperty<Element,Double>();
-        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
-        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>(FXCollections.observableHashMap());
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
-        if(activation >= 0){
+        if(activation >= 0 && activation <=6){
             this.niveauActivation = new SimpleIntegerProperty(activation);
         }else{
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
@@ -118,8 +117,8 @@ public class Chaine {
         this.elementsEntree = new SimpleMapProperty<Element,Double>();
         this.elementsSortie = new SimpleMapProperty<Element,Double>();
         this.niveauActivation = new SimpleIntegerProperty(0);
-        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
-        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>(FXCollections.observableHashMap());
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
     }
@@ -140,13 +139,13 @@ public class Chaine {
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
 
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
         }
-        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
-        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>(FXCollections.observableHashMap());
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(0);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(0);
     }
@@ -156,20 +155,34 @@ public class Chaine {
         this.nom = new SimpleStringProperty(nom);
         this.elementsEntree = new SimpleMapProperty<>(entrees);
         this.elementsSortie = new SimpleMapProperty<>(sorties);
-
-        if(temps >= 0) {
+        if(temps >= 0 && temps <=6) {
             this.niveauActivation = new SimpleIntegerProperty(temps);
         } else {
             throw new IllegalArgumentException("le niveau d'activation doit être positif");
         }
-        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>();
-        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>();
+        this.PersonnelsQualifiesConvoque = new SimpleMapProperty<PersonnelQualifie,Double>(FXCollections.observableHashMap());
+        this.PersonnelsNonQualifiesConvoque = new SimpleMapProperty<PersonnelNonQualifie,Double>(FXCollections.observableHashMap());
         this.nbPersonnelNQNecessaire = new SimpleIntegerProperty(nbNQ);
         this.nbPersonnelQNecessaire = new SimpleIntegerProperty(nbQ);
     }
 
     /**
      *
+     * vérifie la faisabilité de la chaine en fonction des personnels et des stocks
+     * @return un booléen indiquant si la chaine est faisable ou non
+     */
+    public boolean chaineIsOk(int nbSemaines) {
+        //si il y a un indicateur de valeur poditif et assez de personnel disponible
+        return (this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
+    }
+
+    public SimpleBooleanProperty chaineIsOkProperty(int nbSemaines) {
+        //si il y a un indicateur de valeur poditif et assez de personnel disponible
+        return new SimpleBooleanProperty((this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
+    }
+
+    /**
+     * Cet indicateur donne une estimation financière de la rentabilité de la production envisagée
      * @return
      * @throws IllegalArgumentException
      */
@@ -186,6 +199,8 @@ public class Chaine {
             if(stock - qteElementEntree*this.getNiveauActivation() < 0){
                 //throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
                 resultat = -1;
+                valeurVente = -1;
+                throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
                 for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
@@ -201,39 +216,85 @@ public class Chaine {
 
     }
 
-    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
-    public double calculIndicateurCommande() throws IllegalArgumentException{
-        //par rapport aux demandes combien de commandes sont réalisés
-        //calculer le pourcentage de commandes satisfaites par rapport à la demande
-        //1 pourcentage Demande
-        //2 pourcentage accomplis
-        //3 res = 1-2
-        return 0;
+    public double calculIndicateurValeurSemaine(int nbSemaines){
+        //on considère des semaines de 5jours
+        int nbJours = 5;
+        double valeurVente = 0;
+        double valeurAchat = 0;
+        /*pour chaque élément en entrée*/
+        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
+            Double qteElementEntree = entree.getValue();
+            Element elementEntree = entree.getKey();
+            double stock = elementEntree.getQuantiteStock();
+            /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
+            if(stock - qteElementEntree*this.getNiveauActivation() < 0){
+                valeurVente = -1;
+                throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
+            }else{
+                valeurAchat += elementEntree.getPrixAchat();
+                for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
+                    Double qteElementSortie = entree.getValue();
+                    Element elementSortie = entree.getKey();
+                    valeurVente += elementSortie.getPrixVente();
+                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*(this.getNiveauActivation()*nbJours*nbSemaines));
+                }
+            }
+        }
+        return valeurVente - valeurAchat;
     }
-
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
-    public boolean calculIndicateurPersonnel() throws FileNotFoundException {
+    public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
 
         //on compare le nombre de personnel necessaire au nombre disponible
         boolean chaineOk = false;
         int nbPersonnelsQDispo = 0;
+        ArrayList<PersonnelNonQualifie> persoNQDispo = new ArrayList<PersonnelNonQualifie>() ;
+        ArrayList<PersonnelQualifie> persoQDispo = new ArrayList<PersonnelQualifie>() ;
         int nbPersonnelsNQDispo = 0;
-        for (Personnel perso:Usine.getInstance().getPersonnels()) {
-            //recherche des personnels Disponibles
-            if(perso.etreDisponible() && perso.getClass().toString().equals("org.app.PersonnelQualifie")){
+
+        for (PersonnelQualifie perso:Usine.getInstance().getPersonnelsQualifies()) {
+            if(perso.etreDisponible()){
+                //recherche des personnels Disponibles
                 nbPersonnelsQDispo ++;
-            }else if(perso.etreDisponible() && perso.getClass().toString().equals("org.app.PersonnelNonQualifie")){
+            }
+        }
+        for (PersonnelNonQualifie perso:Usine.getInstance().getPersonnelsNonQualifies()) {
+            if(perso.etreDisponible()){
+                //recherche des personnels Disponibles
                 nbPersonnelsNQDispo ++;
             }
         }
+
         //si le qualif necessaire est > au disponible
         if(this.nbPersonnelQNecessaire.get() > nbPersonnelsQDispo){
             //chaine non ok
             chaineOk = false;
         }else{//sinon
+            if(this.nbPersonnelQNecessaire.get() < nbPersonnelsQDispo){
+                int cptTrouve = 0;
+                int i = 0;
+                //ajouter le nombre necessaire de personnel qualifié
+                while (cptTrouve < this.nbPersonnelQNecessaire.get() && i < Usine.getInstance().getPersonnelsQualifies().size()){
+                    if (Usine.getInstance().getPersonnelsQualifies().get(i).etreDisponible()){
+                        //vérifier que le personnel n'est pas déjà attribué a la chaine avant de l'ajouter
+                        if(!this.PersonnelsQualifiesConvoque.containsKey(Usine.getInstance().getPersonnelsQualifies().get(i))){
+                            //assigner les heures au personnel concerné et l'ajouter au personnel assigné a la chaine
+                            chaineOk = this.assignerPersonnelQSemaine(niveauActivation.get(),nbSemaines,Usine.getInstance().getPersonnelsQualifies().get(i));
+                            //si le personnel n'est plus disponible, l'enlever du compteur
+                            if(!Usine.getInstance().getPersonnelsQualifies().get(i).etreDisponible()){
+                                nbPersonnelsQDispo--;
+                                cptTrouve++;
+                            }
+                        }
+                    }
+                    i++;
+                }
+             //TODO: finir de revoir la méthode
+            }
+
             //si le non quali necessaire est supèrieur au disponible
             if(this.nbPersonnelNQNecessaire.get() > nbPersonnelsNQDispo){
                 //si le non quali Necessaire est > quali Disponible
@@ -242,9 +303,77 @@ public class Chaine {
                     chaineOk = false;
                 }else{
                     chaineOk = true;
+                    /*for (int i = 0; i < nbPersonnelsNQDispo ;i++){
+                        this.assignerPersonnelNQSemaine(niveauActivation.get(),nbSemaines,persoNQDispo.get(0));
+                        persoNQDispo.remove(0);
+                        nbPersonnelsNQDispo--;
+                    }*/
+                    int cptTrouve = 0;
+                    int i = 0;
+                    //ajouter le nombre necessaire de personnel non qualifié
+                    while (cptTrouve < nbPersonnelsNQDispo && i < Usine.getInstance().getPersonnelsNonQualifies().size()){
+                        if (Usine.getInstance().getPersonnelsNonQualifies().get(i).etreDisponible()){
+                            //vérifier que le personnel n'est pas déjà attribué a la chaine avant de l'ajouter
+                            if(!this.PersonnelsNonQualifiesConvoque.containsKey(Usine.getInstance().getPersonnelsNonQualifies().get(i))){
+                                //assigner les heures au personnel concerné et l'ajouter au personnel assigné a la chaine
+                                chaineOk = this.assignerPersonnelNQSemaine(niveauActivation.get(),nbSemaines,Usine.getInstance().getPersonnelsNonQualifies().get(i));
+                                //si le personnel n'est plus disponible, l'enlever du compteur
+                                if(!Usine.getInstance().getPersonnelsNonQualifies().get(i).etreDisponible()){
+                                    cptTrouve++;
+                                    nbPersonnelsNQDispo--;
+                                }
+                            }
+                        }
+                        i++;
+                    }
+
+                    cptTrouve = 0;
+                    i = 0;
+                    //ajouter le nombre necessaire de personnel qualifié
+                    while (cptTrouve < nbPersonnelsQDispo && i < Usine.getInstance().getPersonnelsQualifies().size()){
+                        if (Usine.getInstance().getPersonnelsNonQualifies().get(i).etreDisponible()){
+                            //vérifier que le personnel n'est pas déjà attribué a la chaine avant de l'ajouter
+                            if(!this.PersonnelsQualifiesConvoque.containsKey(Usine.getInstance().getPersonnelsQualifies().get(i))){
+                                //assigner les heures au personnel concerné et l'ajouter au personnel assigné a la chaine
+                                chaineOk = this.assignerPersonnelQSemaine(niveauActivation.get(),nbSemaines,Usine.getInstance().getPersonnelsQualifies().get(i));
+                                //si le personnel n'est plus disponible, l'enlever du compteur
+                                if(!Usine.getInstance().getPersonnelsQualifies().get(i).etreDisponible()){
+                                    cptTrouve++;
+                                    nbPersonnelsQDispo--;
+                                }
+                            }
+                        }
+                        i++;
+                    }
+                    /*
+                    //ajouter des personnels qualifié a la chaine
+                    for (int i = 0; i < nbPersonnelsQDispo;i++){
+                        this.assignerPersonnelQSemaine(niveauActivation.get(),nbSemaines,persoQDispo.get(0));
+                        persoQDispo.remove(0);
+                        nbPersonnelsQDispo--;
+                    }*/
                 }
             }else{
                 chaineOk = true;
+                //ajouter la bonne quandtité de personnels non qualifié à la chaine
+                int cptTrouve = 0;
+                int i = 0;
+                //ajouter le nombre necessaire de personnel non qualifié
+                while (cptTrouve < this.nbPersonnelNQNecessaire.get() && i < Usine.getInstance().getPersonnelsNonQualifies().size()){
+                    if (Usine.getInstance().getPersonnelsNonQualifies().get(i).etreDisponible()){
+                        //vérifier que le personnel n'est pas déjà attribué a la chaine avant de l'ajouter
+                        if(!this.PersonnelsNonQualifiesConvoque.containsKey(Usine.getInstance().getPersonnelsNonQualifies().get(i))){
+                            //assigner les heures au personnel concerné et l'ajouter au personnel assigné a la chaine
+                            chaineOk = this.assignerPersonnelNQSemaine(niveauActivation.get(),nbSemaines,Usine.getInstance().getPersonnelsNonQualifies().get(i));
+                            //si le personnel n'est plus disponible, l'enlever du compteur
+                            if(!Usine.getInstance().getPersonnelsNonQualifies().get(i).etreDisponible()){
+                                nbPersonnelsNQDispo--;
+                                cptTrouve++;
+                            }
+                        }
+                    }
+                    i++;
+                }
             }
         }
 
@@ -267,6 +396,53 @@ public class Chaine {
             str += "\t";
         }
         return str;
+
+    public boolean assignerPersonnelNQSemaine(double nbHeures,int nbSemaines,PersonnelNonQualifie personnel){
+        boolean isOk = false;
+        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        this.PersonnelsNonQualifiesConvoque.get().put(personnel,nbHeures*nbSemaines);
+        if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
+            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
+            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
+            isOk = true;
+        }
+        System.out.println(personnel.getNom()+ "2 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        return isOk;
+    }
+
+    public boolean assignerPersonnelQSemaine(double nbHeures,int nbSemaines,PersonnelQualifie personnel){
+        boolean isOk = false;
+        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        this.PersonnelsQualifiesConvoque.put(personnel,nbHeures*nbSemaines);
+        if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
+            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
+            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
+            isOk = true;
+        }
+        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        return isOk;
+    }
+
+    public boolean assignerPersonnelNQ(double nbHeures,PersonnelNonQualifie personnel){
+        boolean isOk = false;
+        this.PersonnelsNonQualifiesConvoque.put(personnel,nbHeures);
+        if(personnel.getNbHeuresDispo() - nbHeures > 0){
+            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures);
+            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures);
+            isOk = true;
+        }
+        return isOk;
+    }
+
+    public boolean assignerPersonnelQ(double nbHeures,PersonnelQualifie personnel){
+        boolean isOk = false;
+        this.PersonnelsQualifiesConvoque.put(personnel,nbHeures);
+        if(personnel.getNbHeuresDispo() - nbHeures > 0){
+            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures);
+            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures);
+            isOk = true;
+        }
+        return isOk;
     }
 
     @Override
@@ -371,7 +547,7 @@ public class Chaine {
     }
 
     public void setNiveauActivation(int niveauActivation) {
-        this.niveauActivation.set(niveauActivation);
+        this.niveauActivation = new SimpleIntegerProperty(niveauActivation);
     }
 
     public ObservableMap<Element, Double> getElementsEntree() {
@@ -398,6 +574,5 @@ public class Chaine {
     public void setElementsSortie(ObservableMap<Element, Double> elementsSortie) {
         this.elementsSortie.set(elementsSortie);
     }
-
 
 }

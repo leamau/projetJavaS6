@@ -17,24 +17,54 @@ public class Usine {
 
     private ArrayList<Chaine>  chaines;
 
-    private ArrayList<Personnel>  personnels;
+    private ArrayList<PersonnelQualifie>  personnelsQualifies;
+
+    private ArrayList<PersonnelNonQualifie>  personnelsNonQualifies;
 
     private static Usine instance = null;
 
-    private Usine() throws FileNotFoundException {
+    private int nbSemaines;
+
+    private Usine()  {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
-        this.personnels = new ArrayList<Personnel>();
-        csvToElements();
-        csvToPersonnel();
+        this.personnelsQualifies = new ArrayList<PersonnelQualifie>();
+        this.personnelsNonQualifies = new ArrayList<PersonnelNonQualifie>();
+        this.nbSemaines = 1; //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
+        try {
+            csvToElements();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            csvToPersonnel();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.chaines = csvToChaines(this.elements);
     }
 
-    public static Usine getInstance() throws FileNotFoundException {
+    public static Usine getInstance() {
         if (instance == null) {
             Usine.instance = new Usine();
         }
         return Usine.instance;
+    }
+
+    public ArrayList<PersonnelQualifie> getPersonnelsQualifies() {
+        return personnelsQualifies;
+    }
+
+    public void setPersonnelsQualifies(ArrayList<PersonnelQualifie> personnelsQualifies) {
+        this.personnelsQualifies = personnelsQualifies;
+    }
+
+    public ArrayList<PersonnelNonQualifie> getPersonnelsNonQualifies() {
+        return personnelsNonQualifies;
+    }
+
+    public void setPersonnelsNonQualifies(ArrayList<PersonnelNonQualifie> personnelsNonQualifies) {
+        this.personnelsNonQualifies = personnelsNonQualifies;
     }
 
     public ArrayList<Element> getElements() {
@@ -53,14 +83,6 @@ public class Usine {
         this.chaines = chaines;
     }
 
-    public ArrayList<Personnel> getPersonnels() {
-        return personnels;
-    }
-
-    public void setPersonnels(ArrayList<Personnel> personnels) {
-        this.personnels = personnels;
-    }
-
     public String toString(){
         if(this.chaines == null)
             System.out.println("ERREUR toString Chaine");
@@ -69,8 +91,10 @@ public class Usine {
                         "\n\t\t"+this.chaines.toString()+"}\n"+
                     "\tElements : {" +
                         "\n\t\t"+this.elements.toString()+"}\n"+
-                    "\tPersonnels : {" +
-                        "\n\t\t"+this.personnels.toString()+"}\n"+
+                    "\tPersonnels Non Qualifies : {" +
+                        "\n\t\t"+this.personnelsNonQualifies.toString()+"}\n"+
+                    "\tPersonnels Qualifies : {" +
+                        "\n\t\t"+this.personnelsQualifies.toString()+"}\n"+
                 "\t}";
     }
 
@@ -354,6 +378,22 @@ public class Usine {
         }
     }
 
+    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
+    public double calculIndicateurCommande() throws IllegalArgumentException, FileNotFoundException {
+        int nbChaines = this.chaines.size();
+        int nbChainesOk = 0;
+        System.out.println("nbchaine : "+nbChaines);
+
+        //pourcentages de commandes ok par rapport au nombre de commandes totales 
+        for (Chaine chaine : this.chaines) {
+            if(chaine.chaineIsOk(this.nbSemaines)){
+                nbChainesOk++;
+                System.out.println("nbok :" +nbChainesOk);
+            }
+        }
+        //calcul du pourcentage
+        return (nbChainesOk/nbChaines)*100;
+    }
 
 
     /**
@@ -362,7 +402,8 @@ public class Usine {
      */
     public void csvToPersonnel() throws FileNotFoundException {
         //TODO:optimiser le code
-        ArrayList<Personnel> newPersonnels = new ArrayList<Personnel>();
+        ArrayList<PersonnelQualifie> newPersonnelsQ = new ArrayList<PersonnelQualifie>();
+        ArrayList<PersonnelNonQualifie> newPersonnelsNQ = new ArrayList<PersonnelNonQualifie>();
         String id = "";
         int cptTours = 0;
         int cptLigne = 0;
@@ -407,7 +448,7 @@ public class Usine {
                         //System.out.println("qualification: "+value2 );
                     case 4:
                         if(!value2.contains("q")){
-                            nbHeuresDispo += Double.parseDouble(value2);
+                            nbHeuresDispo = Double.parseDouble(value2);
                             //System.out.println("nbHeuresDispo: "+value2);
                         }
                         break;
@@ -418,11 +459,11 @@ public class Usine {
                 } else {
                     if(qualification.equals("q")){
                         PersonnelQualifie newPerso = new PersonnelQualifie(id,nom,prenom,nbHeuresDispo,0);
-                        newPersonnels.add(newPerso);
+                        newPersonnelsQ.add(newPerso);
                     }else{
                         if(qualification.equals("nq")){
                             PersonnelNonQualifie newPerso = new PersonnelNonQualifie(id,nom,prenom,nbHeuresDispo,0);
-                            newPersonnels.add(newPerso);
+                            newPersonnelsNQ.add(newPerso);
                         }
                     }
                     cptTours2 = 0;
@@ -434,7 +475,9 @@ public class Usine {
 
         //System.out.println(newPersonnels.toString());
 
-        this.personnels = newPersonnels;
+        this.personnelsNonQualifies = newPersonnelsNQ;
+        this.personnelsQualifies = newPersonnelsQ;
+
     }
 
     /**

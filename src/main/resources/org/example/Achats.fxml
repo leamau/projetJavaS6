@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AchatsController">
    <children>
-      <TableView fx:id="tableAchats" layoutX="53.0" layoutY="143.0" prefHeight="438.0" prefWidth="794.0">
+      <TableView fx:id="tableAchats" layoutX="53.0" layoutY="129.0" prefHeight="438.0" prefWidth="794.0">
         <columns>
           <TableColumn fx:id="nomElemAchats" prefWidth="166.40001678466797" text="Nom" />
           <TableColumn fx:id="prixAchat" prefWidth="207.99996948242188" text="Prix d'Achat (en €)" />
@@ -17,13 +17,14 @@
           <TableColumn fx:id="coutTotal" prefWidth="240.0" text="Coût Total (en €)" />
         </columns>
       </TableView>
-      <Label layoutX="300.0" layoutY="24.0" prefHeight="60.0" prefWidth="300.0" text="Visualisation des Achats">
+      <Label layoutX="301.0" layoutY="14.0" prefHeight="60.0" prefWidth="300.0" text="Visualisation des Achats">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button layoutX="341.0" layoutY="97.0" mnemonicParsing="false" opacity="0.74" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" underline="true" />
-      <Button layoutX="582.0" layoutY="97.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" />
-      <Button layoutX="98.0" layoutY="97.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
+      <Button layoutX="342.0" layoutY="83.0" mnemonicParsing="false" onAction="#switchToPersonnel" prefHeight="26.0" prefWidth="219.0" text="Visualisation du Personnel" />
+      <Button layoutX="583.0" layoutY="83.0" mnemonicParsing="false" onAction="#switchToChaines" prefHeight="26.0" prefWidth="219.0" text="Gestion des chaines de Production" />
+      <Button layoutX="99.0" layoutY="83.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
+      <Button layoutX="53.0" layoutY="589.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour Menu" />
    </children>
 </AnchorPane>

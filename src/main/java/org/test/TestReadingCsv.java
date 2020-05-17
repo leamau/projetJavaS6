@@ -36,6 +36,11 @@ public class TestReadingCsv{
             }
         }*/
 
+        for (Chaine chaine: Usine.getInstance().getChaines() ) {
+            for(Map.Entry<Element, Double> sortie : chaine.getElementsSortie().entrySet()) {
+                System.out.println(sortie.toString());
+            }
+        }
 
         //System.out.println(Usine.getInstance().getPersonnels().toString());
     }
