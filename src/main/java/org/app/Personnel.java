@@ -172,14 +172,14 @@ public class Personnel {
 
     public String toString(){
 
-        return "Personne{" +
-                "id='" + this.id.getValue() + '\'' +
-                ", nom='" + this.nom.getValue() + '\'' +
-                ", prenom=" + this.prenom.getValue() +
-                ", disponibilite=" + this.disponibilite.getValue() +
-                ", nbHeuresAssignes=" + this.nbHeuresAssignes.getValue() +
-                ", nbHeuresDispo=" + this.nbHeuresDispo.getValue() +
-                "}\n";
+        return "Personne {\n" +
+                "\tid = '" + this.id.getValue() +
+                "\tnom = '" + this.nom.getValue() +
+                "\tprenom = " + this.prenom.getValue() +
+                "\tdisponibilite = " + this.disponibilite.getValue() +
+                "\tnbHeuresAssignes = " + this.nbHeuresAssignes.getValue() +
+                "\tnbHeuresDispo = " + this.nbHeuresDispo.getValue() +
+                "\n}";
     }
 
 }

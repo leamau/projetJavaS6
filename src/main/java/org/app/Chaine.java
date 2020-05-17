@@ -556,6 +556,9 @@ public class Chaine {
         return niveauActivation;
     }
 
+    public SimpleMapProperty<PersonnelQualifie,Double> getPersonnelsQualifiesConvoque() { return this.PersonnelsQualifiesConvoque; }
+
+    public SimpleMapProperty<PersonnelNonQualifie,Double> getPersonnelsNonQualifiesConvoque() { return this.PersonnelsNonQualifiesConvoque; }
 }
 
 

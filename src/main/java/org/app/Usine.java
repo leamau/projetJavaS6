@@ -625,9 +625,15 @@ public class Usine {
 
     /**
      * Méthode exportant au format txt l'état des chaînes.
-     * @return 0 si l'export a bien fonctionné.
+     * @return 0 si l'export a bien fonctionné (on peut imaginer retourner le nombre de personnel).
      */
     public int exportPersonnelTxt() throws IOException {
+
+        // Assignation du personnel
+        for(Chaine c : this.chaines) {
+            c.calculIndicateurPersonnelSemaine(getNbSemaines());
+        }
+
         // Nombre de chaînes écrites.
         int n = 0;
 
@@ -669,8 +675,17 @@ public class Usine {
                 // Ajout du toString de chaque chaîne.
                 fw.write(pnq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsNonQualifiesConvoque().get().containsKey(pnq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsNonQualifiesConvoque().get(pnq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
 
@@ -681,8 +696,17 @@ public class Usine {
                 // Ajout du toString de chaque chaîne.
                 fw.write(pq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsQualifiesConvoque().get().containsKey(pq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsQualifiesConvoque().get(pq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
 
@@ -696,4 +720,8 @@ public class Usine {
         }
         return n;
     }
+
+    public int getNbSemaines() { return this.nbSemaines; }
+
+    public void setNbSemaines(final int n) { this.nbSemaines = n; }
 }

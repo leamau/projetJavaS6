@@ -1,16 +1,16 @@
 =====================================
 =====================================
 =                                   =
-= Simulation du 2020/05/17 20:48:10 =
+= Simulation du 2020/05/17 22:37:25 =
 =                                   =
 =====================================
 =====================================
 
-Indicateur de commande = 26.666666666666668%
+Indicateur de commande = 56.666666666666664%
 
 Chaine {
-	codeC = C001	nom = Chocolat 30%	niveauActivation = 3
-	entrées = E011	E012	E001	E014	
+	codeC = C001	nom = Chocolat 30%	niveauActivation = 1
+	entrées = E014	E012	E011	E001	
 	sorties = E019	
 }
 	Indicateur de valeur = 150.0
@@ -20,7 +20,7 @@ Chaine {
 
 Chaine {
 	codeC = C002	nom = Chocolat 40%	niveauActivation = 1
-	entrées = E011	E012	E001	E014	
+	entrées = E014	E012	E011	E001	
 	sorties = E020	
 }
 	Indicateur de valeur = 200.0
@@ -30,7 +30,7 @@ Chaine {
 
 Chaine {
 	codeC = C003	nom = Chocolat 50%	niveauActivation = 1
-	entrées = E011	E012	E001	
+	entrées = E012	E011	E001	
 	sorties = E021	
 }
 	Indicateur de valeur = 415.0
@@ -40,7 +40,7 @@ Chaine {
 
 Chaine {
 	codeC = C004	nom = Pate biscuit Q1	niveauActivation = 3
-	entrées = E008	E002	E051	E001	
+	entrées = E051	E002	E001	E008	
 	sorties = E022	
 }
 	Indicateur de valeur = -110.0
@@ -50,7 +50,7 @@ Chaine {
 
 Chaine {
 	codeC = C005	nom = Pate biscuit Q2	niveauActivation = 2
-	entrées = E002	E051	E001	E009	E015	
+	entrées = E015	E051	E002	E001	E009	
 	sorties = E023	
 }
 	Indicateur de valeur = -135.0
@@ -60,7 +60,7 @@ Chaine {
 
 Chaine {
 	codeC = C006	nom = Pate biscuit Q3	niveauActivation = 2
-	entrées = E006	E002	E051	E001	
+	entrées = E051	E002	E001	E006	
 	sorties = E024	
 }
 	Indicateur de valeur = -130.0
@@ -80,7 +80,7 @@ Chaine {
 
 Chaine {
 	codeC = C008	nom = Gateau marque B	niveauActivation = 2
-	entrées = E023	E020	
+	entrées = E020	E023	
 	sorties = E026	
 }
 	Indicateur de valeur = 196.5
@@ -90,7 +90,7 @@ Chaine {
 
 Chaine {
 	codeC = C009	nom = Gateau marque C	niveauActivation = 2
-	entrées = E022	E019	
+	entrées = E019	E022	
 	sorties = E027	
 }
 	Indicateur de valeur = 172.5
@@ -100,7 +100,7 @@ Chaine {
 
 Chaine {
 	codeC = C010	nom = Pate levée huile	niveauActivation = 3
-	entrées = E002	E009	E001	E016	
+	entrées = E016	E002	E009	E001	
 	sorties = E028	
 }
 	Indicateur de valeur = -330.0
@@ -110,7 +110,7 @@ Chaine {
 
 Chaine {
 	codeC = C011	nom = Pate levée beurre	niveauActivation = 3
-	entrées = E006	E002	E001	E016	
+	entrées = E016	E002	E001	E006	
 	sorties = E029	
 }
 	Indicateur de valeur = -355.0
@@ -180,7 +180,7 @@ Chaine {
 
 Chaine {
 	codeC = C018	nom = Pate crepes	niveauActivation = 2
-	entrées = E002	E001	E009	E014	E015	
+	entrées = E014	E015	E002	E001	E009	
 	sorties = E036	
 }
 	Indicateur de valeur = -180.0
@@ -200,7 +200,7 @@ Chaine {
 
 Chaine {
 	codeC = C020	nom = Crepes fourrees choc	niveauActivation = 5
-	entrées = E036	E019	
+	entrées = E019	E036	
 	sorties = E038	
 }
 	Indicateur de valeur = -375.0
@@ -220,7 +220,7 @@ Chaine {
 
 Chaine {
 	codeC = C022	nom = Brownies marque A	niveauActivation = 2
-	entrées = E018	E023	E021	E005	
+	entrées = E021	E018	E023	E005	
 	sorties = E040	
 }
 	Indicateur de valeur = 285.5
@@ -230,7 +230,7 @@ Chaine {
 
 Chaine {
 	codeC = C023	nom = Brownies marque B	niveauActivation = 2
-	entrées = E018	E024	E005	E020	
+	entrées = E024	E020	E018	E005	
 	sorties = E040	
 }
 	Indicateur de valeur = 155.5
@@ -250,8 +250,8 @@ Chaine {
 
 Chaine {
 	codeC = C025	nom = Cookies Choc/Noix	niveauActivation = 1
-	entrées = E018	E024	E020	
-	sorties = E047	E046	
+	entrées = E024	E020	E018	
+	sorties = E046	E047	
 }
 	Indicateur de valeur = -90.0
 	Indicateur de personnel = false
@@ -260,7 +260,7 @@ Chaine {
 
 Chaine {
 	codeC = C026	nom = Pate Madeleines Q1	niveauActivation = 1
-	entrées = E004	E006	E002	E005	E051	E001	
+	entrées = E051	E004	E002	E001	E006	E005	
 	sorties = E046	
 }
 	Indicateur de valeur = -140.0
@@ -270,7 +270,7 @@ Chaine {
 
 Chaine {
 	codeC = C027	nom = Pate Madeleines Q2	niveauActivation = 1
-	entrées = E008	E004	E002	E005	E051	E001	
+	entrées = E051	E004	E002	E001	E008	E005	
 	sorties = E047	
 }
 	Indicateur de valeur = -130.0
@@ -300,7 +300,7 @@ Chaine {
 
 Chaine {
 	codeC = C030	nom = Madeleines Choc	niveauActivation = 2
-	entrées = E047	E019	
+	entrées = E019	E047	
 	sorties = E050	
 }
 	Indicateur de valeur = 175.0

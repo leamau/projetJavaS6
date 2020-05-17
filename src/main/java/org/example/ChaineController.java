@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -260,18 +261,29 @@ public class ChaineController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         codeC.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
         nom.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
-        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
+        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+
         //System.out.println(choixSemainesListe.getValue());
         choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> selected, String oldValue, String newValue) {
                 //id récupérer mais non affiché dans l'interface
                 System.out.println(newValue.substring(0,1));
+                Usine.getInstance().setNbSemaines(Integer.parseInt(newValue.substring(0,1)));
                 etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
                 //valeur booléenne récupérée mais non affichée dans l'inteface
                 System.out.println(etatChaine.getCellObservableValue(1));
+            }
+        });
+
+        niveauActivation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Chaine, Integer>>(){
+            @Override
+            public void handle(TableColumn.CellEditEvent event) {
+                tableChaines.getSelectionModel().getSelectedItem().setNiveauActivation( Integer.parseInt(event.getNewValue().toString()));
+                niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+                System.out.println(tableChaines.getSelectionModel().getSelectedItem().getNiveauActivation());
             }
         });
 
