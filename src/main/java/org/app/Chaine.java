@@ -177,13 +177,15 @@ public class Chaine {
         double valeurVente = 0;
         double valeurAchat = 0;
         /*pour chaque élément en entrée*/
+        double resultat = 0;
         for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
             Double qteElementEntree = entree.getValue();
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
             if(stock - qteElementEntree*this.getNiveauActivation() < 0){
-                throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
+                //throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
+                resultat = -1;
             }else{
                 valeurAchat += elementEntree.getPrixAchat();
                 for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
@@ -192,9 +194,10 @@ public class Chaine {
                     valeurVente += elementSortie.getPrixVente();
                     elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*this.getNiveauActivation());
                 }
+                resultat = valeurVente - valeurAchat;
             }
         }
-        return valeurVente - valeurAchat;
+        return resultat;
 
     }
 
