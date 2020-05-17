@@ -167,6 +167,7 @@ public class Chaine {
     }
 
     /**
+     *
      * vérifie la faisabilité de la chaine en fonction des personnels et des stocks
      * @return un booléen indiquant si la chaine est faisable ou non
      */
@@ -189,12 +190,15 @@ public class Chaine {
         double valeurVente = 0;
         double valeurAchat = 0;
         /*pour chaque élément en entrée*/
+        double resultat = 0;
         for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
             Double qteElementEntree = entree.getValue();
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
             if(stock - qteElementEntree*this.getNiveauActivation() < 0){
+                //throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
+                resultat = -1;
                 valeurVente = -1;
                 throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
             }else{
@@ -205,9 +209,10 @@ public class Chaine {
                     valeurVente += elementSortie.getPrixVente();
                     elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*this.getNiveauActivation());
                 }
+                resultat = valeurVente - valeurAchat;
             }
         }
-        return valeurVente - valeurAchat;
+        return resultat;
 
     }
 
@@ -375,6 +380,22 @@ public class Chaine {
         return chaineOk;
     }
 
+    public String toStringV2() {
+        String str = "Chaine {\n" +
+                    "\tcodeC = " + codeC.getValue() +
+                    "\tnom = " + nom.getValue() +
+                    "\tniveauActivation = " + niveauActivation.getValue() +
+                    "\nentrées = ";
+        for (Map.Entry<Element,Double> e : elementsEntree.get().entrySet()) {
+            str += e.getKey().getCodeE(); // Possible d'utiliser .getNom() ?
+            str += "\t";
+        }
+        str += "\nsorties = ";
+        for (Map.Entry<Element,Double> e : elementsSortie.get().entrySet()) {
+            str += e.getKey().getCodeE();
+            str += "\t";
+        }
+        return str;
 
     public boolean assignerPersonnelNQSemaine(double nbHeures,int nbSemaines,PersonnelNonQualifie personnel){
         boolean isOk = false;
@@ -427,11 +448,11 @@ public class Chaine {
     @Override
     public String toString() {
         return "Chaine {\n" +
-                "\tcodeC = " + codeC +
-                "\tnom = " + nom +
-                "\tniveauActivation = " + niveauActivation +
-                "\telementsEntree = " + ToStringElementsEnEntree() +
-                "\telementsSortie = " + ToStringElementsEnSortie() +
+                "\tcodeC = " + codeC.getValue() +
+                "\tnom = " + nom.getValue() +
+                "\tniveauActivation = " + niveauActivation.getValue() +
+                "\telementsEntree = { " + toStringElementsEnEntree() +"\n } "+
+                "\telementsSortie = { " + toStringElementsEnSortie()+"\n } "+
                 "\n}";
     }
 
@@ -439,10 +460,10 @@ public class Chaine {
      * transforme en string la liste des éléments en entrée
      * @return
      */
-    public String ToStringElementsEnEntree(){
+    public String toStringElementsEnEntree(){
         String valeurToString = "";
             for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
-                valeurToString += "\n"+entree.getValue().toString() + " * "+entree.getKey();
+                valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
             }
         return  valeurToString;
     }
@@ -451,20 +472,20 @@ public class Chaine {
      * transforme en string la liste des éléments en sortie
      * @return
      */
-    public String ToStringElementsEnSortie(){
+    public String toStringElementsEnSortie(){
         String valeurToString = "";
         for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
-            valeurToString += "\n"+sortie.getValue().toString() + " * "+sortie.getKey();
+            valeurToString += ""+sortie.getValue().toString() + " * "+sortie.getKey()+" , ";
         }
         return  valeurToString;
     }
 
     public SimpleStringProperty toStringElementsEnSortieProperty(){
-        return new SimpleStringProperty(ToStringElementsEnSortie());
+        return new SimpleStringProperty(toStringElementsEnSortie());
     }
 
     public SimpleStringProperty toStringElementsEnEntreeProperty(){
-        return new SimpleStringProperty(ToStringElementsEnEntree());
+        return new SimpleStringProperty(toStringElementsEnEntree());
     }
 
     public ObservableList<Element> getElementsEntreeProperty(){

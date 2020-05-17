@@ -1,13 +1,15 @@
 package org.app;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleMapProperty;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
+
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Usine {
@@ -97,8 +99,6 @@ public class Usine {
     }
 
     //TODO: gérer les quantitiés a acherter
-    //TODO: les extraction de CSV
-    //TODO: faire les arraylist en hashset ou juste vérifier avant insertion qu'il n'y a pas de doublons
 
     public void readCsv(String className) throws FileNotFoundException {
         String affiche= className+ " : \n";
@@ -236,6 +236,18 @@ public class Usine {
         this.elements = newElements;
     }
 
+    public synchronized void addElemtsEntree(HashMap<Element, Double> elements,ObservableMap<Element, Double> e){
+        elements.forEach((key, value) -> {
+            //System.out.println("Entrée : Key : " + key + " Value : " + value);
+            e.put(key,value);
+        });
+    }
+    public synchronized void addElemtsSortie(HashMap<Element, Double> elements,ObservableMap<Element, Double> s){
+        elements.forEach((key, value) -> {
+            //System.out.println("Entrée : Key : " + key + " Value : " + value);
+            s.put(key,value);
+        });
+    }
     /**
      * Enregistre les chaînes présentes dans le CSV.
      * @param stock l'ensemble des éléments stockés dans l'usine.
@@ -289,7 +301,7 @@ public class Usine {
                  */
                 String val = sc.next();
                 //System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
-                String code = val;
+                String code = val.replace(System.getProperty("line.separator"), "");
                 val = sc.next();
                 //System.out.println("NOM : " + val);
                 String nom = val;
@@ -310,18 +322,45 @@ public class Usine {
                 int pq = Integer.parseInt(val); // Not used yet.
 
                 // Transformation des entrées et sorties.
-                SimpleMapProperty<Element, Double> e = new SimpleMapProperty();
-                e.putAll(entrees);
+                ObservableMap<Element, Double> s = FXCollections.observableHashMap();
+                ObservableMap<Element, Double> e = FXCollections.observableHashMap();
 
-                SimpleMapProperty<Element, Double> s = new SimpleMapProperty();
-                s.putAll(sorties);
+                this.addElemtsEntree(entrees,e);
+                this.addElemtsSortie(sorties,s);
+
+                /*for(Map.Entry<Element, Double> sortie : sorties.entrySet()) {
+                    System.out.println("so " + sortie);
+                    s.put(sortie.getKey(),sortie.getValue());
+                }*/
+
+                /*for(Map.Entry<Element, Double> entree : entrees.entrySet()) {
+                    System.out.println("en "+entree);
+                    e.put(entree.getKey(),entree.getValue());
+                }*/
+
+                /*e.putAll(entrees);
+
+                s.putAll(sorties);*/
+                /*e.forEach((value,key)->{
+                    System.out.println("Entrée : Key : " + key + " Value : " + value);
+                });
+                s.forEach((value,key)->{
+                    System.out.println("Sortie : Key : " + key + " Value : " + value);
+                });*/
+                /*System.out.println("e "+e.toString());
+                System.out.println("s "+s.toString());*/
+
+
 
                 // Construction de la chaine à ajouter.
-                Chaine c = new Chaine(code, nom, temps, e, s,pnq,pq);
+                //System.out.println("CHAINE A CREER : " + code + ", " + nom + ", " + temps + ", " + e.toString() + ", " + s.toString() + ", " + pnq + ", " + pq);
+                Chaine c = new Chaine(code, nom, temps, new SimpleMapProperty<>(e), new SimpleMapProperty<>(s), pnq, pq);
+                //System.out.println("CHAINE CREEE :" + c.toStringV2());
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
                     chaines.add(c);
+                    //System.out.println("CHAINE AJOUTEE");
                 } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
             }
 
@@ -504,16 +543,142 @@ public class Usine {
 
             // On récupère la quantité.
             double qteE = Double.parseDouble(eData[1]);
+            //System.out.println("Données à ajouter : " + codeE + "," + qteE);
 
             // On parcours tous les éléments en stock.
             for(Element elem : stock) {
                 // Si le code récupéré est identique à un code en stock.
-                if(elem.getCodeE() == codeE) {
+                if(elem.getCodeE().equals((codeE))) {  // == Le programme continue correctement, .equals() le programme stop ?
                     elements.put(elem, qteE);
+                    //System.out.println("Element ajouté : " + elem.toString());
                 }
             }
         }
         // On renvoie la liste ainsi complétée.
         return elements;
+    }
+
+    /**
+     * Méthode exportant au format txt l'état des chaînes.
+     * @return 0 si l'export a bien fonctionné.
+     */
+    public int exportChainesTxt() throws IOException {
+
+        // Nombre de chaînes écrites.
+        int n = 0;
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Gestion détaillée du nom du fichier.
+        String filePath = ""; // src/main/resources/org.export/ ?
+        String fileName = "simulation";
+        String fileDate = formatCourt.format(d);
+        String fileExtension = ".txt";
+        final String completeFileName = filePath + fileName + "-" + fileDate + fileExtension;
+
+        // Création du fichier.
+        File f = new File(completeFileName);
+        f.createNewFile();
+
+        // Objet écrivant dans le fichier.
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(completeFileName);
+            fw.write("=====================================\n");
+            fw.write("=====================================\n");
+            fw.write("=                                   =\n");
+            fw.write("= Simulation du " + formatStandard.format(d) + " =\n");
+            fw.write("=                                   =\n");
+            fw.write("=====================================\n");
+            fw.write("=====================================\n\n");
+
+            // Parcours des chaînes de l'usine.
+            for(Chaine c : this.chaines) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(c.toStringV2() + "\n");
+
+                // Ajout des indicateurs disponibles pour chaque chaîne.
+                fw.write( "Indicateur de commande = " + c.calculIndicateurCommande() + "\n");
+                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeur() + "\n");
+                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnel() + "\n\n");
+                fw.write("=====================================\n\n");
+                n++;
+            }
+
+            // Fermeture du fileWriter.
+            fw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return -1;
+        }
+        return n;
+    }
+
+    /**
+     * Méthode exportant au format txt l'état des chaînes.
+     * @return 0 si l'export a bien fonctionné.
+     */
+    public int exportPersonnelTxt() throws IOException {
+        // Nombre de chaînes écrites.
+        int n = 0;
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Gestion détaillée du nom du fichier.
+        String filePath = ""; // src/main/resources/org.export/ ?
+        String fileName = "personnel";
+        String fileDate = formatCourt.format(d);
+        String fileExtension = ".txt";
+        final String completeFileName = filePath + fileName + "-" + fileDate + fileExtension;
+
+        // Création du fichier.
+        File f = new File(completeFileName);
+        f.createNewFile();
+
+        // Objet écrivant dans le fichier.
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(completeFileName);
+            fw.write("=============================================\n");
+            fw.write("=============================================\n");
+            fw.write("=                                           =\n");
+            fw.write("= Liste du Personnel au " + formatStandard.format(d) + " =\n");
+            fw.write("=                                           =\n");
+            fw.write("=============================================\n");
+            fw.write("=============================================\n\n");
+
+            // Parcours des chaînes de l'usine.
+            for(Personnel p : this.personnels) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(p.toString() + "\n");
+
+                // Ajout des indicateurs disponibles pour chaque chaîne.
+                fw.write("=============================================\n\n");
+                n++;
+            }
+
+            // Fermeture du fileWriter.
+            fw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return -1;
+        }
+        return n;
     }
 }
