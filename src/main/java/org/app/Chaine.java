@@ -173,54 +173,27 @@ public class Chaine {
      */
     public boolean chaineIsOk(int nbSemaines) {
         //si il y a un indicateur de valeur poditif et assez de personnel disponible
-        return (this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
+        return (this.calculIndicateurValeurSemaine(nbSemaines)>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
     }
 
     public SimpleBooleanProperty chaineIsOkProperty(int nbSemaines) {
         //si il y a un indicateur de valeur poditif et assez de personnel disponible
-        return new SimpleBooleanProperty((this.calculIndicateurValeur()>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
+        return new SimpleBooleanProperty((this.calculIndicateurValeurSemaine(nbSemaines)>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
     }
+
 
     /**
      * Cet indicateur donne une estimation financière de la rentabilité de la production envisagée
      * @return
      * @throws IllegalArgumentException
      */
-    public double calculIndicateurValeur() throws IllegalArgumentException{
-        double valeurVente = 0;
-        double valeurAchat = 0;
-        /*pour chaque élément en entrée*/
-        double resultat = 0;
-        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
-            Double qteElementEntree = entree.getValue();
-            Element elementEntree = entree.getKey();
-            double stock = elementEntree.getQuantiteStock();
-            /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
-            if(stock - qteElementEntree*this.getNiveauActivation() < 0){
-                //throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
-                resultat = -1;
-                valeurVente = -1;
-                throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
-            }else{
-                valeurAchat += elementEntree.getPrixAchat();
-                for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
-                    Double qteElementSortie = entree.getValue();
-                    Element elementSortie = entree.getKey();
-                    valeurVente += elementSortie.getPrixVente();
-                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*this.getNiveauActivation());
-                }
-                resultat = valeurVente - valeurAchat;
-            }
-        }
-        return resultat;
-
-    }
-
     public double calculIndicateurValeurSemaine(int nbSemaines){
         //on considère des semaines de 5jours
         int nbJours = 5;
         double valeurVente = 0;
         double valeurAchat = 0;
+        double resultat = 0;
+        boolean stockOK = true;
         /*pour chaque élément en entrée*/
         for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
             Double qteElementEntree = entree.getValue();
@@ -228,19 +201,25 @@ public class Chaine {
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
             if(stock - qteElementEntree*this.getNiveauActivation() < 0){
-                valeurVente = -1;
-                throw new IllegalArgumentException("Il n'y a pas assez d'élément dans le stock pour garantir l'exécution de la chaine de production");
+                resultat = -1;
+                stockOK = false;
             }else{
-                valeurAchat += elementEntree.getPrixAchat();
-                for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
-                    Double qteElementSortie = entree.getValue();
-                    Element elementSortie = entree.getKey();
-                    valeurVente += elementSortie.getPrixVente();
-                    elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementEntree*(this.getNiveauActivation()*nbJours*nbSemaines));
-                }
+                valeurAchat += elementEntree.getPrixAchat()*qteElementEntree;
             }
         }
-        return valeurVente - valeurAchat;
+        if(stockOK){
+            for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
+                Double qteElementSortie = sortie.getValue();
+                Element elementSortie = sortie.getKey();
+                valeurVente += elementSortie.getPrixVente()*qteElementSortie;
+                elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie*(this.getNiveauActivation()*nbJours*nbSemaines));
+            }
+            resultat = (valeurVente - valeurAchat)*nbJours*nbSemaines;
+        }else {
+            resultat = -1;
+        }
+
+        return resultat;
     }
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
@@ -382,44 +361,45 @@ public class Chaine {
 
     public String toStringV2() {
         String str = "Chaine {\n" +
-                    "\tcodeC = " + codeC.getValue() +
-                    "\tnom = " + nom.getValue() +
-                    "\tniveauActivation = " + niveauActivation.getValue() +
-                    "\nentrées = ";
-        for (Map.Entry<Element,Double> e : elementsEntree.get().entrySet()) {
+                "\tcodeC = " + codeC.getValue() +
+                "\tnom = " + nom.getValue() +
+                "\tniveauActivation = " + niveauActivation.getValue() +
+                "\nentrées = ";
+        for (Map.Entry<Element, Double> e : elementsEntree.get().entrySet()) {
             str += e.getKey().getCodeE(); // Possible d'utiliser .getNom() ?
             str += "\t";
         }
         str += "\nsorties = ";
-        for (Map.Entry<Element,Double> e : elementsSortie.get().entrySet()) {
+        for (Map.Entry<Element, Double> e : elementsSortie.get().entrySet()) {
             str += e.getKey().getCodeE();
             str += "\t";
         }
         return str;
+    }
 
     public boolean assignerPersonnelNQSemaine(double nbHeures,int nbSemaines,PersonnelNonQualifie personnel){
         boolean isOk = false;
-        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
         this.PersonnelsNonQualifiesConvoque.get().put(personnel,nbHeures*nbSemaines);
         if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
             personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
             personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
             isOk = true;
         }
-        System.out.println(personnel.getNom()+ "2 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //System.out.println(personnel.getNom()+ "2 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
         return isOk;
     }
 
     public boolean assignerPersonnelQSemaine(double nbHeures,int nbSemaines,PersonnelQualifie personnel){
         boolean isOk = false;
-        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
         this.PersonnelsQualifiesConvoque.put(personnel,nbHeures*nbSemaines);
         if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
             personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
             personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
             isOk = true;
         }
-        System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
         return isOk;
     }
 
@@ -538,14 +518,6 @@ public class Chaine {
         this.nom.set(nom);
     }
 
-    public int getNiveauActivation() {
-        return niveauActivation.get();
-    }
-
-    public SimpleIntegerProperty niveauActivationProperty() {
-        return niveauActivation;
-    }
-
     public void setNiveauActivation(int niveauActivation) {
         this.niveauActivation = new SimpleIntegerProperty(niveauActivation);
     }
@@ -575,4 +547,14 @@ public class Chaine {
         this.elementsSortie.set(elementsSortie);
     }
 
+    public int getNiveauActivation() {
+        return niveauActivation.get();
+    }
+
+    public SimpleIntegerProperty niveauActivationProperty() {
+        return niveauActivation;
+    }
+
 }
+
+

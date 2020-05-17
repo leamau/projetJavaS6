@@ -21,13 +21,14 @@ public class TestCalculs {
         ch1.getElementsSortie().put(cookie,1.0);
 
         System.out.println(ch1.toString());*/
-        Usine.getInstance().getChaines().get(0).setNiveauActivation(2);
-        System.out.println(Usine.getInstance().getChaines().get(0).toString());
-        System.out.println(Usine.getInstance().getChaines().get(0).chaineIsOk(3));
+        Usine.getInstance().getChaines().get(2).setNiveauActivation(1);
+        System.out.println("indicateur de valeur : "+Usine.getInstance().getChaines().get(2).calculIndicateurValeurSemaine(1));        System.out.println("indicateur de valeur : "+Usine.getInstance().getChaines().get(0).getNiveauActivation());
+        System.out.println("indicateur de personnel : "+Usine.getInstance().getChaines().get(2).calculIndicateurPersonnelSemaine(1));
+        System.out.println("etat de la chaine : "+Usine.getInstance().getChaines().get(2).chaineIsOk(1));
       /*  System.out.println("indicateur de valeur de la chaine "+Usine.getInstance().getChaines().get(0).getCodeC()+" : { " +Usine.getInstance().getChaines().get(0).calculIndicateurValeurSemaine(2)+" }");
         System.out.println("indicateur de Personnel de la chaine "+Usine.getInstance().getChaines().get(0).getCodeC()+" : { " +Usine.getInstance().getChaines().get(0).calculIndicateurPersonnelSemaine(46)+" }");
 */
-        System.out.println(Usine.getInstance().calculIndicateurCommande());
+        System.out.println("indicateur de commandes : "+Usine.getInstance().calculIndicateurCommande());
 
 
 
