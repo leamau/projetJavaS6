@@ -50,7 +50,7 @@ public class ChaineController  implements Initializable {
      */
     @FXML
     public void exportChaine() throws IOException {
-
+        Usine.getInstance().exportChainesTxt();
     }
 
     /**

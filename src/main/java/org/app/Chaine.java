@@ -366,18 +366,19 @@ public class Chaine {
     public String toStringV2() {
         String str = "Chaine {\n" +
                 "\tcodeC = " + codeC.getValue() +
-                "\tnom = " + nom.getValue() +
+                "\tnom = " + nom.getValue().replaceAll("\\.", " ") +
                 "\tniveauActivation = " + niveauActivation.getValue() +
-                "\nentrées = ";
+                "\n\tentrées = ";
         for (Map.Entry<Element, Double> e : elementsEntree.get().entrySet()) {
             str += e.getKey().getCodeE(); // Possible d'utiliser .getNom() ?
             str += "\t";
         }
-        str += "\nsorties = ";
+        str += "\n\tsorties = ";
         for (Map.Entry<Element, Double> e : elementsSortie.get().entrySet()) {
             str += e.getKey().getCodeE();
             str += "\t";
         }
+        str += "\n}";
         return str;
     }
 
@@ -571,6 +572,9 @@ public class Chaine {
         return niveauActivation;
     }
 
+    public SimpleMapProperty<PersonnelQualifie,Double> getPersonnelsQualifiesConvoque() { return this.PersonnelsQualifiesConvoque; }
+
+    public SimpleMapProperty<PersonnelNonQualifie,Double> getPersonnelsNonQualifiesConvoque() { return this.PersonnelsNonQualifiesConvoque; }
 }
 
 

@@ -607,6 +607,7 @@ public class Usine {
             fw.write("=====================================\n");
             fw.write("=====================================\n\n");
 
+            fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "%\n\n");
             // Parcours des chaînes de l'usine.
             for(Chaine c : this.chaines) {
 
@@ -614,9 +615,8 @@ public class Usine {
                 fw.write(c.toStringV2() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "\n");
-                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
-                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
+                fw.write( "\tIndicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
+                fw.write("\tIndicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
                 fw.write("=====================================\n\n");
                 n++;
             }
@@ -634,9 +634,15 @@ public class Usine {
 
     /**
      * Méthode exportant au format txt l'état des chaînes.
-     * @return 0 si l'export a bien fonctionné.
+     * @return 0 si l'export a bien fonctionné (on peut imaginer retourner le nombre de personnel).
      */
     public int exportPersonnelTxt() throws IOException {
+
+        // Assignation du personnel
+        for(Chaine c : this.chaines) {
+            c.calculIndicateurPersonnelSemaine(getNbSemaines());
+        }
+
         // Nombre de chaînes écrites.
         int n = 0;
 
@@ -670,23 +676,46 @@ public class Usine {
             fw.write("=============================================\n");
             fw.write("=============================================\n\n");
 
+            fw.write("Personnels Non-qualifiés :\n\n");
+
             // Parcours des personnels de l'usine.
             for(Personnel pnq : this.personnelsNonQualifies) {
 
                 // Ajout du toString de chaque chaîne.
                 fw.write(pnq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsNonQualifiesConvoque().get().containsKey(pnq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsNonQualifiesConvoque().get(pnq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
+
+            fw.write("Personnels Qualifiés :\n\n");
+
             for(Personnel pq : this.personnelsQualifies) {
 
                 // Ajout du toString de chaque chaîne.
                 fw.write(pq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsQualifiesConvoque().get().containsKey(pq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsQualifiesConvoque().get(pq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
 
@@ -700,4 +729,8 @@ public class Usine {
         }
         return n;
     }
+
+    public int getNbSemaines() { return this.nbSemaines; }
+
+    public void setNbSemaines(final int n) { this.nbSemaines = n; }
 }
