@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.app.Chaine;
 import org.app.Personnel;
 import org.app.Usine;
 
@@ -60,7 +61,7 @@ public class PersonnelsController implements Initializable {
      */
     @FXML
     public void exportPersonnel() throws IOException {
-
+        Usine.getInstance().exportPersonnelTxt();
     }
 
     /**
@@ -106,6 +107,9 @@ public class PersonnelsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Chaine c: Usine.getInstance().getChaines()) {
+            c.calculIndicateurPersonnelSemaine(Usine.getInstance().getNbSemaines());
+        }
         idPersonnel.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         nomPersonnel.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         prenomPersonnel.setCellValueFactory(cellData -> cellData.getValue().prenomProperty());

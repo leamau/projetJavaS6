@@ -197,11 +197,15 @@ public class Chaine {
             Double qteElementEntree = entree.getValue();
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
-            /*si sa quantitée demandée est supèrieure a sa quantitée en stock on met le résultat a négatif*/
-            if(stock - qteElementEntree*this.getNiveauActivation() < 0){
+            /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
+            if(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines < 0){
+                //ajouter dans les elements a acheter
+                elementEntree.setQteAcheter(elementEntree.getQteAcheter()-(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines));
                 resultat = -1;
                 stockOK = false;
             }else{
+                //déduction des éléments dans le stock
+                elementEntree.setQuantiteStock(elementEntree.getQuantiteStock() - qteElementEntree*(this.getNiveauActivation()*nbJours*nbSemaines));
                 //modification de la valeur d'achat totale
                 valeurAchat += elementEntree.getPrixAchat()*qteElementEntree;
             }
@@ -231,7 +235,6 @@ public class Chaine {
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
     public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
-
         //on compare le nombre de personnel necessaire au nombre disponible
         boolean chaineOk = false;
         int nbPersonnelsQDispo = 0;
@@ -359,18 +362,19 @@ public class Chaine {
     public String toStringV2() {
         String str = "Chaine {\n" +
                 "\tcodeC = " + codeC.getValue() +
-                "\tnom = " + nom.getValue() +
+                "\tnom = " + nom.getValue().replaceAll("\\.", " ") +
                 "\tniveauActivation = " + niveauActivation.getValue() +
-                "\nentrées = ";
+                "\n\tentrées = ";
         for (Map.Entry<Element, Double> e : elementsEntree.get().entrySet()) {
             str += e.getKey().getCodeE(); // Possible d'utiliser .getNom() ?
             str += "\t";
         }
-        str += "\nsorties = ";
+        str += "\n\tsorties = ";
         for (Map.Entry<Element, Double> e : elementsSortie.get().entrySet()) {
             str += e.getKey().getCodeE();
             str += "\t";
         }
+        str += "\n}";
         return str;
     }
 
@@ -453,12 +457,24 @@ public class Chaine {
         return  valeurToString;
     }
 
+    /**
+     * transforme en string la liste des éléments en entrée
+     * @return
+     */
+    public String toStringElementsInterface(SimpleMapProperty<Element,Double> liste){
+        String valeurToString = "";
+        for(Map.Entry<Element, Double> element : liste.entrySet()) {
+            valeurToString += element.getKey().getNom()+" x "+element.getValue().toString() +" \n ";
+        }
+        return  valeurToString;
+    }
+
     public SimpleStringProperty toStringElementsEnSortieProperty(){
-        return new SimpleStringProperty(toStringElementsEnSortie());
+        return new SimpleStringProperty(toStringElementsInterface(this.elementsSortie));
     }
 
     public SimpleStringProperty toStringElementsEnEntreeProperty(){
-        return new SimpleStringProperty(toStringElementsEnEntree());
+        return new SimpleStringProperty(toStringElementsInterface(this.elementsEntree));
     }
 
     @Override
@@ -505,7 +521,7 @@ public class Chaine {
      * @return la propriété nom
      */
     public SimpleStringProperty nomProperty() {
-        return nom;
+        return new SimpleStringProperty(nom.get().replace('.', ' '));
     }
 
     /**
@@ -548,6 +564,9 @@ public class Chaine {
         return niveauActivation;
     }
 
+    public SimpleMapProperty<PersonnelQualifie,Double> getPersonnelsQualifiesConvoque() { return this.PersonnelsQualifiesConvoque; }
+
+    public SimpleMapProperty<PersonnelNonQualifie,Double> getPersonnelsNonQualifiesConvoque() { return this.PersonnelsNonQualifiesConvoque; }
 }
 
 
