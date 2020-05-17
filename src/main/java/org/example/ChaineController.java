@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -42,169 +43,6 @@ public class ChaineController  implements Initializable {
         Chaine modifNiveauAct = tableChaines.getSelectionModel().getSelectedItem();
         modifNiveauAct.setNiveauActivation((int) edditedCell.getNewValue());
     }
-
-    ObservableMap<Element,Integer> mapElementE = new ObservableMap<>() {
-        @Override
-        public void addListener(MapChangeListener<? super Element, ? super Integer> mapChangeListener) {
-
-        }
-
-        @Override
-        public void removeListener(MapChangeListener<? super Element, ? super Integer> mapChangeListener) {
-
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return false;
-        }
-
-        @Override
-        public boolean containsValue(Object value) {
-            return false;
-        }
-
-        @Override
-        public Integer get(Object key) {
-            return null;
-        }
-
-        @Override
-        public Integer put(Element key, Integer value) {
-            return null;
-        }
-
-        @Override
-        public Integer remove(Object key) {
-            return null;
-        }
-
-        @Override
-        public void putAll(Map<? extends Element, ? extends Integer> m) {
-
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Set<Element> keySet() {
-            return null;
-        }
-
-        @Override
-        public Collection<Integer> values() {
-            return null;
-        }
-
-        @Override
-        public Set<Entry<Element, Integer>> entrySet() {
-            return null;
-        }
-
-        @Override
-        public void addListener(InvalidationListener invalidationListener) {
-
-        }
-
-        @Override
-        public void removeListener(InvalidationListener invalidationListener) {
-
-        }
-    };
-    ObservableMap<Element,Integer> mapElementS = new ObservableMap<>() {
-        @Override
-        public void addListener(MapChangeListener<? super Element, ? super Integer> mapChangeListener) {
-
-        }
-
-        @Override
-        public void removeListener(MapChangeListener<? super Element, ? super Integer> mapChangeListener) {
-
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return false;
-        }
-
-        @Override
-        public boolean containsValue(Object value) {
-            return false;
-        }
-
-        @Override
-        public Integer get(Object key) {
-            return null;
-        }
-
-        @Override
-        public Integer put(Element key, Integer value) {
-            return null;
-        }
-
-        @Override
-        public Integer remove(Object key) {
-            return null;
-        }
-
-        @Override
-        public void putAll(Map<? extends Element, ? extends Integer> m) {
-
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Set<Element> keySet() {
-            return null;
-        }
-
-        @Override
-        public Collection<Integer> values() {
-            return null;
-        }
-
-        @Override
-        public Set<Entry<Element, Integer>> entrySet() {
-            return null;
-        }
-
-        @Override
-        public void addListener(InvalidationListener invalidationListener) {
-
-        }
-
-        @Override
-        public void removeListener(InvalidationListener invalidationListener) {
-
-        }
-    };
 
     /**
      * Permet d'appeler cette méthode sur un bouton export et d'exporter les chaines en fichier txt
@@ -260,18 +98,33 @@ public class ChaineController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         codeC.setCellValueFactory(cellData -> cellData.getValue().codeCProperty());
         nom.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
-        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
+        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+
         //System.out.println(choixSemainesListe.getValue());
         choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> selected, String oldValue, String newValue) {
                 //id récupérer mais non affiché dans l'interface
                 System.out.println(newValue.substring(0,1));
+                Usine.getInstance().setNbSemaines(Integer.parseInt(newValue.substring(0,1)));
                 etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
                 //valeur booléenne récupérée mais non affichée dans l'inteface
                 System.out.println(etatChaine.getCellObservableValue(1));
+            }
+        });
+
+        niveauActivation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Chaine, Integer>>(){
+            @Override
+            public void handle(TableColumn.CellEditEvent event) {
+                tableChaines.getSelectionModel().getSelectedItem().setNiveauActivation( Integer.parseInt(event.getNewValue().toString()));
+                niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+                System.out.println(tableChaines.getSelectionModel().getSelectedItem().getNiveauActivation());
+                for (Chaine c: Usine.getInstance().getChaines()) {
+                    c.calculIndicateurPersonnelSemaine(Usine.getInstance().getNbSemaines());
+                    c.calculIndicateurValeurSemaine(Usine.getInstance().getNbSemaines());
+                }
             }
         });
 
