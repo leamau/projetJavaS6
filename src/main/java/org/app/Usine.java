@@ -380,19 +380,20 @@ public class Usine {
 
     //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
     public double calculIndicateurCommande() throws IllegalArgumentException, FileNotFoundException {
-        int nbChaines = this.chaines.size();
-        int nbChainesOk = 0;
-        System.out.println("nbchaine : "+nbChaines);
+        double nbChaines = this.chaines.size();
+        double nbChainesOk = 0;
 
         //pourcentages de commandes ok par rapport au nombre de commandes totales 
         for (Chaine chaine : this.chaines) {
             if(chaine.chaineIsOk(this.nbSemaines)){
                 nbChainesOk++;
-                System.out.println("nbok :" +nbChainesOk);
             }
         }
+        System.out.println("nbchaine : "+nbChaines);
+        System.out.println("nbok :" +nbChainesOk);
+        System.out.println("res :" +(nbChainesOk/nbChaines)*100+"%");
         //calcul du pourcentage
-        return (nbChainesOk/nbChaines)*100;
+        return ((nbChainesOk/nbChaines)*100);
     }
 
 
@@ -604,9 +605,9 @@ public class Usine {
                 fw.write(c.toStringV2() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write( "Indicateur de commande = " + c.calculIndicateurCommande() + "\n");
-                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeur() + "\n");
-                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnel() + "\n\n");
+                fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "\n");
+                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
+                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
                 fw.write("=====================================\n\n");
                 n++;
             }
@@ -660,11 +661,20 @@ public class Usine {
             fw.write("=============================================\n");
             fw.write("=============================================\n\n");
 
-            // Parcours des chaînes de l'usine.
-            for(Personnel p : this.personnels) {
+            // Parcours des personnels de l'usine.
+            for(Personnel pnq : this.personnelsNonQualifies) {
 
                 // Ajout du toString de chaque chaîne.
-                fw.write(p.toString() + "\n");
+                fw.write(pnq.toString() + "\n");
+
+                // Ajout des indicateurs disponibles pour chaque chaîne.
+                fw.write("=============================================\n\n");
+                n++;
+            }
+            for(Personnel pq : this.personnelsQualifies) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(pq.toString() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
                 fw.write("=============================================\n\n");
