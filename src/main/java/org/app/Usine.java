@@ -730,7 +730,15 @@ public class Usine {
         return n;
     }
 
+    /**
+     * Getter sur l'attribut nbSemaines.
+     * @return le nombre de semaines de la simulation en tant que int.
+     */
     public int getNbSemaines() { return this.nbSemaines; }
 
+    /**
+     * Setter sur l'attribut nbSemaines.
+     * @param n le nouveau nombre de semaines de la simulation.
+     */
     public void setNbSemaines(final int n) { this.nbSemaines = n; }
 }

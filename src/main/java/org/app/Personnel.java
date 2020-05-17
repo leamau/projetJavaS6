@@ -92,6 +92,10 @@ public class Personnel {
         return this.disponibilite.get();
     }
 
+    /**
+     * Méthodes assignant un nombre d'heures à une personne.
+     * @param heures le nombre d'heure à ajouter.
+     */
     public void ajouterHeuresAssignes(double heures){
         //ajouter une heure assignée
         this.nbHeuresAssignes = new SimpleDoubleProperty(this.nbHeuresAssignes.get() + heures);
@@ -199,18 +203,34 @@ public class Personnel {
         this.nbHeuresAssignes.set(nbHeuresAssignes);
     }
 
+    /**
+     * Getter sur l'attribut prenom.
+     * @return le prénom en tant que SimpleStringProperty.
+     */
     public SimpleStringProperty prenomProperty() {
         return prenom;
     }
 
+    /**
+     * Getter sur l'attribut disponibilite.
+     * @return la disponibilité en tant que SimpleBooleanProperty.
+     */
     public SimpleBooleanProperty disponibiliteProperty() {
         return disponibilite;
     }
 
+    /**
+     * Setter sur l'attribut disponibilite.
+     * @param disponibilite la nouvelle disponibilité de la personne.
+     */
     public void setDisponibilite(boolean disponibilite) {
         this.disponibilite.set(disponibilite);
     }
 
+    /**
+     * Méthode affichant les caractéristiques d'un personnel.
+     * @return ces caractéristiques en tant que String.
+     */
     @Override
     public String toString(){
 

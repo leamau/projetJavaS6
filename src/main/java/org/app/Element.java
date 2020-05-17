@@ -357,11 +357,18 @@ public class Element {
 		return (e.getCodeE().equals(this.codeE.getValue()));
 	}
 
-
+	/**
+	 * Getter sur l'attribut qteAcheter.
+	 * @return la quantité à acheter en tant que double.
+	 */
 	public double getQteAcheter() {
 		return qteAcheter.get();
 	}
 
+	/**
+	 * Setter sur l'attribut
+	 * @param qteAcheter la nouvelle quantité à acheter.
+	 */
 	public void setQteAcheter(double qteAcheter) {
 		this.qteAcheter.set(qteAcheter);
 	}

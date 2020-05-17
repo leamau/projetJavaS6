@@ -422,6 +422,10 @@ public class Chaine {
         return isOk;
     }
 
+    /**
+     * Méthodes affichant les caractéristiques d'une chaîne.
+     * @return ces caractéristiques en tant que String.
+     */
     @Override
     public String toString() {
         return "Chaine {\n" +
@@ -469,14 +473,27 @@ public class Chaine {
         return  valeurToString;
     }
 
+    /**
+     * Getter sur l'attribut elementsSortie.
+     * @return l'ensemble des éléments en sortie en tant que SimpleStringProperty.
+     */
     public SimpleStringProperty toStringElementsEnSortieProperty(){
         return new SimpleStringProperty(toStringElementsInterface(this.elementsSortie));
     }
 
+    /**
+     * Getter sur l'attribut elementsEntree.
+     * @return l'ensemble des éléments en entrée en tant que SimpleStringProperty.
+     */
     public SimpleStringProperty toStringElementsEnEntreeProperty(){
         return new SimpleStringProperty(toStringElementsInterface(this.elementsEntree));
     }
 
+    /**
+     * Méthode comparant un objet à la chaine courante.
+     * @param o l'objet comparé
+     * @return true sur le code (String) des Chaine est identique.
+     */
     @Override
     public boolean equals(Object o) {
         boolean res = false;
@@ -564,8 +581,16 @@ public class Chaine {
         return niveauActivation;
     }
 
+    /**
+     * Getter sur l'attribut personnelsQualifiesCovoque
+     * @return l'ensemble des personnels qualifiés convoqués en tant que SimpleMapProperty.
+     */
     public SimpleMapProperty<PersonnelQualifie,Double> getPersonnelsQualifiesConvoque() { return this.PersonnelsQualifiesConvoque; }
 
+    /**
+     * Getter sur l'attribut personnelsNonQualifiesCovoque
+     * @return l'ensemble des personnels non-qualifiés convoqués en tant que SimpleMapProperty.
+     */
     public SimpleMapProperty<PersonnelNonQualifie,Double> getPersonnelsNonQualifiesConvoque() { return this.PersonnelsNonQualifiesConvoque; }
 }
 
