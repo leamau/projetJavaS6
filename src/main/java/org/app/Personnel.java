@@ -40,10 +40,10 @@ public class Personnel {
 
     /**
      * constructeur de la classe avec incrémentation de l'id
-     * @param nom
-     * @param prenom
-     * @param nbDispo
-     * @param nbAssigne
+     * @param nom : nom
+     * @param prenom : prenom
+     * @param nbDispo : disponibilité
+     * @param nbAssigne : nombre d'heures assignées
      */
     public Personnel(String nom,String prenom, double nbDispo, double nbAssigne){
         lastValueId++;
