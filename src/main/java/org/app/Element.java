@@ -226,16 +226,8 @@ public class Element {
 		this.quantiteStock.set(quantiteStock);
 	}
 
-	public String getUniteMesure() {
-		return uniteMesure.get();
-	}
-
 	public SimpleStringProperty uniteMesureProperty() {
 		return uniteMesure;
-	}
-
-	public void setUniteMesure(String uniteMesure) {
-		this.uniteMesure.set(uniteMesure);
 	}
 
 	public double getPrixAchat() {
@@ -254,36 +246,16 @@ public class Element {
 		return prixVente.get();
 	}
 
-	public SimpleDoubleProperty prixVenteProperty() {
-		return prixVente;
-	}
-
 	public void setPrixVente(double prixVente) {
 		this.prixVente.set(prixVente);
-	}
-
-	public double getDemande() {
-		return demande.get();
-	}
-
-	public SimpleDoubleProperty demandeProperty() {
-		return demande;
 	}
 
 	public void setDemande(double demande) {
 		this.demande.set(demande);
 	}
 
-	public double getQteAcheter() {
-		return qteAcheter.get();
-	}
-
 	public SimpleDoubleProperty qteAcheterProperty() {
 		return qteAcheter;
-	}
-
-	public void setQteAcheter(double qteAcheter) {
-		this.qteAcheter.set(qteAcheter);
 	}
 
 	/**

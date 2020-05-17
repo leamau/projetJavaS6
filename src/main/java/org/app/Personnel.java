@@ -100,78 +100,104 @@ public class Personnel {
     /**
      * getters & setters
      */
+
+    /**
+     * recupérer l'id du personnel
+     * @return l'id du personnel
+     */
     public String getId() {
         return id.get();
     }
 
+    /**
+     * récupérer la propriété id
+     * @return la propriété id
+     */
     public SimpleStringProperty idProperty() {
         return id;
     }
 
+    /**
+     * modifier l'id du personnel
+     * @param id
+     */
     public void setId(String id) {
         this.id.set(id);
     }
 
+    /**
+     * récupère le nom du personnel
+     * @return le nom du personnel
+     */
     public String getNom() {
         return nom.get();
     }
 
+    /**
+     * récupère la propriété nom du personnel
+     * @return la propriété nom
+     */
     public SimpleStringProperty nomProperty() {
         return nom;
     }
 
+    /**
+     * modifie le nom du personnel
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom.set(nom);
     }
 
-    public String getPrenom() {
-        return prenom.get();
-    }
-
-    public SimpleStringProperty prenomProperty() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom.set(prenom);
-    }
-
-    public boolean isDisponibilite() {
-        return disponibilite.get();
-    }
-
-    public SimpleBooleanProperty disponibiliteProperty() {
-        return disponibilite;
-    }
-
-    public void setDisponibilite(boolean disponibilite) {
-        this.disponibilite.set(disponibilite);
-    }
-
+    /**
+     * donne le nombre d'heures disponibles
+     * @return le nombre d'heures disponibles
+     */
     public double getNbHeuresDispo() {
         return nbHeuresDispo.get();
     }
 
+    /**
+     * retourne la propriété nombre d'heures disponibles
+     * @return la propriété nombre d'heures disponibles
+     */
     public SimpleDoubleProperty nbHeuresDispoProperty() {
         return nbHeuresDispo;
     }
 
+    /**
+     * modifie le nombre d'heures disponibles
+     * @param nbHeuresDispo
+     */
     public void setNbHeuresDispo(double nbHeuresDispo) {
         this.nbHeuresDispo.set(nbHeuresDispo);
     }
 
+    /**
+     * obtenir le nombre d'heures assignées
+     * @return nombre d'heures assignées
+     */
     public double getNbHeuresAssignes() {
         return nbHeuresAssignes.get();
     }
 
+    /**
+     * retourne la propriété nombre d'heures assignées
+     * @return propriété nombre d'heures assignées
+     */
     public SimpleDoubleProperty nbHeuresAssignesProperty() {
         return nbHeuresAssignes;
     }
 
+    /**
+     * modifier le nombre d'heures assignées
+     * @param nbHeuresAssignes
+     */
     public void setNbHeuresAssignes(double nbHeuresAssignes) {
         this.nbHeuresAssignes.set(nbHeuresAssignes);
     }
 
+    @Override
     public String toString(){
 
         return "Personne{" +
