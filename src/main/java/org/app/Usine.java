@@ -23,6 +23,14 @@ public class Usine {
 
     private static Usine instance = null;
 
+    public int getNbSemaines() {
+        return nbSemaines;
+    }
+
+    public void setNbSemaines(int nbSemaines) {
+        this.nbSemaines = nbSemaines;
+    }
+
     private int nbSemaines;
 
     private Usine()  {
@@ -42,6 +50,7 @@ public class Usine {
             e.printStackTrace();
         }
         this.chaines = csvToChaines(this.elements);
+
     }
 
     public static Usine getInstance() {

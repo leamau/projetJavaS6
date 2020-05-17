@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.app.Chaine;
 import org.app.Element;
 import org.app.Usine;
 
@@ -69,6 +70,9 @@ public class AchatsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Chaine c: Usine.getInstance().getChaines()) {
+            c.calculIndicateurValeurSemaine(Usine.getInstance().getNbSemaines());
+        }
         nomElemAchats.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         prixAchat.setCellValueFactory(cellData -> cellData.getValue().prixAchatProperty().asObject());
         qteAcheter.setCellValueFactory(cellData -> cellData.getValue().qteAcheterProperty().asObject());

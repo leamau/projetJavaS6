@@ -200,10 +200,14 @@ public class Chaine {
             Element elementEntree = entree.getKey();
             double stock = elementEntree.getQuantiteStock();
             /*si sa quantitée demandée est supèrieure a sa quantitée en stock on affiche une erreur*/
-            if(stock - qteElementEntree*this.getNiveauActivation() < 0){
+            if(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines < 0){
+                //ajouter dans les elements a acheter
+                elementEntree.setQteAcheter(elementEntree.getQteAcheter()-(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines));
                 resultat = -1;
                 stockOK = false;
             }else{
+                //déduction des éléments dans le stock
+                elementEntree.setQuantiteStock(elementEntree.getQuantiteStock() - qteElementEntree*(this.getNiveauActivation()*nbJours*nbSemaines));
                 valeurAchat += elementEntree.getPrixAchat()*qteElementEntree;
             }
         }
@@ -212,6 +216,7 @@ public class Chaine {
                 Double qteElementSortie = sortie.getValue();
                 Element elementSortie = sortie.getKey();
                 valeurVente += elementSortie.getPrixVente()*qteElementSortie;
+                //ajout des éléments dans le stocks
                 elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie*(this.getNiveauActivation()*nbJours*nbSemaines));
             }
             resultat = (valeurVente - valeurAchat)*nbJours*nbSemaines;
@@ -226,7 +231,6 @@ public class Chaine {
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
     public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
-
         //on compare le nombre de personnel necessaire au nombre disponible
         boolean chaineOk = false;
         int nbPersonnelsQDispo = 0;
@@ -461,12 +465,24 @@ public class Chaine {
         return  valeurToString;
     }
 
+    /**
+     * transforme en string la liste des éléments en entrée
+     * @return
+     */
+    public String toStringElementsInterface(SimpleMapProperty<Element,Double> liste){
+        String valeurToString = "";
+        for(Map.Entry<Element, Double> element : liste.entrySet()) {
+            valeurToString += element.getKey().getNom()+" x "+element.getValue().toString() +" \n ";
+        }
+        return  valeurToString;
+    }
+
     public SimpleStringProperty toStringElementsEnSortieProperty(){
-        return new SimpleStringProperty(toStringElementsEnSortie());
+        return new SimpleStringProperty(toStringElementsInterface(this.elementsSortie));
     }
 
     public SimpleStringProperty toStringElementsEnEntreeProperty(){
-        return new SimpleStringProperty(toStringElementsEnEntree());
+        return new SimpleStringProperty(toStringElementsInterface(this.elementsEntree));
     }
 
     public ObservableList<Element> getElementsEntreeProperty(){
@@ -512,7 +528,7 @@ public class Chaine {
     }
 
     public SimpleStringProperty nomProperty() {
-        return nom;
+        return new SimpleStringProperty(nom.get().replace('.', ' '));
     }
 
     public void setNom(String nom) {
