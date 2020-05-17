@@ -276,7 +276,7 @@ public class Chaine {
                     }
                     i++;
                 }
-             //TODO: finir de revoir la méthode
+                //TODO: finir de revoir la méthode
             }
 
             //si le non quali necessaire est supèrieur au disponible
@@ -435,9 +435,9 @@ public class Chaine {
      */
     public String toStringElementsEnEntree(){
         String valeurToString = "";
-            for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
-                valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
-            }
+        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
+            valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
+        }
         return  valeurToString;
     }
 
@@ -526,7 +526,7 @@ public class Chaine {
 
     /**
      * obtenir les éléments en sortie
-      * @return les éléments en sortie
+     * @return les éléments en sortie
      */
     public ObservableMap<Element, Double> getElementsSortie() {
         return elementsSortie.get();
