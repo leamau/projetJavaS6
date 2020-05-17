@@ -29,7 +29,7 @@ public class PersonnelsController implements Initializable {
      */
     @FXML
     public void exportPersonnel() throws IOException {
-
+        Usine.getInstance().exportPersonnelTxt();
     }
 
     /**
