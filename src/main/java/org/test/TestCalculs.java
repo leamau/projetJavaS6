@@ -3,9 +3,18 @@ package org.test;
 import org.app.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.System;
 
+/**
+ * Classe permettant de tester tous les calculs d'une usine.
+ */
 public class TestCalculs {
+    /**
+     * Permet d'executer les classes éléments, chaîne et Usine pour tester leurs calculs
+     * @param args
+     * @throws FileNotFoundException
+     */
     public static void main(String [] args) throws FileNotFoundException {
         //création d'elements
        /* Element cookie = new Element("cookie",10,1.4,2,1, "g");

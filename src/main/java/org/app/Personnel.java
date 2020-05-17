@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-//TODO: voir si on met cette classe en abstraite ou non
+/**
+ * Classe permettant de créer et de gérer tout les personnels de l'usine
+ */
 public class Personnel {
     static int lastValueId = 0;
 

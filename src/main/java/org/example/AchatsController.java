@@ -16,14 +16,34 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.app.Element;
 import org.app.Usine;
 
+/**
+ * Classe permettant de controller tous les achats de produits et de les liers avec l'interface
+ */
 public class AchatsController implements Initializable {
 
-    public Usine usine = Usine.getInstance();
-
+    /**
+     * Tableau pour visualiser toutes les informations des produits achetés pour les chaînes
+     */
     public TableView<Element> tableAchats;
+
+    /**
+     * Colonne pour visualiser les noms des produits achetés pour les chaînes
+     */
     public TableColumn<Element, String> nomElemAchats;
+
+    /**
+     * Colonne pour visualiser les prix des produits achetés pour les chaînes
+     */
     public TableColumn<Element, Double> prixAchat;
+
+    /**
+     * Colonne pour visualiser la quantité des produits achetés pour les chaînes
+     */
     public TableColumn<Element, Double> qteAcheter;
+
+    /**
+     * Colonne pour visualiser le cout total des produits achetés pour les chaînes
+     */
     public TableColumn<Element, Double> coutTotal;
 
     /**
