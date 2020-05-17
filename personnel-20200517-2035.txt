@@ -1,0 +1,68 @@
+=============================================
+=============================================
+=                                           =
+= Liste du Personnel au 2020/05/17 20:35:44 =
+=                                           =
+=============================================
+=============================================
+
+Personnels Non-qualifiés :
+
+Personne{id='P003', nom='Hatlem', prenom=Ingrid, disponibilite=false, nbHeuresAssignes=5.0, nbHeuresDispo=5.0}
+
+=============================================
+
+Personne{id='P004', nom='Medina', prenom=Soledad, disponibilite=false, nbHeuresAssignes=17.0, nbHeuresDispo=17.0}
+
+=============================================
+
+Personne{id='P006', nom='Rhodes', prenom=Freddie, disponibilite=false, nbHeuresAssignes=18.0, nbHeuresDispo=17.0}
+
+=============================================
+
+Personne{id='P007', nom='Silva', prenom=Carlúcia, disponibilite=false, nbHeuresAssignes=18.0, nbHeuresDispo=17.0}
+
+=============================================
+
+Personne{id='P008', nom='Omahony', prenom=Lola, disponibilite=false, nbHeuresAssignes=13.0, nbHeuresDispo=10.0}
+
+=============================================
+
+Personne{id='P009', nom='Harvey', prenom=Zoe, disponibilite=false, nbHeuresAssignes=27.0, nbHeuresDispo=27.0}
+
+=============================================
+
+Personne{id='P010', nom='Powell', prenom=Olivia, disponibilite=false, nbHeuresAssignes=12.0, nbHeuresDispo=11.0}
+
+=============================================
+
+Personne{id='P013', nom='Brooks', prenom=Michael, disponibilite=false, nbHeuresAssignes=9.0, nbHeuresDispo=6.0}
+
+=============================================
+
+Personnels Qualifiés :
+
+Personne{id='P001', nom='Thomsen', prenom=Laura, disponibilite=false, nbHeuresAssignes=11.0, nbHeuresDispo=9.0}
+
+=============================================
+
+Personne{id='P002', nom='Christensen', prenom=Valdemar, disponibilite=false, nbHeuresAssignes=9.0, nbHeuresDispo=6.0}
+
+=============================================
+
+Personne{id='P005', nom='Garrett', prenom=Javier, disponibilite=false, nbHeuresAssignes=18.0, nbHeuresDispo=17.0}
+
+=============================================
+
+Personne{id='P011', nom='Robinson', prenom=Maria, disponibilite=false, nbHeuresAssignes=9.0, nbHeuresDispo=7.0}
+
+=============================================
+
+Personne{id='P012', nom='Sales', prenom=Orandino, disponibilite=false, nbHeuresAssignes=7.0, nbHeuresDispo=5.0}
+
+=============================================
+
+Personne{id='P014', nom='Berger', prenom=Willi, disponibilite=true, nbHeuresAssignes=12.0, nbHeuresDispo=17.0}
+
+=============================================
+

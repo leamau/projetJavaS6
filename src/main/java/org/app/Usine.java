@@ -598,6 +598,7 @@ public class Usine {
             fw.write("=====================================\n");
             fw.write("=====================================\n\n");
 
+            fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "%\n\n");
             // Parcours des chaînes de l'usine.
             for(Chaine c : this.chaines) {
 
@@ -605,9 +606,8 @@ public class Usine {
                 fw.write(c.toStringV2() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "\n");
-                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
-                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
+                fw.write( "\tIndicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
+                fw.write("\tIndicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
                 fw.write("=====================================\n\n");
                 n++;
             }
@@ -661,6 +661,8 @@ public class Usine {
             fw.write("=============================================\n");
             fw.write("=============================================\n\n");
 
+            fw.write("Personnels Non-qualifiés :\n\n");
+
             // Parcours des personnels de l'usine.
             for(Personnel pnq : this.personnelsNonQualifies) {
 
@@ -671,6 +673,9 @@ public class Usine {
                 fw.write("=============================================\n\n");
                 n++;
             }
+
+            fw.write("Personnels Qualifiés :\n\n");
+
             for(Personnel pq : this.personnelsQualifies) {
 
                 // Ajout du toString de chaque chaîne.
