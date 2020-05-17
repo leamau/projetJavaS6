@@ -15,12 +15,34 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe permettant de controller tous les éléments contenu dans les stocks et de les liers avec l'interface
+ */
 public class StocksController implements Initializable {
 
+    /**
+     * Tableau pour visualiser toutes les informations des stocks de l'usine
+     */
     public TableView<Element> tableStocks;
+
+    /**
+     * Colonne pour visualiser le code des éléments en stock
+     */
     public TableColumn<Element,String> cdeElemStocks;
+
+    /**
+     * Colonne pour visualiser le nom des éléments en stock
+     */
     public TableColumn<Element,String> nomStocks;
+
+    /**
+     * Colonne pour visualiser l'unité de mesure des éléments/produits en stock
+     */
     public TableColumn<Element,String> uniteMesureStocks;
+
+    /**
+     * Colonne pour visualiser la quantité en stocks de chaques produits de l'usine
+     */
     public TableColumn<Element,Double> quantiteStocks;
 
     /**

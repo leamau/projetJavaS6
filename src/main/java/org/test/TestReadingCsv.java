@@ -5,7 +5,15 @@ import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Classe permettant de tester l'exportation des fichiers csv et leurs mise en forme
+ */
 public class TestReadingCsv{
+    /**
+     * Execution des tests d'exportation pour les csv des chaînes et du personnels
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception
     {
         ConversionsCsv convert = new ConversionsCsv();

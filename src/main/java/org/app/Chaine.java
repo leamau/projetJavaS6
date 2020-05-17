@@ -169,6 +169,7 @@ public class Chaine {
     /**
      *
      * vérifie la faisabilité de la chaine en fonction des personnels et des stocks
+     * @param nbSemaines : nombre de semaines de déroulement de la chaine
      * @return un booléen indiquant si la chaine est faisable ou non
      */
     public boolean chaineIsOk(int nbSemaines) {
@@ -176,15 +177,12 @@ public class Chaine {
         return (this.calculIndicateurValeurSemaine(nbSemaines)>0 && this.calculIndicateurPersonnelSemaine(nbSemaines));
     }
 
-    public SimpleBooleanProperty chaineIsOkProperty(int nbSemaines) {
-        //si il y a un indicateur de valeur poditif et assez de personnel disponible
-        return new SimpleBooleanProperty((this.calculIndicateurValeurSemaine(nbSemaines)>0 && this.calculIndicateurPersonnelSemaine(nbSemaines)));
-    }
 
 
     /**
      * Cet indicateur donne une estimation financière de la rentabilité de la production envisagée
-     * @return
+     * @param nbSemaines : nombre de semaines de déroulement de la chaine
+     * @return double resultat
      * @throws IllegalArgumentException
      */
     public double calculIndicateurValeurSemaine(int nbSemaines){
@@ -208,17 +206,22 @@ public class Chaine {
             }else{
                 //déduction des éléments dans le stock
                 elementEntree.setQuantiteStock(elementEntree.getQuantiteStock() - qteElementEntree*(this.getNiveauActivation()*nbJours*nbSemaines));
+                //modification de la valeur d'achat totale
                 valeurAchat += elementEntree.getPrixAchat()*qteElementEntree;
             }
         }
+        /*si il y a assez de stock */
         if(stockOK){
+            //parcours des éléments en sortie
             for(Map.Entry<Element, Double> sortie : this.elementsSortie.entrySet()) {
                 Double qteElementSortie = sortie.getValue();
                 Element elementSortie = sortie.getKey();
+                //modification de la valeur de vente totale
                 valeurVente += elementSortie.getPrixVente()*qteElementSortie;
-                //ajout des éléments dans le stocks
+                //changement de la quantité en stock de l'élément (soustraction de la quantitée necessaire au stock)
                 elementSortie.setQuantiteStock(elementSortie.getQuantiteStock() + qteElementSortie*(this.getNiveauActivation()*nbJours*nbSemaines));
             }
+            //calcul du résultat
             resultat = (valeurVente - valeurAchat)*nbJours*nbSemaines;
         }else {
             resultat = -1;
@@ -228,6 +231,7 @@ public class Chaine {
     }
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
+     * @param nbSemaines : nombre de semaines de déroulement de la chaine
      * @return vrai si il y  a assez de personnel disponible et faux dans le cas inverse
      */
     public boolean calculIndicateurPersonnelSemaine(int nbSemaines) {
@@ -275,7 +279,7 @@ public class Chaine {
                     }
                     i++;
                 }
-             //TODO: finir de revoir la méthode
+                //TODO: finir de revoir la méthode
             }
 
             //si le non quali necessaire est supèrieur au disponible
@@ -286,11 +290,6 @@ public class Chaine {
                     chaineOk = false;
                 }else{
                     chaineOk = true;
-                    /*for (int i = 0; i < nbPersonnelsNQDispo ;i++){
-                        this.assignerPersonnelNQSemaine(niveauActivation.get(),nbSemaines,persoNQDispo.get(0));
-                        persoNQDispo.remove(0);
-                        nbPersonnelsNQDispo--;
-                    }*/
                     int cptTrouve = 0;
                     int i = 0;
                     //ajouter le nombre necessaire de personnel non qualifié
@@ -328,13 +327,6 @@ public class Chaine {
                         }
                         i++;
                     }
-                    /*
-                    //ajouter des personnels qualifié a la chaine
-                    for (int i = 0; i < nbPersonnelsQDispo;i++){
-                        this.assignerPersonnelQSemaine(niveauActivation.get(),nbSemaines,persoQDispo.get(0));
-                        persoQDispo.remove(0);
-                        nbPersonnelsQDispo--;
-                    }*/
                 }
             }else{
                 chaineOk = true;
@@ -363,6 +355,10 @@ public class Chaine {
         return chaineOk;
     }
 
+    /**
+     *
+     * @return
+     */
     public String toStringV2() {
         String str = "Chaine {\n" +
                 "\tcodeC = " + codeC.getValue() +
@@ -382,49 +378,45 @@ public class Chaine {
         return str;
     }
 
+    /**
+     *
+     * @param nbHeures: nombre d'heures de déroulement de la chaine
+     * @param nbSemaines : nombre de semaines de déroulement de la chaine
+     * @param personnel : personnel non qualifié a modifier
+     * @return si le personnel a bien été assigné
+     */
     public boolean assignerPersonnelNQSemaine(double nbHeures,int nbSemaines,PersonnelNonQualifie personnel){
         boolean isOk = false;
-        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //insertion du personnel dans la liste
         this.PersonnelsNonQualifiesConvoque.get().put(personnel,nbHeures*nbSemaines);
+        //si le nouveau nombre d'heures est superieur a 0
         if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
+            //changer le nombre d'heures assignés au personnel
             personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
+            //changer le nombre d'heures disponibles du personnel
             personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
             isOk = true;
         }
-        //System.out.println(personnel.getNom()+ "2 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
         return isOk;
     }
 
+    /***
+     *
+     * @param nbHeures: nombre d'heures de déroulement de la chaine
+     * @param nbSemaines : nombre de semaines de déroulement de la chaine
+     * @param personnel : personnel non qualifié a modifier
+     * @return si le personnel a bien été assigné
+     */
     public boolean assignerPersonnelQSemaine(double nbHeures,int nbSemaines,PersonnelQualifie personnel){
         boolean isOk = false;
-        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
+        //insertion du personnel dans la liste
         this.PersonnelsQualifiesConvoque.put(personnel,nbHeures*nbSemaines);
+        //si le nouveau nombre d'heures est superieur a 0
         if(personnel.getNbHeuresDispo() - nbHeures*nbSemaines > 0){
+            //changer le nombre d'heures assignés au personnel
             personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures*nbSemaines);
+            //changer le nombre d'heures disponibles du personnel
             personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures*nbSemaines);
-            isOk = true;
-        }
-        //System.out.println(personnel.getNom()+ "1 : dispo = "+personnel.getNbHeuresDispo()+" -> assigne = "+personnel.getNbHeuresAssignes());
-        return isOk;
-    }
-
-    public boolean assignerPersonnelNQ(double nbHeures,PersonnelNonQualifie personnel){
-        boolean isOk = false;
-        this.PersonnelsNonQualifiesConvoque.put(personnel,nbHeures);
-        if(personnel.getNbHeuresDispo() - nbHeures > 0){
-            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures);
-            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures);
-            isOk = true;
-        }
-        return isOk;
-    }
-
-    public boolean assignerPersonnelQ(double nbHeures,PersonnelQualifie personnel){
-        boolean isOk = false;
-        this.PersonnelsQualifiesConvoque.put(personnel,nbHeures);
-        if(personnel.getNbHeuresDispo() - nbHeures > 0){
-            personnel.setNbHeuresAssignes(personnel.getNbHeuresAssignes() + nbHeures);
-            personnel.setNbHeuresDispo(personnel.getNbHeuresDispo() - nbHeures);
             isOk = true;
         }
         return isOk;
@@ -447,9 +439,9 @@ public class Chaine {
      */
     public String toStringElementsEnEntree(){
         String valeurToString = "";
-            for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
-                valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
-            }
+        for(Map.Entry<Element, Double> entree : this.elementsEntree.entrySet()) {
+            valeurToString += ""+entree.getValue().toString() + " * "+entree.getKey()+" , ";
+        }
         return  valeurToString;
     }
 
@@ -485,22 +477,6 @@ public class Chaine {
         return new SimpleStringProperty(toStringElementsInterface(this.elementsEntree));
     }
 
-    public ObservableList<Element> getElementsEntreeProperty(){
-        ObservableList<Element> elements = FXCollections.observableArrayList();
-        for(Map.Entry<Element,Double> entree : this.elementsEntree.entrySet()) {
-            elements.add(entree.getKey());
-        }
-        return elements;
-    }
-
-    public ObservableList<Element> getElementsSortieProperty() {
-        ObservableList<Element> elements = FXCollections.observableArrayList();
-        for (Map.Entry<Element, Double> entree : this.elementsSortie.entrySet()) {
-            elements.add(entree.getKey());
-        }
-        return elements;
-    }
-
     @Override
     public boolean equals(Object o) {
         boolean res = false;
@@ -509,65 +485,81 @@ public class Chaine {
         return res;
     }
 
-    //getters & setters
-
+    /**
+     * donne le code chaine
+     * @return le code de la chaine
+     */
     public String getCodeC() {
         return codeC.get();
     }
-
+    /**
+     * donne la propriété code de la chaine
+     * @return la propriété code de la chaine
+     */
     public SimpleStringProperty codeCProperty() {
         return codeC;
     }
 
+    /**
+     * permet de modifier le code de la chaine
+     * @param codeC
+     */
     public void setCodeC(String codeC) {
         this.codeC.set(codeC);
     }
 
+    /**
+     * donne le nom de la chaine
+     * @return le nom de la chaine
+     */
     public String getNom() {
         return nom.get();
     }
 
+    /**
+     * retourne la propriété nom
+     * @return la propriété nom
+     */
     public SimpleStringProperty nomProperty() {
         return new SimpleStringProperty(nom.get().replace('.', ' '));
     }
 
+    /**
+     * moddifie le nom de la chaine
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom.set(nom);
     }
 
+    /**
+     * modifie le niveau d'activation
+     * @param niveauActivation
+     */
     public void setNiveauActivation(int niveauActivation) {
         this.niveauActivation = new SimpleIntegerProperty(niveauActivation);
     }
 
-    public ObservableMap<Element, Double> getElementsEntree() {
-        return elementsEntree.get();
-    }
-
-    public SimpleMapProperty<Element, Double> elementsEntreeProperty() {
-        return elementsEntree;
-    }
-
-    public void setElementsEntree(ObservableMap<Element, Double> elementsEntree) {
-        this.elementsEntree.set(elementsEntree);
-    }
-
+    /**
+     * obtenir les éléments en sortie
+     * @return les éléments en sortie
+     */
     public ObservableMap<Element, Double> getElementsSortie() {
         return elementsSortie.get();
     }
 
-    public SimpleMapProperty<Element, Double> elementsSortieProperty() {
-
-        return elementsSortie;
-    }
-
-    public void setElementsSortie(ObservableMap<Element, Double> elementsSortie) {
-        this.elementsSortie.set(elementsSortie);
-    }
-
+    /**
+     * obtenir le niveau d'activation
+     * @return niveau d'activation
+     */
     public int getNiveauActivation() {
         return niveauActivation.get();
     }
 
+    /**
+     * obtenir la propriété de niveau d'activation
+     * @return
+     */
     public SimpleIntegerProperty niveauActivationProperty() {
         return niveauActivation;
     }

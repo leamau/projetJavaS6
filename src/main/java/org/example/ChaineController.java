@@ -24,15 +24,49 @@ import org.app.Chaine;
 import org.app.Element;
 import org.app.Usine;
 
+/**
+ * Classe permettant de controller toutes les chaînes de l'usine et de les liers avec l'interface
+ */
 public class ChaineController  implements Initializable {
 
+    /**
+     * ComboBox permettant de choisir le nombre de semaine à utiliser pour calculer la production des chaînes
+     */
     @FXML public ComboBox<String> choixSemainesListe;
+
+    /**
+     * Tableau pour visualiser toutes les informations des chaînes
+     */
     @FXML public TableView<Chaine> tableChaines;
+
+    /**
+     * Colonne pour visualiser le code de chaques chaînes
+     */
     @FXML public TableColumn<Chaine, String> codeC;
+
+    /**
+     * Colonne pour visualiser le nom de chaques chaînes
+     */
     @FXML public TableColumn<Chaine, String> nom;
+
+    /**
+     * Colonne pour visualiser et éditer le niveau d'activation des chaines
+     */
     @FXML public TableColumn<Chaine, Integer> niveauActivation;
+
+    /**
+     * Colonne pour visualiser les éléments en entrée de chaques chaînes
+     */
     @FXML public TableColumn<Chaine, String> elementsEntree;
+
+    /**
+     * Colonne pour visualiser les éléments en sorties de chaques chaînes
+     */
     @FXML public TableColumn<Chaine, String> elementsSortie;
+
+    /**
+     * Colonne pour visualiser l'état des chaînes
+     */
     @FXML public TableColumn<Chaine, Boolean> etatChaine;
 
     /**
