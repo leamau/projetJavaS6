@@ -88,7 +88,7 @@ public class Personnel {
      */
     public boolean etreDisponible(){
         //si le personnel a plus dh'eures disponibles que d'heures assignées il est disponible
-        this.disponibilite = new SimpleBooleanProperty(this.nbHeuresDispo.get() > this.nbHeuresAssignes.get());
+        this.disponibilite = new SimpleBooleanProperty((this.nbHeuresDispo.get() >=0  || (this.nbHeuresAssignes.get() < this.nbHeuresDispo.get())));
         return this.disponibilite.get();
     }
 
