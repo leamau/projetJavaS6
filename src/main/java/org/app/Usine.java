@@ -52,6 +52,10 @@ public class Usine {
      * Contructeur par défaut.
      */
     private Usine()  {
+        this.elements = new ArrayList<Element>();
+        this.chaines = new ArrayList<Chaine>();
+        this.personnelsQualifies = new ArrayList<PersonnelQualifie>();
+        this.personnelsNonQualifies = new ArrayList<PersonnelNonQualifie>();
         this.resetUsine();
     }
 
@@ -66,11 +70,18 @@ public class Usine {
         return Usine.instance;
     }
 
+    /**
+     * mise en place de la réinitialisation de l'usine pour une future version
+     */
     public void resetUsine(){
-        this.elements = new ArrayList<Element>();
-        this.chaines = new ArrayList<Chaine>();
-        this.personnelsQualifies = new ArrayList<PersonnelQualifie>();
-        this.personnelsNonQualifies = new ArrayList<PersonnelNonQualifie>();
+        ArrayList<Element> oldElements = this.elements;
+        this.elements.removeAll(oldElements);
+        ArrayList<Chaine> oldChaines = this.chaines;
+        this.chaines.removeAll(oldChaines);
+        ArrayList<PersonnelQualifie> oldpersonnelsQualifies = this.personnelsQualifies;
+        this.personnelsQualifies.removeAll(oldpersonnelsQualifies);
+        ArrayList<PersonnelNonQualifie> oldpersonnelsNonQualifies = this.personnelsNonQualifies;
+        this.personnelsNonQualifies.removeAll(oldpersonnelsNonQualifies);
         this.nbSemaines = 1;
         try {
             csvToElements();

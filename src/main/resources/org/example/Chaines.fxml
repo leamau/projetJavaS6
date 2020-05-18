@@ -16,10 +16,9 @@
          <columns>
             <TableColumn fx:id="codeC" prefWidth="91.0" text="Code Chaînes" />
             <TableColumn fx:id="nom" prefWidth="188.0" text="Nom" />
-            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="125.0" text="Niveau d'activation" />
-             <TableColumn fx:id="elementsEntree" prefWidth="184.0" text="Produits en Entree" />
-             <TableColumn fx:id="elementsSortie" prefWidth="163.0" text="Produits en Sortie" />
-            <TableColumn fx:id="etatChaine" prefWidth="86.0" text="Etat Chaîne" />
+            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="145.0" text="Niveau d'activation" />
+             <TableColumn fx:id="elementsEntree" prefWidth="203.0" text="Produits en Entree" />
+             <TableColumn fx:id="elementsSortie" prefWidth="209.0" text="Produits en Sortie" />
          </columns>
       </TableView>
       <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" onAction="#exportChaine" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
@@ -46,6 +45,6 @@
       </ComboBox>
       <Label layoutX="583.0" layoutY="584.0" prefHeight="17.0" prefWidth="219.0" text="Pourcentage de commandes satisfaites :" />
       <Label fx:id="indicateurCommandes" layoutX="802.0" layoutY="584.0" prefHeight="17.0" prefWidth="69.0" />
-      <Button layoutX="169.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" onAction="#resetSimulation" prefWidth="165.0" text="Remettre à 0 la simulation" />
+      <!--<Button layoutX="169.0" layoutY="574.0" mnemonicParsing="false" onAction="#resetSimulation" prefHeight="37.0" prefWidth="165.0" text="Remettre à 0 la simulation" />-->
     </children>
 </AnchorPane>

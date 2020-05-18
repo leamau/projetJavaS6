@@ -167,6 +167,8 @@ public class ChaineController  implements Initializable {
         //indicateurValeur.setCellValueFactory(cellData -> cellData.getValue().calculIndicateurValeurSemaineProperty(Usine.getInstance().getNbSemaines()).asObject());
         indicateurCommandes.setText(String.valueOf(Math.round(Usine.getInstance().calculIndicateurCommande()))+" %");
         choixSemainesListe.getSelectionModel().select(Usine.getInstance().getNbSemaines()-1);
+        //gestion de l'état de la chaine
+        //etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Usine.getInstance().getNbSemaines())));
 
         //System.out.println(choixSemainesListe.getValue());
         choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -175,10 +177,10 @@ public class ChaineController  implements Initializable {
                 //id récupérer mais non affiché dans l'interface
                 System.out.println(newValue.substring(0,1));
                 Usine.getInstance().setNbSemaines(Integer.parseInt(newValue.substring(0,1)));
-                etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
+                //gestion de l'état de la chaine
+                //etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
                 changeLabelText();
                 //valeur booléenne récupérée mais non affichée dans l'inteface
-                System.out.println(etatChaine.getCellObservableValue(1));
             }
         });
 
