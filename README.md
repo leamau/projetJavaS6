@@ -19,6 +19,7 @@
   # 2ème méthode (en cas de soucis avec l'executable jar) : 
   - Récupérer le fichier zip contenant toutes les ressources du projet.
   - Dézipper le projet sur votre bureau.
+  - véfifier que le projet est bien présent dans le dossier "source"
   - Importer ce projet sur un IDE comme IntelliJ ou EclipseJAVA
   - Déplacer vous dans l'arborescence "projetJavaS6\src\main\java\org\example"
   - Faite un clic-droit sur le fichier App
