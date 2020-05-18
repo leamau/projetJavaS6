@@ -14,14 +14,14 @@
     <children>
       <TableView fx:id="tableChaines" layoutX="33.0" layoutY="143.0" prefHeight="418.0" prefWidth="838.0">
          <columns>
-            <TableColumn fx:id="codeC" prefWidth="100.80001068115234" text="Code Chaînes" />
-            <TableColumn fx:id="nom" prefWidth="136.0" text="Nom" />
-            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="122.39996337890625" text="Niveau d'activation" />
-             <TableColumn fx:id="elementsEntree" prefWidth="167.20004272460938" text="Produits en Entree" />
-             <TableColumn fx:id="elementsSortie" prefWidth="182.4000244140625" text="Produits en Sortie" />
-            <TableColumn fx:id="etatChaine" prefWidth="129.5999755859375" text="Etat Chaîne" />
+            <TableColumn fx:id="codeC" prefWidth="91.0" text="Code Chaînes" />
+            <TableColumn fx:id="nom" prefWidth="188.0" text="Nom" />
+            <TableColumn fx:id="niveauActivation" editable="true" onEditCommit="#doubleClicColonneEvent" prefWidth="145.0" text="Niveau d'activation" />
+             <TableColumn fx:id="elementsEntree" prefWidth="203.0" text="Produits en Entree" />
+             <TableColumn fx:id="elementsSortie" prefWidth="209.0" text="Produits en Sortie" />
          </columns>
       </TableView>
+
       <Button fx:id="exportbuttonsimulation" layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" onAction="#exportChaineV2" prefWidth="165.0" text="Exporter le Résultat" />
       <Button layoutX="84.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
       <Button layoutX="324.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
@@ -35,7 +35,7 @@
       <ComboBox fx:id="choixSemainesListe" layoutX="732.0" layoutY="44.0" prefHeight="26.0" prefWidth="130.0" promptText="Choix Semaines">
               <items>
                   <FXCollections fx:id="choixSemainesItems" fx:factory="observableArrayList">
-                      <String fx:id="1" fx:value="1 semaines" />
+                      <String fx:id="1" fx:value="1 semaine" />
                       <String fx:id="2" fx:value="2 semaines" />
                       <String fx:id="3" fx:value="3 semaines" />
                       <String fx:id="4" fx:value="4 semaines" />
@@ -44,5 +44,8 @@
                   </FXCollections>
               </items>
       </ComboBox>
+      <Label layoutX="583.0" layoutY="584.0" prefHeight="17.0" prefWidth="219.0" text="Pourcentage de commandes satisfaites :" />
+      <Label fx:id="indicateurCommandes" layoutX="802.0" layoutY="584.0" prefHeight="17.0" prefWidth="69.0" />
+      <!--<Button layoutX="169.0" layoutY="574.0" mnemonicParsing="false" onAction="#resetSimulation" prefHeight="37.0" prefWidth="165.0" text="Remettre à 0 la simulation" />-->
     </children>
 </AnchorPane>

@@ -229,6 +229,10 @@ public class Chaine {
 
         return resultat;
     }
+
+    public SimpleDoubleProperty calculIndicateurValeurSemaineProperty(int nbSemaines){
+        return new SimpleDoubleProperty(this.calculIndicateurValeurSemaine(nbSemaines));
+    }
     /**
      * permet de savoir si il y a assez de personnel disponible pour réaliser la chaine
      * @param nbSemaines : nombre de semaines de déroulement de la chaine

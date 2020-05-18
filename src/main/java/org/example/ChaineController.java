@@ -76,6 +76,14 @@ public class ChaineController  implements Initializable {
     @FXML public TableColumn<Chaine, Boolean> etatChaine;
 
     /**
+     * Colonne pour visualiser l'indicateur de valeur des chaines
+     */
+    @FXML public TableColumn<Chaine, Double> indicateurValeur;
+
+    /**
+     * Label pour afficher le pourcentage de commandes satisfaites
+     */
+    @FXML public Label indicateurCommandes;
      * L'objet pour choisir où enregistrer l'export personnel.
      */
     public FileChooser fileChooser = new FileChooser();
@@ -137,6 +145,18 @@ public class ChaineController  implements Initializable {
     }
 
     /**
+     * Permet d'appeler cette méthode sur un bouton export et d'exporter les chaines en fichier txt
+     * @throws IOException
+     */
+    @FXML
+    public void resetSimulation() throws IOException {
+        Usine.getInstance().resetUsine();
+        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+        choixSemainesListe.getSelectionModel().select(Usine.getInstance().getNbSemaines()-1);
+        this.changeLabelText();
+    }
+
+    /**
      * Permet de se déplacer vers l'interface Stocks
      * @throws IOException
      */
@@ -173,6 +193,13 @@ public class ChaineController  implements Initializable {
     }
 
     /**
+     * permet de changer la valeur du label d'indicateur de commandes
+     */
+    private void changeLabelText(){
+        indicateurCommandes.setText(String.valueOf(Math.round(Usine.getInstance().calculIndicateurCommande()))+" %");
+    }
+
+    /**
      * Permet d'initialiser le contenu de la page Chaine.fxml
      * @param url
      * @param resourceBundle
@@ -184,6 +211,11 @@ public class ChaineController  implements Initializable {
         elementsEntree.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnEntreeProperty());
         elementsSortie.setCellValueFactory(cellData -> cellData.getValue().toStringElementsEnSortieProperty());
         niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+        //indicateurValeur.setCellValueFactory(cellData -> cellData.getValue().calculIndicateurValeurSemaineProperty(Usine.getInstance().getNbSemaines()).asObject());
+        indicateurCommandes.setText(String.valueOf(Math.round(Usine.getInstance().calculIndicateurCommande()))+" %");
+        choixSemainesListe.getSelectionModel().select(Usine.getInstance().getNbSemaines()-1);
+        //gestion de l'état de la chaine
+        //etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Usine.getInstance().getNbSemaines())));
 
         //System.out.println(choixSemainesListe.getValue());
         choixSemainesListe.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -192,9 +224,10 @@ public class ChaineController  implements Initializable {
                 //id récupérer mais non affiché dans l'interface
                 System.out.println(newValue.substring(0,1));
                 Usine.getInstance().setNbSemaines(Integer.parseInt(newValue.substring(0,1)));
-                etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
+                //gestion de l'état de la chaine
+                //etatChaine.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().chaineIsOk(Integer.parseInt(newValue.substring(0,1)))));
+                changeLabelText();
                 //valeur booléenne récupérée mais non affichée dans l'inteface
-                System.out.println(etatChaine.getCellObservableValue(1));
             }
         });
 
@@ -208,6 +241,7 @@ public class ChaineController  implements Initializable {
                     c.calculIndicateurPersonnelSemaine(Usine.getInstance().getNbSemaines());
                     c.calculIndicateurValeurSemaine(Usine.getInstance().getNbSemaines());
                 }
+                changeLabelText();
             }
         });
 
