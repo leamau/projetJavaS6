@@ -10,7 +10,7 @@
   # 1ère méthode : 
   - Récupérer le fichier zip contenant toutes les ressources du projet.
   - Dézipper le projet sur votre bureau.
-  - Dans ce projet, aller dans l'arborescence "javaProjetS6/"et ouvrir le dossier executable.
+  - Dans ce projet, aller dans l'arborescence et ouvrir le dossier executable.
   - Dans ce dossier se trouve un fichier bat s'appelant launcher.bat
   - Executer ce fichier en cliquant deux fois dessus.
   - L'application va ensuite se lancer.
