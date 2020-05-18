@@ -104,6 +104,9 @@ public class ChaineController  implements Initializable {
     @FXML
     public void resetSimulation() throws IOException {
         Usine.getInstance().resetUsine();
+        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
+        choixSemainesListe.getSelectionModel().select(Usine.getInstance().getNbSemaines()-1);
+        this.changeLabelText();
     }
 
     /**
@@ -147,9 +150,6 @@ public class ChaineController  implements Initializable {
      */
     private void changeLabelText(){
         indicateurCommandes.setText(String.valueOf(Math.round(Usine.getInstance().calculIndicateurCommande()))+" %");
-        niveauActivation.setCellValueFactory(cellData -> cellData.getValue().niveauActivationProperty().asObject());
-        choixSemainesListe.getSelectionModel().select(Usine.getInstance().getNbSemaines()-1);
-
     }
 
     /**
