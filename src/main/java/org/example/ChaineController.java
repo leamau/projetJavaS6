@@ -84,6 +84,7 @@ public class ChaineController  implements Initializable {
      * Label pour afficher le pourcentage de commandes satisfaites
      */
     @FXML public Label indicateurCommandes;
+    /*
      * L'objet pour choisir où enregistrer l'export personnel.
      */
     public FileChooser fileChooser = new FileChooser();
