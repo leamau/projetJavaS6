@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +26,9 @@ public class App extends Application {
         scene = new Scene(loadFXML("Menu"));
         stage.setScene(scene);
         stage.show();
+
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/org/img/ratoIcon.png")));
+        stage.setTitle("LA RATISSERIE");
     }
 
     /**
