@@ -1,8 +1,11 @@
 package org.example;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javafx.beans.InvalidationListener;
@@ -14,11 +17,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
 import org.app.Chaine;
 import org.app.Element;
@@ -68,6 +74,49 @@ public class ChaineController  implements Initializable {
      * Colonne pour visualiser l'état des chaînes
      */
     @FXML public TableColumn<Chaine, Boolean> etatChaine;
+
+    /**
+     * L'objet pour choisir où enregistrer l'export personnel.
+     */
+    public FileChooser fileChooser = new FileChooser();
+
+    /**
+     * Le bouton pour exporter les données du personnel.
+     */
+    @FXML public Button exportbuttonsimulation;
+
+    /**
+     * Permet d'exporter les informations sur le personnel avec un FileChooser.
+     */
+    @FXML
+    private void exportChaineV2(ActionEvent event) {
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Gestion détaillée du nom du fichier.
+        String filePath = "";
+        String fileName = "simulation";
+        String fileDate = formatCourt.format(d);
+        String fileExtension = ".txt";
+        final String completeFileName = filePath + fileName + "-" + fileDate + fileExtension;
+
+        fileChooser.setTitle("Export Simulation");
+        fileChooser.setInitialFileName(completeFileName);
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(".txt", ".txt"));
+
+        Window stage = exportbuttonsimulation.getScene().getWindow();
+        try {
+            File f = new File(completeFileName);
+            f = fileChooser.showSaveDialog(stage);
+            fileChooser.setInitialDirectory(f.getParentFile());
+            Usine.getInstance().exportChaineTxtV2(f);
+        } catch (Exception e) {
+
+        }
+    }
 
     /**
      * Permet à l'utilisateur d'utiliser un double clic sur un case pour modifier et valider son contenu
