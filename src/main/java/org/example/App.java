@@ -30,7 +30,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.getIcons().add(new Image(App.class.getResourceAsStream("/org/img/ratoIcon.png")));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/org/img/iconRato.png")));
         stage.setTitle("LA RATISSERIE");
     }
 
