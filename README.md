@@ -1,10 +1,5 @@
 # projetJavaS6
 
-# Bugs rencontrés
-- Error:Kotlin: The Kotlin standard library is not found in the module graph. Please ensure you have the 'requires kotlin.stdlib' clause in your module definition :
-  faire Build > Rebuild Project
-  
-
 # Marche à suivre pour utiliser l'application :
 
   # 1ère méthode (idéale !): 
@@ -35,3 +30,9 @@ par Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Person
   - Faire un clic-droit sur le fichier App
   - Cliquer sur l'option Run App.main()
   - L'application va ensuite se lancer.
+  
+  # Bugs rencontrés
+- Error:Kotlin: The Kotlin standard library is not found in the module graph. Please ensure you have the 'requires kotlin.stdlib' clause in your module definition :
+  faire Build > Rebuild Project
+  
+
