@@ -201,7 +201,6 @@ public class Chaine {
             if(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines < 0){
                 //ajouter dans les elements a acheter
                 elementEntree.setQteAcheter(elementEntree.getQteAcheter()-(stock - qteElementEntree*this.getNiveauActivation()*nbJours*nbSemaines));
-                resultat = -1;
                 stockOK = false;
             }else{
                 //déduction des éléments dans le stock

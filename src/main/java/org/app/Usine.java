@@ -196,7 +196,8 @@ public class Usine {
         double demande=0;
 
         //créer le scanner pour le fichier elements.csv
-        Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/elements.csv"));
+        //Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/elements.csv"));
+        Scanner sc = new Scanner(new File("../ressources/elements.csv"));
         sc.useDelimiter(";");   //délimiter par virgule
         //ignorer la première ligne
         while (sc.hasNext())  //tant qu'il y a des lignes
@@ -234,7 +235,8 @@ public class Usine {
         int cptTours2 = 0;
 
         //créer le scanner pour le fichier prix.csv
-        Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/prix.csv"));
+        Scanner sc2 = new Scanner(new File("../ressources/prix.csv"));
+        //Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/prix.csv"));
         sc2.useDelimiter(";");   //délimiter par virgule
 
         while (sc2.hasNext())  //tant qu'il y a des lignes
@@ -330,7 +332,8 @@ public class Usine {
         final String FILENAME = "chaines";
 
         // Ouverture du fichier CSV.
-        try (Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/" + FILENAME + ".csv"))) {
+        try (Scanner sc = new Scanner(new File("../ressources/" + FILENAME + ".csv"))) {
+        //try (Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/" + FILENAME + ".csv"))) {
 
             // L'ensemble des chaines.
             ArrayList<Chaine> chaines = new ArrayList<>();
@@ -454,7 +457,9 @@ public class Usine {
         int cptTours2 = 0;
 
         //créer le scanner pour le fichier prix.csv
-        Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Personnels.csv"));
+        Scanner sc2 = new Scanner(new File("../ressources/Personnels.csv"));
+        //Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Personnels.csv"));
+
         sc2.useDelimiter(";");   //délimiter par virgule
 
         while (sc2.hasNext())  //tant qu'il y a des lignes
