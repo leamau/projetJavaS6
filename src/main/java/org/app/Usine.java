@@ -633,6 +633,64 @@ public class Usine {
 
     /**
      * Méthode exportant au format txt l'état des chaînes.
+     * @param f le fichier où écrire les données.
+     * @return le nombre de chaînes écrites.
+     * @throws IOException si le fichier est introuvable.
+     */
+    public int exportChaineTxtV2(File f) throws IOException {
+
+        // Nombre de chaînes écrites.
+        int n = 0;
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Création du fichier.
+        f.createNewFile();
+
+        // Objet écrivant dans le fichier.
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(f.getAbsolutePath());
+            fw.write("=====================================\n");
+            fw.write("=====================================\n");
+            fw.write("=                                   =\n");
+            fw.write("= Simulation du " + formatStandard.format(d) + " =\n");
+            fw.write("=                                   =\n");
+            fw.write("=====================================\n");
+            fw.write("=====================================\n\n");
+
+            fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "%\n\n");
+            // Parcours des chaînes de l'usine.
+            for(Chaine c : this.chaines) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(c.toStringV2() + "\n");
+
+                // Ajout des indicateurs disponibles pour chaque chaîne.
+                fw.write( "\tIndicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
+                fw.write("\tIndicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
+                fw.write("=====================================\n\n");
+                n++;
+            }
+
+            // Fermeture du fileWriter.
+            fw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return -1;
+        }
+        return n;
+    }
+
+    /**
+     * Méthode exportant au format txt l'état des personnels.
      * @return 0 si l'export a bien fonctionné (on peut imaginer retourner le nombre de personnel).
      */
     public int exportPersonnelTxt() throws IOException {
@@ -667,6 +725,93 @@ public class Usine {
         try {
 
             fw = new FileWriter(completeFileName);
+            fw.write("=============================================\n");
+            fw.write("=============================================\n");
+            fw.write("=                                           =\n");
+            fw.write("= Liste du Personnel au " + formatStandard.format(d) + " =\n");
+            fw.write("=                                           =\n");
+            fw.write("=============================================\n");
+            fw.write("=============================================\n\n");
+
+            fw.write("Personnels Non-qualifiés :\n\n");
+
+            // Parcours des personnels de l'usine.
+            for(Personnel pnq : this.personnelsNonQualifies) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(pnq.toString() + "\n");
+
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsNonQualifiesConvoque().get().containsKey(pnq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsNonQualifiesConvoque().get(pnq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
+                n++;
+            }
+
+            fw.write("Personnels Qualifiés :\n\n");
+
+            for(Personnel pq : this.personnelsQualifies) {
+
+                // Ajout du toString de chaque chaîne.
+                fw.write(pq.toString() + "\n");
+
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsQualifiesConvoque().get().containsKey(pq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsQualifiesConvoque().get(pq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
+                n++;
+            }
+
+            // Fermeture du fileWriter.
+            fw.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return -1;
+        }
+        return n;
+    }
+
+    /**
+     * Méthode exportant au format txt l'état des personnels.
+     * @param f le fichier où écrire les données.
+     * @return le nombre de personnel écrit.
+     * @throws IOException si le fichier est introuvable.
+     */
+    public int exportPersonnelTxtV2(File f) throws IOException {
+
+        // Le nombre de personnes écrites.
+        int n = 0;
+
+        // Ajouter la date au nom du fichier.
+        DateFormat formatCourt = new SimpleDateFormat("yyyyMMdd-HHmm");
+        DateFormat formatStandard = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date d = new Date();
+
+        // Création du fichier.
+        f.createNewFile();
+
+        // Objet écrivant dans le fichier.
+        FileWriter fw = null;
+
+        try {
+
+            fw = new FileWriter(f.getAbsolutePath());
             fw.write("=============================================\n");
             fw.write("=============================================\n");
             fw.write("=                                           =\n");
