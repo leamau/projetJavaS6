@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.app.Chaine;
 import org.app.Personnel;
 import org.app.Usine;
 
@@ -14,13 +15,44 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Classe permettant de controller tous les personnels de l'usine et de les liers avec l'interface
+ */
 public class PersonnelsController implements Initializable {
+
+    /**
+     * Tableau pour visualiser toutes les informations du personnels de l'usine
+     */
     public TableView<Personnel> tablePersonnels;
+
+    /**
+     * Colonne pour visualiser l'identifiant de tout le personnels de l'usine
+     */
     public TableColumn<Personnel,String> idPersonnel;
+
+    /**
+     * Colonne pour visualiser le nom de tous le personnels de l'usine
+     */
     public TableColumn<Personnel,String> nomPersonnel;
+
+    /**
+     * Colonne pour visualiser le prénom de tous le personnels de l'usine
+     */
     public TableColumn<Personnel,String> prenomPersonnel;
+
+    /**
+     * Colonne pour visualiser la disponibilité de tous le personnels de l'usine
+     */
     public TableColumn<Personnel,Boolean> disponibilite;
+
+    /**
+     * Colonne pour visualiser le nombre d'heures disponible pour chacun des personnels de l'usine
+     */
     public TableColumn<Personnel,Double> nbHeureDispo;
+
+    /**
+     * Colonne pour visualiser le nombre d'heures assignés pour chacun des personnels de l'usine
+     */
     public TableColumn<Personnel,Double> nbHeureAssignes;
 
     /**
@@ -29,7 +61,7 @@ public class PersonnelsController implements Initializable {
      */
     @FXML
     public void exportPersonnel() throws IOException {
-
+        Usine.getInstance().exportPersonnelTxt();
     }
 
     /**
@@ -75,6 +107,9 @@ public class PersonnelsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Chaine c: Usine.getInstance().getChaines()) {
+            c.calculIndicateurPersonnelSemaine(Usine.getInstance().getNbSemaines());
+        }
         idPersonnel.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         nomPersonnel.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         prenomPersonnel.setCellValueFactory(cellData -> cellData.getValue().prenomProperty());

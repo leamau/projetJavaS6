@@ -5,25 +5,18 @@ import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Classe permettant de tester l'exportation des fichiers csv et leurs mise en forme
+ */
 public class TestReadingCsv{
+    /**
+     * Execution des tests d'exportation pour les csv des chaînes et du personnels
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception
     {
-        ConversionsCsv convert = new ConversionsCsv();
-        //convert.ReadCsv("prix");
-        //convert.ReadCsv("chaines");
-        //convert.ReadCsv("elements");
 
-       /* String valeurToString = "";
-        for( Element element :  convert.CsvToElement()) {
-            valeurToString += "\n"+element.toString();
-        }
-        System.out.println(valeurToString);*/
-
-        /*String valeurToString = "";
-        for( Chaine c :  convert.csvToChaines()) {
-            valeurToString += "\n"+c.toString();
-        }
-        System.out.println(valeurToString);*/
         Usine.getInstance();
         System.out.println(Usine.getInstance().getChaines().get(0).toString());
 

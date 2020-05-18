@@ -12,19 +12,45 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * Objet représentant une usine.
+ */
 public class Usine {
+
+    /**
+     * L'ensemble des éléments en stock.
+     */
     private ArrayList<Element> elements;
 
+    /**
+     * L'ensemble des chaînes de production.
+     */
     private ArrayList<Chaine>  chaines;
 
+    /**
+     * L'ensemble des personnels qualifiés.
+     */
     private ArrayList<PersonnelQualifie>  personnelsQualifies;
 
+    /**
+     * L'ensemble des personnels non-qualifiés.
+     */
     private ArrayList<PersonnelNonQualifie>  personnelsNonQualifies;
 
+    /**
+     * Instance de l'Usine.
+     */
     private static Usine instance = null;
 
+
+    /**
+     * Nombre de semaines pour la simulation.
+     */
     private int nbSemaines;
 
+    /**
+     * Contructeur par défaut.
+     */
     private Usine()  {
         this.elements = new ArrayList<Element>();
         this.chaines = new ArrayList<Chaine>();
@@ -42,8 +68,13 @@ public class Usine {
             e.printStackTrace();
         }
         this.chaines = csvToChaines(this.elements);
+
     }
 
+    /**
+     * Méthode renvoyant l'état actuel de l'usine.
+     * @return l'objet Usine.
+     */
     public static Usine getInstance() {
         if (instance == null) {
             Usine.instance = new Usine();
@@ -51,38 +82,74 @@ public class Usine {
         return Usine.instance;
     }
 
+    /**
+     * Getter sur l'attribut personnelsQualifies.
+     * @return sous forme d'ArrayList.
+     */
     public ArrayList<PersonnelQualifie> getPersonnelsQualifies() {
         return personnelsQualifies;
     }
 
+    /**
+     * Setter sur l'attribut personnelsQualifies.
+     * @param personnelsQualifies le nouvel ensemble de personnel.
+     */
     public void setPersonnelsQualifies(ArrayList<PersonnelQualifie> personnelsQualifies) {
         this.personnelsQualifies = personnelsQualifies;
     }
 
+    /**
+     * Getter sur l'attribut personnelsNonQualifies.
+     * @return sous forme d'ArrayList.
+     */
     public ArrayList<PersonnelNonQualifie> getPersonnelsNonQualifies() {
         return personnelsNonQualifies;
     }
 
+    /**
+     * Setter sur l'attribut personnelsNonQualifies.
+     * @param personnelsNonQualifies le nouvel ensemble de personnel.
+     */
     public void setPersonnelsNonQualifies(ArrayList<PersonnelNonQualifie> personnelsNonQualifies) {
         this.personnelsNonQualifies = personnelsNonQualifies;
     }
 
+    /**
+     * Getter sur l'attribut elements.
+     * @return sous forme d'ArrayList.
+     */
     public ArrayList<Element> getElements() {
         return elements;
     }
 
+    /**
+     * Setter sur l'attribut elements.
+     * @param elements les nouveaux stocks.
+     */
     public void setElements(ArrayList<Element> elements) {
         this.elements = elements;
     }
 
+    /**
+     * Getter sur l'attribut chaines.
+     * @return sous forme d'ArrayList.
+     */
     public ArrayList<Chaine> getChaines() {
         return chaines;
     }
 
+    /**
+     * Setter sur l'attribut chaines.
+     * @param chaines la nouvelle simulation.
+     */
     public void setChaines(ArrayList<Chaine> chaines) {
         this.chaines = chaines;
     }
 
+    /**
+     * Méthode affichant toutes les caractéristiques de l'Usine.
+     * @return ces caractéristiques en tant que String.
+     */
     public String toString(){
         if(this.chaines == null)
             System.out.println("ERREUR toString Chaine");
@@ -98,31 +165,10 @@ public class Usine {
                 "\t}";
     }
 
-    //TODO: gérer les quantitiés a acherter
-
-    public void readCsv(String className) throws FileNotFoundException {
-        String affiche= className+ " : \n";
-        String next = "";
-        //créer le scanner
-        Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/"+className+".csv"));
-        sc.useDelimiter(";");   //délimiter par virgule
-        while (sc.hasNext())  //tant qu'il y a des lignes
-        {
-            next = sc.next();
-            affiche += next.toString()+";";
-            //System.out.print(next);  //afficher la ligne
-        }
-        sc.close();  //fermet scanner
-
-        //System.out.println(affiche);
-    }
-
     /**
      * permet de convertir Prix.csv et elements.csv en un Objet Element
-     * @return
      */
     public void csvToElements() throws FileNotFoundException {
-        //TODO:optimiser le code
 
         ArrayList<Element> newElements = new ArrayList<Element>();
         String value = "";
@@ -236,18 +282,30 @@ public class Usine {
         this.elements = newElements;
     }
 
+    /**
+     * Méthode ajoutant les éléments d'une Map dans une ObservableMap.
+     * @param elements la Map en entrée.
+     * @param e l'ObservableMap en sortie.
+     */
     public synchronized void addElemtsEntree(HashMap<Element, Double> elements,ObservableMap<Element, Double> e){
         elements.forEach((key, value) -> {
             //System.out.println("Entrée : Key : " + key + " Value : " + value);
             e.put(key,value);
         });
     }
+
+    /**
+     * Méthodes ajoutant les éléments d'une Map dans une ObservableMap.
+     * @param elements la Map en entrée.
+     * @param s l'ObservableMap en sortie.
+     */
     public synchronized void addElemtsSortie(HashMap<Element, Double> elements,ObservableMap<Element, Double> s){
         elements.forEach((key, value) -> {
             //System.out.println("Entrée : Key : " + key + " Value : " + value);
             s.put(key,value);
         });
     }
+
     /**
      * Enregistre les chaînes présentes dans le CSV.
      * @param stock l'ensemble des éléments stockés dans l'usine.
@@ -294,32 +352,20 @@ public class Usine {
             {
                 // Code;Nom;Entree.(code,qte);Sortie.(code,qte);Temps;Personnels.non.qualifies;Personnels.qualifies
 
-                /*
-                VERIFICATION DE LA VALEUR DES VARIABLES A CHAQUE INSTANT
-                NECESSITE DE VIRER LA VARIABLE VAL
-                REMETTRE SC.NEXT() COMME ASSIGNATION
-                 */
                 String val = sc.next();
-                //System.out.println("CODE CHAINE EN TRAITEMENT : " + val);
                 String code = val.replace(System.getProperty("line.separator"), "");
                 val = sc.next();
-                //System.out.println("NOM : " + val);
                 String nom = val;
                 val = sc.next();
-                //System.out.println("ENTREE(S) : " + val);
                 HashMap<Element, Double> entrees = stringToElements(val, stock);
                 val = sc.next();
-                //System.out.println("SORTIES(S) : " + val);
                 HashMap<Element, Double> sorties = stringToElements(val, stock);
                 val = sc.next();
-                //System.out.println("TEMPS : " + val);
                 int temps = Integer.parseInt(val);
                 val = sc.next();
-                //System.out.println("PERS NON-QUAL : " + val);
-                int pnq = Integer.parseInt(val); // Not used yet.
+                int pnq = Integer.parseInt(val);
                 val = sc.next();
-                //System.out.println("PERS QUAL : " + val);
-                int pq = Integer.parseInt(val); // Not used yet.
+                int pq = Integer.parseInt(val);
 
                 // Transformation des entrées et sorties.
                 ObservableMap<Element, Double> s = FXCollections.observableHashMap();
@@ -328,40 +374,13 @@ public class Usine {
                 this.addElemtsEntree(entrees,e);
                 this.addElemtsSortie(sorties,s);
 
-                /*for(Map.Entry<Element, Double> sortie : sorties.entrySet()) {
-                    System.out.println("so " + sortie);
-                    s.put(sortie.getKey(),sortie.getValue());
-                }*/
-
-                /*for(Map.Entry<Element, Double> entree : entrees.entrySet()) {
-                    System.out.println("en "+entree);
-                    e.put(entree.getKey(),entree.getValue());
-                }*/
-
-                /*e.putAll(entrees);
-
-                s.putAll(sorties);*/
-                /*e.forEach((value,key)->{
-                    System.out.println("Entrée : Key : " + key + " Value : " + value);
-                });
-                s.forEach((value,key)->{
-                    System.out.println("Sortie : Key : " + key + " Value : " + value);
-                });*/
-                /*System.out.println("e "+e.toString());
-                System.out.println("s "+s.toString());*/
-
-
-
                 // Construction de la chaine à ajouter.
-                //System.out.println("CHAINE A CREER : " + code + ", " + nom + ", " + temps + ", " + e.toString() + ", " + s.toString() + ", " + pnq + ", " + pq);
                 Chaine c = new Chaine(code, nom, temps, new SimpleMapProperty<>(e), new SimpleMapProperty<>(s), pnq, pq);
-                //System.out.println("CHAINE CREEE :" + c.toStringV2());
 
                 // Ajout de la chaine à l'ensemble des chaines.
                 if(!chaineExist(c, this.chaines)) {
                     chaines.add(c);
-                    //System.out.println("CHAINE AJOUTEE");
-                } // VERIF // System.out.println("ETAT DES CHAINES : " + chaines.toString());
+                }
             }
 
             // Fermeture du scanner.
@@ -378,8 +397,12 @@ public class Usine {
         }
     }
 
-    //TODO: gérer le calcul de l'indicateur de commande (dans une V2 car pour l'instant je n'en vois pas l'utilité)
-    public double calculIndicateurCommande() throws IllegalArgumentException, FileNotFoundException {
+    /**
+     * Méthode calculant d'indicateur de commande de l'usine.
+     * @return un pourcentage sous la format d'un double.
+     * @throws IllegalArgumentException lève une exception.
+     */
+    public double calculIndicateurCommande() throws IllegalArgumentException {
         double nbChaines = this.chaines.size();
         double nbChainesOk = 0;
 
@@ -399,10 +422,9 @@ public class Usine {
 
     /**
      * permet de convertir Prix.csv et elements.csv en un Objet Element
-     * @return
+     * @throws FileNotFoundException lève une exception.
      */
     public void csvToPersonnel() throws FileNotFoundException {
-        //TODO:optimiser le code
         ArrayList<PersonnelQualifie> newPersonnelsQ = new ArrayList<PersonnelQualifie>();
         ArrayList<PersonnelNonQualifie> newPersonnelsNQ = new ArrayList<PersonnelNonQualifie>();
         String id = "";
@@ -481,20 +503,6 @@ public class Usine {
 
     }
 
-    /**
-     * Convertis une chaîne de caractère en élément.
-     //* @param s la chaîne à convertir.
-     * @return l'élément résultant sous forme d'Element.
-     */
-  /*  private SimpleMapProperty<Element,Integer> stringToElements(String s) {
-
-        // Exemple d'entrée : (E012,3),(E014,5),(E011,2),(E001,3)
-        // Exemple de sortie : (E019,10)
-
-        SimpleMapProperty<Element,Integer> elements = new SimpleMapProperty<>();
-
-        return elements;
-    }
     /*
      * Fonction évitant d'insérer des chaînes en doublon.
      * @param c la chaîne dont on veut tester l'existence.
@@ -598,6 +606,7 @@ public class Usine {
             fw.write("=====================================\n");
             fw.write("=====================================\n\n");
 
+            fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "%\n\n");
             // Parcours des chaînes de l'usine.
             for(Chaine c : this.chaines) {
 
@@ -605,9 +614,8 @@ public class Usine {
                 fw.write(c.toStringV2() + "\n");
 
                 // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write( "Indicateur de commande = " + this.calculIndicateurCommande() + "\n");
-                fw.write( "Indicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
-                fw.write("Indicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
+                fw.write( "\tIndicateur de valeur = " + c.calculIndicateurValeurSemaine(this.nbSemaines) + "\n");
+                fw.write("\tIndicateur de personnel = " + c.calculIndicateurPersonnelSemaine(this.nbSemaines) + "\n\n");
                 fw.write("=====================================\n\n");
                 n++;
             }
@@ -625,9 +633,15 @@ public class Usine {
 
     /**
      * Méthode exportant au format txt l'état des chaînes.
-     * @return 0 si l'export a bien fonctionné.
+     * @return 0 si l'export a bien fonctionné (on peut imaginer retourner le nombre de personnel).
      */
     public int exportPersonnelTxt() throws IOException {
+
+        // Assignation du personnel
+        for(Chaine c : this.chaines) {
+            c.calculIndicateurPersonnelSemaine(getNbSemaines());
+        }
+
         // Nombre de chaînes écrites.
         int n = 0;
 
@@ -661,23 +675,46 @@ public class Usine {
             fw.write("=============================================\n");
             fw.write("=============================================\n\n");
 
+            fw.write("Personnels Non-qualifiés :\n\n");
+
             // Parcours des personnels de l'usine.
             for(Personnel pnq : this.personnelsNonQualifies) {
 
                 // Ajout du toString de chaque chaîne.
                 fw.write(pnq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsNonQualifiesConvoque().get().containsKey(pnq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsNonQualifiesConvoque().get(pnq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
+
+            fw.write("Personnels Qualifiés :\n\n");
+
             for(Personnel pq : this.personnelsQualifies) {
 
                 // Ajout du toString de chaque chaîne.
                 fw.write(pq.toString() + "\n");
 
-                // Ajout des indicateurs disponibles pour chaque chaîne.
-                fw.write("=============================================\n\n");
+                // Ajout du nb d'heure par chaîne.
+                for(Chaine c : this.chaines) {
+
+                    // Si la personne fait partie du personnel convoqué pour cette chaîne.
+                    if(c.getPersonnelsQualifiesConvoque().get().containsKey(pq)) {
+                        // On écrit "CodeChaine(NiveauActivation) : NombreHeuresh".
+                        fw.write("\n" + c.getCodeC() + "(niveau d'activation " + c.getNiveauActivation() + ")" + " : " + c.getPersonnelsQualifiesConvoque().get(pq) + "h");
+                    }
+                }
+
+                fw.write("\n\n=============================================\n\n");
                 n++;
             }
 
@@ -691,4 +728,16 @@ public class Usine {
         }
         return n;
     }
+
+    /**
+     * Getter sur l'attribut nbSemaines.
+     * @return le nombre de semaines de la simulation en tant que int.
+     */
+    public int getNbSemaines() { return this.nbSemaines; }
+
+    /**
+     * Setter sur l'attribut nbSemaines.
+     * @param n le nouveau nombre de semaines de la simulation.
+     */
+    public void setNbSemaines(final int n) { this.nbSemaines = n; }
 }

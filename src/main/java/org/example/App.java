@@ -14,6 +14,9 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    /**
+     * La fenêtre de l'application.
+     */
     private static Scene scene;
 
     /**
