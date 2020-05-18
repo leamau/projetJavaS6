@@ -24,17 +24,13 @@
   - Pour faire fonctionner correctement ce projet avec cette méthode il faut modifier les liens d'importation des csv.
   - Pour cela allez dans src/main/java/org/app/usine.java 
   - Allez dans la méthode csvToElement() et remplacez la ligne Scanner sc = new Scanner(new File("../ressources/elements.csv")); 
-  par 
-  Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/elements.csv"));
+  par Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/elements.csv"));
   - Dans la même méthode remplacez la ligne Scanner sc2 = new Scanner(new File("../ressources/prix.csv")); 
-  par 
-  Scanner sc2 = new Scanner(new File("../ressources/prix.csv"));
+  par Scanner sc2 = new Scanner(new File("../ressources/prix.csv"));
   - Ensuite allez dans la méthode csvToChaine() et remplacez la ligne try (Scanner sc = new Scanner(new File("../ressources/" + FILENAME + ".csv"))) 
-  par 
-  try (Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/" + FILENAME + ".csv")))
+  par try (Scanner sc = new Scanner(new File("./src/main/resources/org/csvFiles/" + FILENAME + ".csv")))
   - Ensuite allez dans la méthode csvToPersonnel() remplacez la ligne Scanner sc2 = new Scanner(new File("../ressources/Personnels.csv")); 
-  par 
-  Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Personnels.csv"));
+  par Scanner sc2 = new Scanner(new File("./src/main/resources/org/csvFiles/Personnels.csv"));
   - Déplacer vous dans l'arborescence "projetJavaS6\src\main\java\org\example"
   - Faire un clic-droit sur le fichier App
   - Cliquer sur l'option Run App.main()
