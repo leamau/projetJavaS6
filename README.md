@@ -2,11 +2,11 @@
 
 # Marche à suivre pour utiliser l'application :
 
-  # 1ère méthode (idéale !): 
+  # 1ère méthode (idéale) : 
   - Récupérer le fichier zip contenant toutes les ressources du projet.
   - Dézipper le projet sur votre bureau.
-  - Il faudra disposer du JDK 11 disponible en telechargement ici => https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
-  - Il faudra avoir la variable d'environnement path à jour avec le chemin du JDK
+  - Il faudra disposer du JDK 11 disponible en téléchargement ici => https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+  - Il faudra aussi avoir la variable d'environnement path à jour avec le chemin du JDK
   - Dans ce projet, ouvrir le dossier executable.
   - Dans ce dossier se trouve un fichier bat s'appelant launcher.bat
   - Executer ce fichier en cliquant deux fois dessus.
