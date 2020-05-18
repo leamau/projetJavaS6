@@ -21,7 +21,8 @@
              <TableColumn fx:id="elementsSortie" prefWidth="209.0" text="Produits en Sortie" />
          </columns>
       </TableView>
-      <Button layoutX="369.0" layoutY="574.0" mnemonicParsing="false" onAction="#exportChaine" prefHeight="37.0" prefWidth="165.0" text="Exporter le Résultat" />
+
+      <Button fx:id="exportbuttonsimulation" layoutX="369.0" layoutY="574.0" mnemonicParsing="false" prefHeight="37.0" onAction="#exportChaineV2" prefWidth="165.0" text="Exporter le Résultat" />
       <Button layoutX="84.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToStocks" prefHeight="26.0" prefWidth="219.0" text="Consultation des Stocks" />
       <Button layoutX="324.0" layoutY="104.0" mnemonicParsing="false" onAction="#switchToAchats" prefHeight="26.0" prefWidth="219.0" text="Visualisation des Achats" />
       <Label fx:id="titreChaine" layoutX="233.0" layoutY="26.0" prefHeight="60.0" prefWidth="437.0" text="Gestion des Chaînes de Production">
