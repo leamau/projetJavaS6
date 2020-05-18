@@ -7,7 +7,7 @@
 
 # Marche à suivre pour utiliser l'application :
 
-  # 1ère méthode : 
+  # 1ère méthode (A utiliser en priorité !): 
   - Récupérer le fichier zip contenant toutes les ressources du projet.
   - Dézipper le projet sur votre bureau.
   - Dans ce projet, ouvrir le dossier executable.
